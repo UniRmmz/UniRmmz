@@ -1,0 +1,8 @@
+This project uses the following third-party libraries:
+
+1. Effekseer (MIT License)
+   https://github.com/effekseer/Effekseer
+   
+2. Newtonsoft Json (MIT License)
+   https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2/license/Third%20Party%20Notices.html
+
