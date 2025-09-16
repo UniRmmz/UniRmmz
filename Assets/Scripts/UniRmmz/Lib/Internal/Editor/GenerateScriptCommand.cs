@@ -31,7 +31,7 @@ namespace UniRmmz.Editor
             yield return new WaitUntil(() => Rmmz.DataManager.IsDatabaseLoaded());
 
             var outputPath = Path.GetFullPath(Path.Combine(Application.streamingAssetsPath,
-                "..\\Scripts\\UniRmmz\\Internal\\RmmzScriptCommand.Generated.cs"));
+                "..\\Scripts\\UniRmmz\\Generated\\RmmzScriptCommand.Generated.cs"));
             var allCodes = new List<RmmzJavascriptCode>();
             
             CollectFromCommonEvent(allCodes);

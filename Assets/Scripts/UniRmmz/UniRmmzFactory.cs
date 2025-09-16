@@ -54,7 +54,7 @@ namespace UniRmmz
     
     public partial class Game_Party
     {
-        public static Game_Party Create() => new Game_Party2();
+        public static Game_Party Create() => new Game_Party();
     }
     
     public partial class Game_Troop
@@ -125,7 +125,7 @@ namespace UniRmmz
     
     public partial class Game_Interpreter
     {
-        public static Game_Interpreter Create(int depth = 0) => new Game_Interpreter2(depth);
+        public static Game_Interpreter Create(int depth = 0) => new Game_Interpreter(depth);
     }
     
     public partial class Game_Vehicle
@@ -605,16 +605,6 @@ namespace UniRmmz
     public partial class Window_TitleCommand
     {
         new public static Window_TitleCommand Create(Rect rect, string name = "") => Window._Create<Window_TitleCommand>(rect, name);
-    }
-    
-    public partial class Window_ItemBookIndex
-    {
-        new public static Window_ItemBookIndex Create(Rect rect, string name = "") => Window._Create<Window_ItemBookIndex>(rect, name);
-    }
-    
-    public partial class Window_ItemBookStatus
-    {
-        new public static Window_ItemBookStatus Create(Rect rect, string name = "") => Window._Create<Window_ItemBookStatus>(rect, name);
     }
     
     #endregion

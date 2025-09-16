@@ -17,7 +17,7 @@ namespace UniRmmz
     /// <summary>
     /// The class that manages the database and game objects.
     /// </summary>
-    public partial class DataManager : MonoBehaviour
+    public partial class DataManager
     {
        [Serializable]
         public class GlobalInfoElement

@@ -20,7 +20,7 @@ public static class GenerateDamageFormula
         }
 
         var outputPath = Path.GetFullPath(Path.Combine(Application.streamingAssetsPath,
-            "..\\Scripts\\UniRmmz\\Internal\\RmmzEval.Generated.cs"));
+            "..\\Scripts\\UniRmmz\\Generated\\RmmzEval.Generated.cs"));
         var uniqueFormulas = new HashSet<string>(AllDamageFormulas());
         GenerateAndSave(uniqueFormulas, outputPath);
     }
