@@ -16,7 +16,7 @@ namespace UniRmmz
                 return;
             }
             
-            throw new Exception($"{code.GenerateKey()}に対するメソッドが実装されていません");            
+            Debug.LogWarning($"{code.GenerateKey()}に対するメソッドが実装されていません");            
         }
 
         private static void Add(string key, Action<Game_Interpreter> action)
