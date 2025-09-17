@@ -27,6 +27,7 @@ namespace UniRmmz.Editor
         
         private static IEnumerator GenerateCoroutine()
         {
+            Rmmz.InitializeManager();
             Rmmz.DataManager.LoadDatabase();
             yield return new WaitUntil(() => Rmmz.DataManager.IsDatabaseLoaded());
 

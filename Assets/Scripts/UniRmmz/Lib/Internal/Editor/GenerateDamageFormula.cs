@@ -12,6 +12,7 @@ public static class GenerateDamageFormula
     [MenuItem("UniRmmz/Tools/GenerateDamageFormula")]
     public static async void Generate()
     {
+        Rmmz.InitializeManager();
         Rmmz.DataManager.LoadDatabase();
         
         while (!Rmmz.DataManager.IsDatabaseLoaded())
@@ -20,7 +21,7 @@ public static class GenerateDamageFormula
         }
 
         var outputPath = Path.GetFullPath(Path.Combine(Application.streamingAssetsPath,
-            "..\\Scripts\\UniRmmz\\Generated\\RmmzEval.Generated.cs"));
+            "..\\Scripts\\UniRmmz\\Generated\\RmmzDamageFormula.Generated.cs"));
         var uniqueFormulas = new HashSet<string>(AllDamageFormulas());
         GenerateAndSave(uniqueFormulas, outputPath);
     }
@@ -77,11 +78,11 @@ public static class GenerateDamageFormula
         // 名前空間とクラス
         sb.AppendLine($"namespace UniRmmz");
         sb.AppendLine("{");
-        sb.AppendLine($"    public static partial class RmmzEval");
+        sb.AppendLine($"    public static partial class RmmzDamageFormula");
         sb.AppendLine("    {");
         
         // 静的コンストラクタ
-        sb.AppendLine("        static RmmzEval()");
+        sb.AppendLine("        static RmmzDamageFormula()");
         sb.AppendLine("        {");
         sb.AppendLine("            Clear();");
         

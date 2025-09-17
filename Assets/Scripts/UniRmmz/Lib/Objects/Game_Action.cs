@@ -752,7 +752,7 @@ namespace UniRmmz
                 Game_Battler b = target;
                 var v = Rmmz.gameVariables;
                 int sign = new int[] { 3, 4 }.Contains(item.Damage.Type) ? -1 : 1;
-                float value = Mathf.Max(RmmzEval.EvaluateDamageFormula(item.Damage.Formula, a, b, v), 0) * sign;
+                float value = Mathf.Max(RmmzDamageFormula.EvaluateDamageFormula(item.Damage.Formula, a, b, v), 0) * sign;
                 return float.IsNaN(value) ? 0f : value;
             }
             catch

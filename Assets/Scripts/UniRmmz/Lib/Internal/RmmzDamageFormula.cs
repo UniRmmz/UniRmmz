@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-    public static partial class RmmzEval
+    public static partial class RmmzDamageFormula
     {
         private static Dictionary<string, Func<Game_Battler, Game_Battler, Game_Variables, double>> _damageFormulaMap = new();
         
@@ -15,7 +15,8 @@ namespace UniRmmz
                 return (float)func.Invoke(a, b, v);
             }
             
-            throw new Exception($"{formula}に対するメソッドが実装されていません");            
+            Debug.LogWarning($"{formula}に対するメソッドが実装されていません");
+            return 1;
         }
 
         private static void Clear()
