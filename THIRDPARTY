@@ -11,3 +11,10 @@ This project uses the following third-party libraries:
 2. Newtonsoft Json (MIT License)
    https://docs.unity3d.com/Packages/com.unity.nuget.newtonsoft-json@3.2/license/Third%20Party%20Notices.html
 
+3. M+ 1m regular (OFL-1.1 license)
+   Copyright 2021 The M+ FONTS Project Authors
+   https://github.com/coz-m/MPLUS_FONTS
+
+4. M+ 2p bold (OFL-1.1 license)
+   Copyright 2021 The M+ FONTS Project Authors
+   https://github.com/coz-m/MPLUS_FONTS
