@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using Unity.EditorCoroutines.Editor;
 using UnityEditor;
 using UnityEngine;
+using System.Collections.Specialized;
 
 namespace UniRmmz.Editor
 {
@@ -183,12 +184,23 @@ namespace UniRmmz.Editor
         private static string ConvertCodeToCSharp(string code)
         {
             var csharpCode = code;
+            
+            var replacements1 = new OrderedDictionary
+            {
+                { @"Math\.randomInt", "RmmzMath.RandomInt" },
+                { @"\.meta\.(\w+)", ".Meta.Value(\"$1\")" },
+            };
+        
+            foreach (DictionaryEntry pair in replacements1)
+            {
+                csharpCode = Regex.Replace(csharpCode, pair.Key as string, pair.Value as string);
+            }
         
             csharpCode = AutoCapitalizeProperties(csharpCode);
         
-            var replacements = new Dictionary<string, string>
+            var replacements2 = new OrderedDictionary
             {
-                { @"Math\.", "Mathf." },
+                { @"\bMath\.", "Mathf." },
                 { @"===", "==" },
                 { @"!==", "!=" },
                 { @"\'", "\"" },
@@ -196,13 +208,11 @@ namespace UniRmmz.Editor
                 { @"\bthis\b", "self" },
                 { @"\$data([A-Z]\w*)", "Rmmz.data$1" },
                 { @"\$game([A-Z]\w*)", "Rmmz.game$1" },
-                { @"Math\.randomInt", "RmmzMath.RandomInt" },
-                { @"\.meta\.(\w+)", "Value(\"$1\")" },
             };
         
-            foreach (var replacement in replacements)
+            foreach (DictionaryEntry pair in replacements2)
             {
-                csharpCode = Regex.Replace(csharpCode, replacement.Key, replacement.Value);
+                csharpCode = Regex.Replace(csharpCode, pair.Key as string, pair.Value as string);
             }
         
             return $"{csharpCode}";
