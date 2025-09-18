@@ -197,6 +197,7 @@ namespace UniRmmz.Editor
                 { @"\$data([A-Z]\w*)", "Rmmz.data$1" },
                 { @"\$game([A-Z]\w*)", "Rmmz.game$1" },
                 { @"Math\.randomInt", "RmmzMath.RandomInt" },
+                { @"\.meta\.(\w+)", "Value(\"$1\")" },
             };
         
             foreach (var replacement in replacements)

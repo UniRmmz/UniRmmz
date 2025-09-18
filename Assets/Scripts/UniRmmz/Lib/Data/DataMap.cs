@@ -70,7 +70,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataEvent
+    public class DataEvent : IMetadataContainer
     {
         public int Id => id;
         public string Name => name;
@@ -78,6 +78,7 @@ namespace UniRmmz
         public List<EventPage> Pages => pages;
         public int X => x;
         public int Y => y;
+        public RmmzMetadata Meta { get; set; }
         
         public int id;
         public string name;
