@@ -9,3 +9,4 @@ ProjectSettings/EditorSettings.asset
 *.csproj
 *.sln
 Logs/
+*.user
