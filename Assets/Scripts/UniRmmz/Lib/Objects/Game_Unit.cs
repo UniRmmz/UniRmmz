@@ -94,7 +94,7 @@ namespace UniRmmz
                 return null;
             }
 
-            var randomIndex = UnityEngine.Random.Range(0, deadMembers.Count);
+            var randomIndex = RmmzMath.RandomInt(deadMembers.Count);
             return deadMembers[randomIndex];
         }
 

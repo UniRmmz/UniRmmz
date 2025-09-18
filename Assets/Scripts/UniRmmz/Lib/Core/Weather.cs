@@ -187,9 +187,9 @@ namespace UniRmmz
         
         private void RebornSprite(Sprite sprite)
         {
-            sprite.Ax = UnityEngine.Random.Range(0, Width + 100) - 100 + Origin.x;
-            sprite.Ay = UnityEngine.Random.Range(0, Height + 200) - 200 + Origin.y;
-            sprite.Opacity = 160 + UnityEngine.Random.Range(0, 60);
+            sprite.Ax = RmmzMath.RandomInt((int)Width + 100) - 100 + Origin.x;
+            sprite.Ay = RmmzMath.RandomInt((int)Height + 200) - 200 + Origin.y;
+            sprite.Opacity = 160 + RmmzMath.RandomInt(60);
         }
     }
     

@@ -585,7 +585,7 @@ namespace UniRmmz
         {
             foreach (var state in States().ToList())
             {
-                if (state.RemoveByDamage && UnityEngine.Random.Range(0, 100) < state.ChanceByDamage)
+                if (state.RemoveByDamage && RmmzMath.RandomInt(100) < state.ChanceByDamage)
                 {
                     RemoveState(state.Id);
                 }
@@ -713,7 +713,7 @@ namespace UniRmmz
 
         public virtual void InitTp()
         {
-            SetTp(UnityEngine.Random.Range(0, 25));
+            SetTp(RmmzMath.RandomInt(25));
         }
 
         public virtual void ClearTp()

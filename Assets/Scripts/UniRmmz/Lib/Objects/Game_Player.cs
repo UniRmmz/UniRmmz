@@ -200,7 +200,7 @@ namespace UniRmmz
         public void MakeEncounterCount()
         {
             int n = Rmmz.gameMap.EncounterStep();
-            _encounterCount = UnityEngine.Random.Range(0, n) + UnityEngine.Random.Range(0, n) + 1;
+            _encounterCount = RmmzMath.RandomInt(n) + RmmzMath.RandomInt(n) + 1;
         }
 
         public int MakeEncounterTroopId()
@@ -217,7 +217,7 @@ namespace UniRmmz
             }
             if (weightSum > 0)
             {
-                int value = UnityEngine.Random.Range(0, weightSum);
+                int value = RmmzMath.RandomInt(weightSum);
                 foreach (var encounter in encounterList)
                 {
                     if (MeetsEncounterConditions(encounter))

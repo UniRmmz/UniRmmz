@@ -56,11 +56,11 @@ namespace UniRmmz
 
             for (var i = startId; i <= endId; i++)
             {
-                var realValue = value + UnityEngine.Random.Range(0, randomMax);
+                var realValue = value + RmmzMath.RandomInt(randomMax);
                 OperateVariable(i, operationType, realValue);
                 /*
                 if (typeof value === "number") {
-                    const realValue = value + Math.randomInt(randomMax);
+                    const realValue = value + RmmzMath.RandomInt(randomMax);
                     this.operateVariable(i, operationType, realValue);
                 } else {
                     this.operateVariable(i, operationType, value);

@@ -123,7 +123,7 @@ namespace UniRmmz
 
         protected virtual void MoveTypeRandom()
         {
-            switch (UnityEngine.Random.Range(0, 6))
+            switch (RmmzMath.RandomInt(6))
             {
                 case 0:
                 case 1:
@@ -144,7 +144,7 @@ namespace UniRmmz
         {
             if (IsNearThePlayer())
             {
-                switch (UnityEngine.Random.Range(0, 6))
+                switch (RmmzMath.RandomInt(6))
                 {
                     case 0:
                     case 1:

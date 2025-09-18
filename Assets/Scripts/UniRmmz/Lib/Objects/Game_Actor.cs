@@ -32,7 +32,7 @@ namespace UniRmmz
         protected string _lastCommandSymbol;
         protected Dictionary<int, int> _stateSteps;
 
-        public virtual int Level => _level;
+        public override int Level => _level;
         
         protected Game_Actor(int actorId)
         {

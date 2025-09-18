@@ -344,7 +344,7 @@ namespace UniRmmz
         public virtual int Speed()
         {
             int agi = Subject().Agi;
-            int speed = agi + UnityEngine.Random.Range(0, Mathf.FloorToInt(5 + agi / 4f));
+            int speed = agi + RmmzMath.RandomInt(Mathf.FloorToInt(5 + agi / 4f));
             if (Item() != null)
             {
                 speed += Item().Speed;
@@ -402,7 +402,7 @@ namespace UniRmmz
                 case 1:
                     return OpponentsUnit().RandomTarget();
                 case 2:
-                    if (UnityEngine.Random.Range(0, 2) == 0)
+                    if (RmmzMath.RandomInt(2) == 0)
                     {
                         return OpponentsUnit().RandomTarget();
                     }
@@ -793,8 +793,8 @@ namespace UniRmmz
 
         protected virtual float ApplyVariance(float damage, int variance)
         {
-            float amp = Mathf.Floor(Mathf.Max((Mathf.Abs(damage) * variance) / 100, 0));
-            float v = UnityEngine.Random.Range(0, amp + 1) + UnityEngine.Random.Range(0, amp + 1) - amp;
+            int amp = Mathf.FloorToInt(Mathf.Max((Mathf.Abs(damage) * variance) / 100, 0));
+            int v = RmmzMath.RandomInt(amp + 1) + RmmzMath.RandomInt(amp + 1) - amp;
             return damage >= 0 ? damage + v : damage - v;
         }
 

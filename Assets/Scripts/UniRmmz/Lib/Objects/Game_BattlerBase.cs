@@ -55,7 +55,7 @@ namespace UniRmmz
         protected Dictionary<int, int> _stateTurns = new Dictionary<int, int>();
         protected int[] _buffs = new int[8];
         protected int[] _buffTurns = new int[8];
-
+        
         /// <summary>
         /// Hit Points
         /// </summary>
@@ -263,7 +263,7 @@ namespace UniRmmz
         {
             var state = Rmmz.dataStates[stateId];
             int variance = 1 + Mathf.Max(state.MaxTurns - state.MinTurns, 0);
-            _stateTurns[stateId] = state.MinTurns + UnityEngine.Random.Range(0, variance);
+            _stateTurns[stateId] = state.MinTurns + RmmzMath.RandomInt(variance);
         }
 
         public virtual bool IsStateExpired(int stateId)
@@ -1012,5 +1012,12 @@ namespace UniRmmz
         {
             return CanUse(Rmmz.dataSkills[GuardSkillId()]);
         }
+        
+        #region UniRmmz
+        
+        public virtual int Level => 0;
+        
+        #endregion
+
     }
 }

@@ -72,6 +72,7 @@ public static class GenerateDamageFormula
         sb.AppendLine();
         
         sb.AppendLine("using System;");
+        sb.AppendLine("using UnityEngine;");
         sb.AppendLine("using System.Collections.Generic;");
         sb.AppendLine();
         
@@ -117,7 +118,7 @@ public static class GenerateDamageFormula
         var replacements = new Dictionary<string, string>
         {
             { @"\bv\[(\d+)\]", "v.Value($1)" },
-            { @"Math\.", "Mathf." },
+            { @"Math\.randomInt", "RmmzMath.RandomInt" },
         };
         
         foreach (var replacement in replacements)

@@ -136,6 +136,7 @@ namespace UniRmmz.Editor
             sb.AppendLine();
         
             sb.AppendLine("using System;");
+            sb.AppendLine("using UnityEngine;");
             sb.AppendLine("using System.Collections.Generic;");
             sb.AppendLine();
         
@@ -195,6 +196,7 @@ namespace UniRmmz.Editor
                 { @"\bthis\b", "self" },
                 { @"\$data([A-Z]\w*)", "Rmmz.data$1" },
                 { @"\$game([A-Z]\w*)", "Rmmz.game$1" },
+                { @"Math\.randomInt", "RmmzMath.RandomInt" },
             };
         
             foreach (var replacement in replacements)

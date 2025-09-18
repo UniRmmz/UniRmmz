@@ -319,7 +319,7 @@ namespace UniRmmz
             int sum = actionList.Sum(a => a.Rating - ratingZero);
             if (sum > 0)
             {
-                int value = UnityEngine.Random.Range(0, sum);
+                int value = RmmzMath.RandomInt(sum);
                 foreach (var action in actionList)
                 {
                     value -= action.Rating - ratingZero;

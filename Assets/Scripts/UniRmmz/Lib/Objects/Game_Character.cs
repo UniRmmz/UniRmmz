@@ -321,7 +321,7 @@ namespace UniRmmz
 
         public virtual void MoveRandom()
         {
-            int d = 2 + UnityEngine.Random.Range(0, 4) * 2;
+            int d = 2 + RmmzMath.RandomInt(4) * 2;
             if (CanPass(X, Y, d))
             {
                 MoveStraight(d);
@@ -487,13 +487,13 @@ namespace UniRmmz
 
         public virtual void TurnRightOrLeft90()
         {
-            if (UnityEngine.Random.Range(0, 2) == 0)
+            if (RmmzMath.RandomInt(2) == 0)
                 TurnRight90();
             else
                 TurnLeft90();
         }
 
-        public virtual void TurnRandom() => SetDirection(2 + UnityEngine.Random.Range(0, 4) * 2);
+        public virtual void TurnRandom() => SetDirection(2 + RmmzMath.RandomInt(4) * 2);
 
         public virtual void Swap(Game_Character character)
         {
