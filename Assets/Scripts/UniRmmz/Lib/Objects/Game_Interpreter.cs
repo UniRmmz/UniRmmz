@@ -527,7 +527,7 @@ namespace UniRmmz
             }
         }
 
-        private Game_Character Character(int param)
+        public Game_Character Character(int param)
         {
             if (Rmmz.gameParty.InBattle())
             {

@@ -53,8 +53,14 @@ namespace UniRmmz.Editor
 
             result.Distinct();
             
-            var className = "RmmzScriptCommand";
-            GenerateAndSave(className, result.ScriptCommands, outputFolderPath + $"{className}.Generated.cs");
+            var className1 = "RmmzScriptCommand";
+            GenerateAndSave(className1, result.ScriptCommands, outputFolderPath + $"{className1}.Generated.cs");
+            
+            var className2 = "RmmzConditionCommand";
+            GenerateAndSave(className2, result.ConditionCommands, outputFolderPath + $"{className2}.Generated.cs");
+            
+            var className3 = "RmmzOperateVariableCommand";
+            GenerateAndSave(className3, result.OperateVariableCommands, outputFolderPath + $"{className3}.Generated.cs");
         }
 
         private static void CollectFromMapEvent(RmmzCollectJavascriptResult result)
@@ -114,7 +120,7 @@ namespace UniRmmz.Editor
             {
                 var code = new RmmzJavascriptCode();
                 code.AddLine(parameters[4].ToString());
-                result.OperateValueCommands.Add(code);
+                result.OperateVariableCommands.Add(code);
             }
             return currentIndex;
         }
@@ -187,7 +193,7 @@ namespace UniRmmz.Editor
             sb.AppendLine("    {");
         
             // 静的コンストラクタ
-            sb.AppendLine($"       static {className}()");
+            sb.AppendLine($"        static {className}()");
             sb.AppendLine("        {");
             sb.AppendLine("            Clear();");
         
@@ -201,15 +207,23 @@ namespace UniRmmz.Editor
                 var csharpCode = code.Lines.Select(line => ConvertCodeToCSharp(line));
 
                 sb.AppendLine($"            Add(@\"{code.GenerateCode()}\"");
-                sb.AppendLine("                 , (self) => ");
-                sb.AppendLine("             {");
-                foreach (var line in csharpCode)
+                if (csharpCode.Count() == 1 && !csharpCode.First().EndsWith(";"))
                 {
-                    sb.AppendLine($"\t\t\t\t{line}");
+                    sb.AppendLine($"                 , (self) => {csharpCode.First()});");
                 }
-                sb.AppendLine("            });");
+                else
+                {
+                    sb.AppendLine("                 , (self) => ");
+                    sb.AppendLine("             {");
+                    foreach (var line in csharpCode)
+                    {
+                        sb.AppendLine($"\t\t\t\t{line}");
+                    }
+                    sb.AppendLine("             });");
+                }
                 sb.AppendLine();
             }
+            
             sb.AppendLine("        }");
             sb.AppendLine("    }");
             sb.AppendLine("}");

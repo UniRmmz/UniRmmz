@@ -193,7 +193,7 @@ namespace UniRmmz
                 case 12: // スクリプト
                     var script = new RmmzJavascriptCode();
                     script.AddLine(parameters[1].ToString());
-                    result = RmmzScriptCommand.EvaluateCondition(script, this);
+                    result = RmmzConditionCommand.Execute(script, this);
                     break;
                 case 13: // 乗り物
                     var vehicleType = (Game_Vehicle.VehicleTypes)Convert.ToInt32(parameters[1]);

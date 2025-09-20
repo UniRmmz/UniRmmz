@@ -12,7 +12,7 @@ namespace UniRmmz
         public static void ExecuteScriptCommand(RmmzJavascriptCode code, Game_CharacterBase self)
         {
         }
-        
+
         public static void ExecuteScriptCommand(RmmzJavascriptCode code, Game_Interpreter self)
         {
             if (_codeMap.TryGetValue(code.GenerateKey(), out var func))
@@ -20,18 +20,8 @@ namespace UniRmmz
                 func.Invoke(self);
                 return;
             }
-            
-            Debug.LogWarning($"{code.GenerateKey()}に対するメソッドが実装されていません");            
-        }
 
-        public static float EvaluateValue(RmmzJavascriptCode code, Game_Interpreter self)
-        {
-            return 88;
-        }
-        
-        public static bool EvaluateCondition(RmmzJavascriptCode code, Game_Interpreter self)
-        {
-            return false;
+            Debug.LogWarning($"{code.GenerateKey()}に対するメソッドが実装されていません");
         }
 
         private static void Add(string key, Action<Game_Interpreter> action)

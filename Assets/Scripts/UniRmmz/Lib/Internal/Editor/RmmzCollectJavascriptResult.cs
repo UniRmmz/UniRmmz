@@ -7,14 +7,14 @@ namespace UniRmmz.Editor
     {
         public List<RmmzJavascriptCode> ScriptCommands = new List<RmmzJavascriptCode>();
         public List<RmmzJavascriptCode> ConditionCommands = new List<RmmzJavascriptCode>();
-        public List<RmmzJavascriptCode> OperateValueCommands = new List<RmmzJavascriptCode>();
+        public List<RmmzJavascriptCode> OperateVariableCommands = new List<RmmzJavascriptCode>();
         public List<RmmzJavascriptCode> CharacterMoveRouteCommands = new List<RmmzJavascriptCode>();
 
         public void Distinct()
         {
             ScriptCommands = ScriptCommands.Distinct().ToList();
             ConditionCommands = ConditionCommands.Distinct().ToList();
-            OperateValueCommands = OperateValueCommands.Distinct().ToList();
+            OperateVariableCommands = OperateVariableCommands.Distinct().ToList();
             CharacterMoveRouteCommands = CharacterMoveRouteCommands.Distinct().ToList();
         }
     }

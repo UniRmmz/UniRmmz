@@ -52,7 +52,7 @@ namespace UniRmmz
                 case 4: // Script
                     var script = new RmmzJavascriptCode();
                     script.AddLine(parameters[4].ToString());
-                    value = RmmzScriptCommand.EvaluateValue(script, this);
+                    value = RmmzOperateVariableCommand.Execute(script, this);
                     break;
             }
 
