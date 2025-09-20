@@ -28,7 +28,7 @@ namespace UniRmmz
             var operationType = Convert.ToInt32(parameters[2]);
             var operand = Convert.ToInt32(parameters[3]);
             float value = 0;
-            var randomMax = 1;
+            int randomMax = 1;
 
             switch (operand)
             {
@@ -50,22 +50,16 @@ namespace UniRmmz
                         Convert.ToInt32(parameters[6]));
                     break;
                 case 4: // Script
-                    value = EvaluateScript(parameters[4] as string);
+                    var script = new RmmzJavascriptCode();
+                    script.AddLine(parameters[4].ToString());
+                    value = RmmzScriptCommand.EvaluateValue(script, this);
                     break;
             }
 
             for (var i = startId; i <= endId; i++)
             {
-                var realValue = value + RmmzMath.RandomInt(randomMax);
+                float realValue = value + RmmzMath.RandomInt(randomMax);
                 OperateVariable(i, operationType, realValue);
-                /*
-                if (typeof value === "number") {
-                    const realValue = value + RmmzMath.RandomInt(randomMax);
-                    this.operateVariable(i, operationType, realValue);
-                } else {
-                    this.operateVariable(i, operationType, value);
-                }
-                */
             }
 
             return true;
@@ -74,7 +68,7 @@ namespace UniRmmz
         public virtual float GameDataOperand(int type, int param1, int param2)
         {
             Game_Actor actor;
-            //Game_Enemy enemy;
+            Game_Enemy enemy;
             Game_Character character;
 
             switch (type)
@@ -89,19 +83,18 @@ namespace UniRmmz
                     actor = Rmmz.gameActors.Actor(param1);
                     if (actor != null)
                     {
-                        /*
                         switch (param2)
                         {
                             case 0: // Level
-                                return actor.Level();
+                                return actor.Level;
                             case 1: // EXP
                                 return actor.CurrentExp();
                             case 2: // HP
-                                return actor.Hp();
+                                return actor.Hp;
                             case 3: // MP
-                                return actor.Mp();
+                                return actor.Mp;
                             case 12: // TP
-                                return actor.Tp();
+                                return actor.Tp;
                             default:
                                 // Parameter
                                 if (param2 >= 4 && param2 <= 11)
@@ -111,26 +104,24 @@ namespace UniRmmz
 
                                 break;
                         }
-                        */
                     }
 
                     break;
                 case 4: // Enemy
-                    /*
                     var members = Rmmz.gameTroop.Members();
-                    if (param1 < members.Count)
+                    if (param1 < members.Count())
                     {
-                        enemy = members[param1];
+                        enemy = members.ElementAtOrDefault(param1) as Game_Enemy;
                         if (enemy != null)
                         {
                             switch (param2)
                             {
                                 case 0: // HP
-                                    return enemy.Hp();
+                                    return enemy.Hp;
                                 case 1: // MP
-                                    return enemy.Mp();
+                                    return enemy.Mp;
                                 case 10: // TP
-                                    return enemy.Tp();
+                                    return enemy.Tp;
                                 default:
                                     // Parameter
                                     if (param2 >= 2 && param2 <= 9)
@@ -142,7 +133,6 @@ namespace UniRmmz
                             }
                         }
                     }
-                    */
                     break;
                 case 5: // Character
                     character = Character(param1);
@@ -187,7 +177,7 @@ namespace UniRmmz
                         case 3: // Steps
                             return Rmmz.gameParty.Steps();
                         case 4: // Play Time
-                            //return Rmmz.gameSystem.PlayTime();
+                            return Rmmz.gameSystem.Playtime();
                         case 5: // Timer
                             return Rmmz.gameTimer.Seconds();
                         case 6: // Save Count

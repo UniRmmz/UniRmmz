@@ -91,7 +91,6 @@ namespace UniRmmz
                     }
                     break;
                 case 4: // アクター
-                    /*
                     Game_Actor actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[1]));
                     if (actor != null)
                     {
@@ -118,15 +117,13 @@ namespace UniRmmz
                                 break;
                         }
                     }
-                    */
                     break;
                 case 5: // 敵キャラ
-                    /*
                     Game_Enemy enemy = null;
                     int enemyIndex = Convert.ToInt32(parameters[1]);
-                    if (enemyIndex < Rmmz.gameTroop.Members().Count)
+                    if (enemyIndex < Rmmz.gameTroop.Members().Count())
                     {
-                        enemy = Rmmz.gameTroop.Members()[enemyIndex];
+                        enemy = Rmmz.gameTroop.Members().ElementAtOrDefault(enemyIndex) as Game_Enemy;
                     }
                     if (enemy != null)
                     {
@@ -141,10 +138,8 @@ namespace UniRmmz
                                 break;
                         }
                     }
-                    */
                     break;
                 case 6: // キャラクター
-                    /*
                     Game_Character character = Character(Convert.ToInt32(parameters[1]));
                     if (character != null)
                     {
@@ -160,7 +155,6 @@ namespace UniRmmz
                                 break;
                         }
                     }
-                    */
                     break;
                 case 7: // お金
                     int gold = Rmmz.gameParty.Gold();
@@ -197,7 +191,9 @@ namespace UniRmmz
                     result = Input.IsPressed(parameters[1].ToString());
                     break;
                 case 12: // スクリプト
-                    //result = ExecuteScript(parameters[1].ToString());
+                    var script = new RmmzJavascriptCode();
+                    script.AddLine(parameters[1].ToString());
+                    result = RmmzScriptCommand.EvaluateCondition(script, this);
                     break;
                 case 13: // 乗り物
                     var vehicleType = (Game_Vehicle.VehicleTypes)Convert.ToInt32(parameters[1]);

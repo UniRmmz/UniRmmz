@@ -310,7 +310,9 @@ namespace UniRmmz
                     Rmmz.AudioManager.PlaySe(ConvertEx.ToSoundData(p[0]));
                     break;
                 case RouteCodes.Script:
-                    //GameInterpreter.Eval((string)p[0]);
+                    var script = new RmmzJavascriptCode();
+                    script.AddLine(p[0].ToString());
+                    RmmzScriptCommand.ExecuteScriptCommand(script, this);
                     break;
             }
         }

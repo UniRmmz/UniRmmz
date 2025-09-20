@@ -32,11 +32,11 @@ namespace UniRmmz.Editor
             Rmmz.DataManager.LoadDatabase();
             yield return new WaitUntil(() => Rmmz.DataManager.IsDatabaseLoaded());
 
-            var outputPath = Path.GetFullPath(Path.Combine(Application.streamingAssetsPath,
-                "..\\Scripts\\UniRmmz\\Generated\\RmmzScriptCommand.Generated.cs"));
-            var allCodes = new List<RmmzJavascriptCode>();
+            var outputFolderPath = Path.GetFullPath(Path.Combine(Application.streamingAssetsPath,
+                "..\\Scripts\\UniRmmz\\Generated\\"));
+            var result = new RmmzCollectJavascriptResult();
             
-            CollectFromCommonEvent(allCodes);
+            CollectFromCommonEvent(result);
 
             foreach (var data in Rmmz.dataMapInfos)
             {
@@ -48,13 +48,16 @@ namespace UniRmmz.Editor
                 Rmmz.DataManager.LoadMapData(data.Id);
                 yield return new WaitUntil(() => Rmmz.DataManager.IsMapLoaded());
 
-                CollectFromMapEvent(allCodes);
+                CollectFromMapEvent(result);
             }
+
+            result.Distinct();
             
-            GenerateAndSave(allCodes.Distinct(), outputPath);
+            var className = "RmmzScriptCommand";
+            GenerateAndSave(className, result.ScriptCommands, outputFolderPath + $"{className}.Generated.cs");
         }
 
-        private static void CollectFromMapEvent(List<RmmzJavascriptCode> allCodes)
+        private static void CollectFromMapEvent(RmmzCollectJavascriptResult result)
         {
             for (int i = 0; i < Rmmz.DataMap.Events.Count; i++)
             {
@@ -65,25 +68,71 @@ namespace UniRmmz.Editor
                     {
                         for (int j = 0; j < page.List.Count; ++j)
                         {
-                            if (page.List[j].Code == 355)
-                            {
-                                var code = new RmmzJavascriptCode();
-                                code.AddLine(Convert.ToString(page.List[j].Parameters[0]));
-                                while (i + 1 < page.List.Count && page.List[j + 1].Code == 655)
-                                {
-                                    code.AddLine(Convert.ToString(page.List[j + 1].Parameters[0]));
-                                    j++;
-                                }
-                                allCodes.Add(code);
-                            }
+                            j = CollectFromCommand(page.List, j, result);
                         }
-                            
                     }
                 }
             }
         }
 
-        private static void CollectFromCommonEvent(List<RmmzJavascriptCode> allCodes)
+        private static int CollectFromCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
+        {
+            if (list[currentIndex].Code == 111)
+            {
+                currentIndex = CollectFromConditionCommand(list, currentIndex, result);
+            }
+            if (list[currentIndex].Code == 122)
+            {
+                currentIndex = CollectFromOperateValueCommand(list, currentIndex, result);
+            }
+            if (list[currentIndex].Code == 355)
+            {
+                currentIndex = CollectFromScriptCommand(list, currentIndex, result);
+            }
+
+            return currentIndex;
+        }
+
+        private static int CollectFromConditionCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
+        {
+            var parameters = list[currentIndex].Parameters;
+            int typeId = Convert.ToInt32(parameters[0]);
+            if (typeId == 12)
+            {
+                var code = new RmmzJavascriptCode();
+                code.AddLine(parameters[1].ToString());
+                result.ConditionCommands.Add(code);
+            }
+            return currentIndex;
+        }
+        
+        private static int CollectFromOperateValueCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
+        {
+            var parameters = list[currentIndex].Parameters;
+            var operand = Convert.ToInt32(parameters[3]);
+            if (operand == 4)
+            {
+                var code = new RmmzJavascriptCode();
+                code.AddLine(parameters[4].ToString());
+                result.OperateValueCommands.Add(code);
+            }
+            return currentIndex;
+        }
+        
+        private static int CollectFromScriptCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
+        {
+            var code = new RmmzJavascriptCode();
+            code.AddLine(Convert.ToString(list[currentIndex].Parameters[0]));
+            while (currentIndex + 1 < list.Count && list[currentIndex + 1].Code == 655)
+            {
+                code.AddLine(Convert.ToString(list[currentIndex + 1].Parameters[0]));
+                currentIndex++;
+            }
+            result.ScriptCommands.Add(code);
+            return currentIndex;
+        }
+
+        private static void CollectFromCommonEvent(RmmzCollectJavascriptResult result)
         {
             foreach (var data in Rmmz.dataCommonEvents)
             {
@@ -94,24 +143,14 @@ namespace UniRmmz.Editor
 
                 for (int i = 0; i < data.List.Count; ++i)
                 {
-                    if (data.List[i].Code == 355)
-                    {
-                        var code = new RmmzJavascriptCode();
-                        code.AddLine(Convert.ToString(data.List[i].Parameters[0]));
-                        while (i + 1 < data.List.Count && data.List[i + 1].Code == 655)
-                        {
-                            code.AddLine(Convert.ToString(data.List[i + 1].Parameters[0]));
-                            i++;
-                        }
-                        allCodes.Add(code);
-                    }
+                    i = CollectFromCommand(data.List, i, result);
                 }
             }
         }
 
-        private static void GenerateAndSave(IEnumerable<RmmzJavascriptCode> allCodes, string outputPath)
+        private static void GenerateAndSave(string className, IEnumerable<RmmzJavascriptCode> allCodes, string outputPath)
         { 
-            var generatedCode = GenerateRmmzScriptCode(allCodes);
+            var generatedCode = GenerateRmmzScriptCode(className, allCodes);
         
             try
             {
@@ -128,7 +167,7 @@ namespace UniRmmz.Editor
         }
 
 
-        private static string GenerateRmmzScriptCode(IEnumerable<RmmzJavascriptCode> allCodes)
+        private static string GenerateRmmzScriptCode(string className, IEnumerable<RmmzJavascriptCode> allCodes)
         {
             var sb = new StringBuilder();
             
@@ -144,11 +183,11 @@ namespace UniRmmz.Editor
             // 名前空間とクラス
             sb.AppendLine($"namespace UniRmmz");
             sb.AppendLine("{");
-            sb.AppendLine($"    public static partial class RmmzScriptCommand");
+            sb.AppendLine($"    public static partial class {className}");
             sb.AppendLine("    {");
         
             // 静的コンストラクタ
-            sb.AppendLine("        static RmmzScriptCommand()");
+            sb.AppendLine($"       static {className}()");
             sb.AppendLine("        {");
             sb.AppendLine("            Clear();");
         
@@ -161,9 +200,9 @@ namespace UniRmmz.Editor
             
                 var csharpCode = code.Lines.Select(line => ConvertCodeToCSharp(line));
 
-                sb.AppendLine($"           Add(@\"{code.GenerateCode()}\"");
-                sb.AppendLine("                , (self) => ");
-                sb.AppendLine("            {");
+                sb.AppendLine($"            Add(@\"{code.GenerateCode()}\"");
+                sb.AppendLine("                 , (self) => ");
+                sb.AppendLine("             {");
                 foreach (var line in csharpCode)
                 {
                     sb.AppendLine($"\t\t\t\t{line}");
@@ -171,10 +210,7 @@ namespace UniRmmz.Editor
                 sb.AppendLine("            });");
                 sb.AppendLine();
             }
-        
             sb.AppendLine("        }");
-            sb.AppendLine();
-        
             sb.AppendLine("    }");
             sb.AppendLine("}");
         
