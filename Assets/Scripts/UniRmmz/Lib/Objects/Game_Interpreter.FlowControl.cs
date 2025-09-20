@@ -14,7 +14,7 @@ namespace UniRmmz
             _comments.Add((string)parameters[0]);
             while (NextEventCode() == 408)
             {
-                _indent++;
+                _index++;
                 _comments.Add((string)CurrentCommand().Parameters[0]);
             }
             return true;
