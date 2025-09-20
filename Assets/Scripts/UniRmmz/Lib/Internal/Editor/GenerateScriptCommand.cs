@@ -61,6 +61,9 @@ namespace UniRmmz.Editor
             
             var className3 = "RmmzOperateVariableCommand";
             GenerateAndSave(className3, result.OperateVariableCommands, outputFolderPath + $"{className3}.Generated.cs");
+            
+            var className4 = "RmmzCharacterMoveRouteCommand";
+            GenerateAndSave(className4, result.CharacterMoveRouteCommands, outputFolderPath + $"{className4}.Generated.cs");
         }
 
         private static void CollectFromMapEvent(RmmzCollectJavascriptResult result)
@@ -94,6 +97,10 @@ namespace UniRmmz.Editor
             if (list[currentIndex].Code == 355)
             {
                 currentIndex = CollectFromScriptCommand(list, currentIndex, result);
+            }
+            if (list[currentIndex].Code == 205)
+            {
+                currentIndex = CollectFromCharacterMoveRouteCommand(list, currentIndex, result);
             }
 
             return currentIndex;
@@ -135,6 +142,23 @@ namespace UniRmmz.Editor
                 currentIndex++;
             }
             result.ScriptCommands.Add(code);
+            return currentIndex;
+        }
+        
+        private static int CollectFromCharacterMoveRouteCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
+        {
+            var parameters = list[currentIndex].parameters;
+            var moveRoute = ConvertEx.ToMoveRoute(parameters[1]);
+            foreach (var command in moveRoute.List)
+            {
+                if ((Game_Character.RouteCodes)command.Code == Game_Character.RouteCodes.Script)
+                {
+                    var code = new RmmzJavascriptCode();
+                    code.AddLine(command.Parameters[0].ToString());
+                    result.CharacterMoveRouteCommands.Add(code);
+                }
+            }
+            
             return currentIndex;
         }
 

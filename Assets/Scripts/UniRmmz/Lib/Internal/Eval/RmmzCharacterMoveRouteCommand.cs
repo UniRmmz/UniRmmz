@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-    public partial class RmmzScriptCommand
+    public partial class RmmzCharacterMoveRouteCommand
     {
-        private static Dictionary<string, Action<Game_Interpreter>> _codeMap = new();
+        private static Dictionary<string, Action<Game_Character>> _codeMap = new();
         
-        public static void ExecuteScriptCommand(RmmzJavascriptCode code, Game_Interpreter self)
+        public static void Execute(RmmzJavascriptCode code, Game_Character self)
         {
             if (_codeMap.TryGetValue(code.GenerateKey(), out var func))
             {
@@ -19,7 +19,7 @@ namespace UniRmmz
             Debug.LogWarning($"{code.GenerateKey()}に対するメソッドが実装されていません");
         }
 
-        private static void Add(string key, Action<Game_Interpreter> action)
+        private static void Add(string key, Action<Game_Character> action)
         {
             _codeMap.Add(RmmzJavascriptCode.NormalizeKey(key), action);
         }

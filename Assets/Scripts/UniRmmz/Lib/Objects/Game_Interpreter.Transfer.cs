@@ -4,6 +4,7 @@ namespace UniRmmz
 {
     public partial class Game_Interpreter
     {
+        // 場所移動
         private bool Command201(object[] parameters)
         {
             if (Rmmz.gameParty.InBattle() || Rmmz.gameMessage.IsBusy())

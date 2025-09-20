@@ -217,10 +217,10 @@ namespace UniRmmz
                     MoveBackward();
                     break;
                 case RouteCodes.Jump:
-                    Jump((int)p[0], (int)p[1]);
+                    Jump(Convert.ToInt32(p[0]), Convert.ToInt32(p[1]));
                     break;
                 case RouteCodes.Wait:
-                    _waitCount = (int)p[0] - 1;
+                    _waitCount = Convert.ToInt32(p[0]) - 1;
                     break;
                 case RouteCodes.TurnDown:
                     SetDirection(2);
@@ -256,16 +256,16 @@ namespace UniRmmz
                     TurnAwayFromPlayer();
                     break;
                 case RouteCodes.SwitchOn:
-                    Rmmz.gameSwitches.SetValue((int)p[0], true);
+                    Rmmz.gameSwitches.SetValue(Convert.ToInt32(p[0]), true);
                     break;
                 case RouteCodes.SwitchOff:
-                    Rmmz.gameSwitches.SetValue((int)p[0], false);
+                    Rmmz.gameSwitches.SetValue(Convert.ToInt32(p[0]), false);
                     break;
                 case RouteCodes.ChangeSpeed:
-                    SetMoveSpeed((int)p[0]);
+                    SetMoveSpeed(Convert.ToInt32(p[0]));
                     break;
                 case RouteCodes.ChangeFrequency:
-                    SetMoveFrequency((int)p[0]);
+                    SetMoveFrequency(Convert.ToInt32(p[0]));
                     break;
                 case RouteCodes.WalkAnimeOn:
                     SetWalkAnime(true);
@@ -298,13 +298,13 @@ namespace UniRmmz
                     SetTransparent(false);
                     break;
                 case RouteCodes.ChangeImage:
-                    SetImage((string)p[0], (int)p[1]);
+                    SetImage(p[0].ToString(), Convert.ToInt32(p[1]));
                     break;
                 case RouteCodes.ChangeOpacity:
-                    SetOpacity((int)p[0]);
+                    SetOpacity(Convert.ToInt32(p[0]));
                     break;
                 case RouteCodes.ChangeBlendMode:
-                    SetBlendMode((int)p[0]);
+                    SetBlendMode(Convert.ToInt32(p[0]));
                     break;
                 case RouteCodes.PlaySe:
                     Rmmz.AudioManager.PlaySe(ConvertEx.ToSoundData(p[0]));
@@ -312,7 +312,7 @@ namespace UniRmmz
                 case RouteCodes.Script:
                     var script = new RmmzJavascriptCode();
                     script.AddLine(p[0].ToString());
-                    RmmzScriptCommand.ExecuteScriptCommand(script, this);
+                    RmmzCharacterMoveRouteCommand.Execute(script, this);
                     break;
             }
         }
