@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataActor : ITraitsObject
+    public class DataActor : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public string BattlerName => battlerName;
@@ -20,6 +20,7 @@ namespace UniRmmz
         public string Name => name;
         public string Nickname => nickname;
         public string Note => note;
+        public RmmzMetadata Meta { get; set; }
         public string Profile => profile;
 
         public int id;

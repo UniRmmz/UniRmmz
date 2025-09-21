@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataMap
+    public class DataMap : IMetadataContainer
     {
         public bool AutoplayBgm => autoplayBgm;
         public bool AutoplayBgs => autoplayBgs;
@@ -18,6 +18,7 @@ namespace UniRmmz
         public int EncounterStep => encounterStep;
         public int Height => height;
         public string Note => note;
+        public RmmzMetadata Meta { get; set; }
         public bool ParallaxLoopX => parallaxLoopX;
         public bool ParallaxLoopY => parallaxLoopY;
         public string ParallaxName => parallaxName;

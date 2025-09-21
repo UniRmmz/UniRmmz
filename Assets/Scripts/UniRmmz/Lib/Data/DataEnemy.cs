@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataEnemy : ITraitsObject
+    public class DataEnemy : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public List<DataEnemyAction> Actions => actions;
@@ -17,6 +17,7 @@ namespace UniRmmz
         public int Gold => gold;
         public string Name => name;
         public string Note => note;
+        public RmmzMetadata Meta { get; set; }
         public int[] Params => @params;
         
         public int id;

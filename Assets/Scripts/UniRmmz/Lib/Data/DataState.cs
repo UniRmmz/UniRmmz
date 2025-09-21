@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataState : ITraitsObject
+    public class DataState : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public int AutoRemovalTiming => autoRemovalTiming;
@@ -19,6 +19,7 @@ namespace UniRmmz
         public int Motion => motion;
         public string Name => name;
         public string Note => note;
+        public RmmzMetadata Meta { get; set; }
         public int Overlay => overlay;
         public int Priority => priority;
         public bool ReleaseByDamage => releaseByDamage;
