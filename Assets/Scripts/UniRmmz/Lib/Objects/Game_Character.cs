@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace UniRmmz
@@ -160,7 +161,7 @@ namespace UniRmmz
             else
             {
                 SetMovementSuccess(true);
-                var command = _moveRoute.List[_moveRouteIndex];
+                var command = _moveRoute.List.ElementAtOrDefault(_moveRouteIndex);
                 if (command != null)
                 {
                     ProcessMoveCommand(command);
