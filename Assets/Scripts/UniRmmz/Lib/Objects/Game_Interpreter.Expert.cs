@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json.Linq;
 
 namespace UniRmmz
 {
@@ -38,10 +39,8 @@ namespace UniRmmz
         // プラグインコマンド
         public bool Command357(object[] parameters)
         {
-            /*
             string pluginName = Utils.ExtractFileName(parameters[0].ToString());
-            PluginManager.CallCommand(this, pluginName, parameters[1].ToString(), parameters[3]);
-            */
+            PluginManager.CallCommand(this, pluginName, parameters[1].ToString(), parameters[3] as JObject);
             return true;
         }
     }

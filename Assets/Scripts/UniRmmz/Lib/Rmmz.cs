@@ -60,6 +60,7 @@ namespace UniRmmz
         public static SoundManager SoundManager;
         public static StorageManager StorageManager;
         public static TextManager TextManager;
+        public static PluginManager PluginManager;
 
         public static void InitializeManager()
         {
@@ -75,6 +76,7 @@ namespace UniRmmz
             SoundManager.Create();
             StorageManager.Create();
             TextManager.Create();
+            PluginManager.Create();
         }
 
         public static void Clear()

@@ -670,5 +670,10 @@ namespace UniRmmz
         public static TextManager Create() => Rmmz.TextManager = new TextManager();
     }
     
+    public partial class PluginManager
+    {
+        public static PluginManager Create() => Rmmz.PluginManager = new PluginManager();
+    }
+    
     #endregion
 }
