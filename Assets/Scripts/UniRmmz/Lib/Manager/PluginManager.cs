@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UnityEngine.Networking;
 
 namespace UniRmmz
 {
@@ -15,12 +16,15 @@ namespace UniRmmz
         private static readonly Dictionary<string, Dictionary<string, object>> _parameters = new (); 
         private static readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
 
-        protected PluginManager()
+        public void LoadAndSetup(Action onCompleted)
         {
-            //Setup(plugins);
+            LoadConfig((data) =>
+            {
+                //Setup();
+                onCompleted?.Invoke();
+            });
         }
-
-        protected void Setup(List<DataPlugin> plugins)
+        public void Setup(List<DataPlugin> plugins)
         {
             foreach (var plugin in plugins)
             {
@@ -73,6 +77,34 @@ namespace UniRmmz
             {
                 Debug.LogWarning($"Plugin command not found: {key}");
             }
+        }
+        
+        private void LoadConfig(Action<DataPlugin[]> onLoaded) 
+        {
+            string fileName = "plugins.js";
+            Debug.Log($"loading {fileName}");
+            System.Collections.IEnumerator LoadCoroutine(Action<DataPlugin[]> onLoaded, string fileName)
+            {
+                string filePath = string.Join("/", Rmmz.RootPath, "js", fileName);
+                using (UnityWebRequest uwr = UnityWebRequest.Get(filePath))
+                {
+                    yield return uwr.SendWebRequest();
+
+                    if (uwr.result == UnityWebRequest.Result.Success)
+                    {
+                        string json = uwr.downloadHandler.text;
+                        json = json.Replace("var $plugins =", "").TrimEnd().TrimEnd(';');// jsonとしてロードできるようにする
+                        var data = JsonEx.Parse<DataPlugin[]>(json);
+                        onLoaded.Invoke(data);
+                    }
+                    else
+                    {
+                        throw new RmmzError($"File load error: {fileName}, {uwr.error}");
+                    }
+                }
+            }
+
+            RmmzRoot.RunCoroutine(LoadCoroutine(onLoaded, fileName));
         }
 
     }

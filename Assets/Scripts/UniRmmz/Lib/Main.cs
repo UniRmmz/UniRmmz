@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace UniRmmz
@@ -7,8 +8,7 @@ namespace UniRmmz
         public void Start()
         {
             Rmmz.InitializeManager();
-            Scene_Boot.Run();
+            Rmmz.PluginManager.LoadAndSetup(() => Scene_Boot.Run());
         }
-        
     }
 }

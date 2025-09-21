@@ -38,9 +38,7 @@ namespace UniRmmz
         }
 
         private void Initialize()
-        {
-            RmmzRoot.Initialize();
-            
+        {   
             CheckPluginErrors();
             InitGraphics();
             InitAudio();

@@ -64,6 +64,7 @@ namespace UniRmmz
 
         public static void InitializeManager()
         {
+            RmmzRoot.Initialize();
             AudioManager.Create();
             BattleManager.Create();
             ColorManager.Create();
