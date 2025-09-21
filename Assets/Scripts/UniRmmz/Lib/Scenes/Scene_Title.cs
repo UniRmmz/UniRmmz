@@ -134,7 +134,7 @@ namespace UniRmmz
         private void CommandContinue()
         {
             _commandWindow.Close();
-            Scene_Load.Goto();
+            Scene_Load.Push();
         }
 
         private void CommandOptions()
