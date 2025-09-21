@@ -16,9 +16,9 @@ https://github.com/UniRmmz/UniRmmz を開き、`Code > Download ZIP`
 からUniRmmzの最新のコードをダウンロードし、てきとうなフォルダに解凍してください。
 
 ## 2. ツクールのプロジェクトをコピー
-Unityで動かしたいゲームのprojectフォルダを
-`Assets/StreamingAssets/`
-以下に丸ごとコピーしていください。
+Unityで動かしたいゲームのプロジェクトフォルダの中身を
+`Assets/StreamingAssets/project/`
+以下にすべてコピーしていください。
 
 ## 3. Unityを起動
 Unity 6000.9.23f1 で開発されていますので、インストールしてください。
