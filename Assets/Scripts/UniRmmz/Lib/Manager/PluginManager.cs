@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,7 +21,7 @@ namespace UniRmmz
         {
             LoadConfig((data) =>
             {
-                //Setup();
+                Setup(data.ToList());
                 onCompleted?.Invoke();
             });
         }
