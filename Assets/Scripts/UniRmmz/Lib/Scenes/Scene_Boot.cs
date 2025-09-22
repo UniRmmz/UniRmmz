@@ -47,9 +47,9 @@ namespace UniRmmz
 
         private void SetEncryptionInfo()
         {
-            bool hasImages = Rmmz.DataSystem.HasEncryptedImages;
-            bool hasAudio = Rmmz.DataSystem.HasEncryptedAudio;
-            string key = Rmmz.DataSystem.EncryptionKey;
+            bool hasImages = Rmmz.dataSystem.HasEncryptedImages;
+            bool hasAudio = Rmmz.dataSystem.HasEncryptedAudio;
+            string key = Rmmz.dataSystem.EncryptionKey;
             Utils.SetEncryptionInfo(hasImages, hasAudio, key);
         }
 
@@ -68,7 +68,7 @@ namespace UniRmmz
 
         private void LoadGameFonts()
         {
-            var advanced = Rmmz.DataSystem.advanced;
+            var advanced = Rmmz.dataSystem.advanced;
             Rmmz.FontManager.Load("rmmz-mainfont", advanced.MainFontFilename);
             Rmmz.FontManager.Load("rmmz-numberfont", advanced.NumberFontFilename);
         }
@@ -117,8 +117,8 @@ namespace UniRmmz
 
         private void ResizeScreen()
         {
-            int screenWidth = Rmmz.DataSystem.advanced.ScreenWidth;
-            int screenHeight = Rmmz.DataSystem.advanced.ScreenHeight;
+            int screenWidth = Rmmz.dataSystem.advanced.ScreenWidth;
+            int screenHeight = Rmmz.dataSystem.advanced.ScreenHeight;
             Graphics.Resize(screenWidth, screenHeight);
             Graphics.DefaultScale = ScreenScale();
             AdjustBoxSize();
@@ -127,8 +127,8 @@ namespace UniRmmz
 
         private void AdjustBoxSize()
         {
-            int uiAreaWidth = Rmmz.DataSystem.advanced.UiAreaWidth;
-            int uiAreaHeight = Rmmz.DataSystem.advanced.UiAreaHeight;
+            int uiAreaWidth = Rmmz.dataSystem.advanced.UiAreaWidth;
+            int uiAreaHeight = Rmmz.dataSystem.advanced.UiAreaHeight;
             int boxMargin = 4;
             Graphics.BoxWidth = uiAreaWidth - boxMargin * 2;
             Graphics.BoxHeight = uiAreaHeight - boxMargin * 2;
@@ -147,9 +147,9 @@ namespace UniRmmz
 
         private float ScreenScale()
         {
-            if (Rmmz.DataSystem.advanced.ScreenScale > 0)
+            if (Rmmz.dataSystem.advanced.ScreenScale > 0)
             {
-                return Rmmz.DataSystem.advanced.ScreenScale;
+                return Rmmz.dataSystem.advanced.ScreenScale;
             }
             else
             {
@@ -164,7 +164,7 @@ namespace UniRmmz
 
         private void CheckPlayerLocation()
         {
-            if (Rmmz.DataSystem.StartMapId == 0) 
+            if (Rmmz.dataSystem.StartMapId == 0) 
             {
                 throw new Exception("Player's starting position is not set");
             }

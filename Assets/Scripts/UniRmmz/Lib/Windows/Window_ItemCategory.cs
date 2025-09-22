@@ -46,7 +46,7 @@ namespace UniRmmz
             int index = System.Array.IndexOf(table, name);
             if (index >= 0)
             {
-                return Rmmz.DataSystem.ItemCategories[index];
+                return Rmmz.dataSystem.ItemCategories[index];
             }
             return true;
         }

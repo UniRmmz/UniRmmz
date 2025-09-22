@@ -50,7 +50,7 @@ namespace UniRmmz
 
         public virtual int EventId() => _eventId;
 
-        public virtual DataEvent Event() => Rmmz.DataMap.Events[_eventId];
+        public virtual DataEvent Event() => Rmmz.dataMap.Events[_eventId];
 
         public virtual EventPage Page() => Event().Pages[_pageIndex];
 

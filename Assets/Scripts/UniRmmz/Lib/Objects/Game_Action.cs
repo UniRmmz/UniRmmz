@@ -289,7 +289,7 @@ namespace UniRmmz
         {
             if (IsSkill())
             {
-                return Rmmz.DataSystem.MagicSkills.Contains(((DataSkill)Item()).StypeId);
+                return Rmmz.dataSystem.MagicSkills.Contains(((DataSkill)Item()).StypeId);
             }
             else
             {

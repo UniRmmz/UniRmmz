@@ -80,7 +80,7 @@ namespace UniRmmz
         {
             if (_category == "keyItem")
             {
-                return Rmmz.DataSystem.OptKeyItemsNumber;
+                return Rmmz.dataSystem.OptKeyItemsNumber;
             }
             else
             {

@@ -26,7 +26,7 @@ namespace UniRmmz
 
         public void SetValue(int switchId, bool value)
         {
-            if (switchId > 0 && switchId < Rmmz.DataSystem.Switches.Length)
+            if (switchId > 0 && switchId < Rmmz.dataSystem.Switches.Length)
             {
                 _data.SetWithExpansion(switchId, value);
                 OnChange();

@@ -157,7 +157,7 @@ namespace UniRmmz
        protected virtual int BasicGaugesY(Rect rect)
        {
            int bottom = Mathf.RoundToInt(rect.y + rect.height - ExtraHeight());
-           int numGauges = Rmmz.DataSystem.OptDisplayTp ? 3 : 2;
+           int numGauges = Rmmz.dataSystem.OptDisplayTp ? 3 : 2;
            return bottom - GaugeLineHeight() * numGauges;
        }
    }

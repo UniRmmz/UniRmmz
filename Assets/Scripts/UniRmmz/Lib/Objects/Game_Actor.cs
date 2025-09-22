@@ -257,7 +257,7 @@ namespace UniRmmz
         public virtual List<int> EquipSlots()
         {
             var slots = new List<int>();
-            for (int i = 1; i < Rmmz.DataSystem.EquipTypes.Length; i++)
+            for (int i = 1; i < Rmmz.dataSystem.EquipTypes.Length; i++)
             {
                 slots.Add(i);
             }
@@ -688,7 +688,7 @@ namespace UniRmmz
 
         protected virtual float BenchMembersExpRate()
         {
-            return Rmmz.DataSystem.OptExtraExp ? 1 : 0;
+            return Rmmz.dataSystem.OptExtraExp ? 1 : 0;
         }
 
         protected virtual bool ShouldDisplayLevelUp()
@@ -800,7 +800,7 @@ namespace UniRmmz
         {
             var weapons = Weapons();
             int wtypeId = weapons.ElementAtOrDefault(0)?.WtypeId ?? 0;
-            var attackMotion = Rmmz.DataSystem.AttackMotions[wtypeId];
+            var attackMotion = Rmmz.dataSystem.AttackMotions[wtypeId];
             if (attackMotion != null)
             {
                 if (attackMotion.Type == 0)
@@ -1036,7 +1036,7 @@ namespace UniRmmz
 
         protected virtual int MaxFloorDamage()
         {
-            return Rmmz.DataSystem.OptFloorDeath ? Hp : Mathf.Max(Hp - 1, 0);
+            return Rmmz.dataSystem.OptFloorDeath ? Hp : Mathf.Max(Hp - 1, 0);
         }
 
         protected virtual void PerformMapDamage()

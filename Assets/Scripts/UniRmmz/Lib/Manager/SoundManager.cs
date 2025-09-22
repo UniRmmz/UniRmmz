@@ -15,17 +15,17 @@ namespace UniRmmz
 
         public void LoadSystemSound(int n)
         {
-            if (Rmmz.DataSystem != null)
+            if (Rmmz.dataSystem != null)
             {
-                Rmmz.AudioManager.LoadStaticSe(Rmmz.DataSystem.Sounds[n]);
+                Rmmz.AudioManager.LoadStaticSe(Rmmz.dataSystem.Sounds[n]);
             }
         }
 
         public void PlaySystemSound(int n)
         {
-            if (Rmmz.DataSystem != null)
+            if (Rmmz.dataSystem != null)
             {
-                Rmmz.AudioManager.PlayStaticSe(Rmmz.DataSystem.Sounds[n]);
+                Rmmz.AudioManager.PlayStaticSe(Rmmz.dataSystem.Sounds[n]);
             }
         }
 

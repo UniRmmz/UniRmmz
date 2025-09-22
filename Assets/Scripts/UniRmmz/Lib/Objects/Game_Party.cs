@@ -192,7 +192,7 @@ namespace UniRmmz
         public void SetupStartingMembers()
         {
             _actors.Clear();
-            foreach (var actorId in Rmmz.DataSystem.PartyMembers)
+            foreach (var actorId in Rmmz.dataSystem.PartyMembers)
             {
                 if (Rmmz.gameActors.Actor(actorId) != null)
                 {

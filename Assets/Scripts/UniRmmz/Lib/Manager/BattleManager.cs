@@ -80,12 +80,12 @@ namespace UniRmmz
 
         public bool IsTpb()
         {
-            return Rmmz.DataSystem.BattleSystem >= 1;
+            return Rmmz.dataSystem.BattleSystem >= 1;
         }
 
         public bool IsActiveTpb()
         {
-            return Rmmz.DataSystem.BattleSystem == 1;
+            return Rmmz.dataSystem.BattleSystem == 1;
         }
 
         public bool IsBattleTest()

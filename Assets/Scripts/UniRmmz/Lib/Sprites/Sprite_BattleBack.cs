@@ -56,7 +56,7 @@ namespace UniRmmz
         {
             if (Rmmz.BattleManager.IsBattleTest())
             {
-                return Rmmz.DataSystem.Battleback1Name;
+                return Rmmz.dataSystem.Battleback1Name;
             }
             else if (!string.IsNullOrEmpty(Rmmz.gameMap.Battleback1Name()))
             {
@@ -76,7 +76,7 @@ namespace UniRmmz
         {
             if (Rmmz.BattleManager.IsBattleTest())
             {
-                return Rmmz.DataSystem.Battleback2Name;
+                return Rmmz.dataSystem.Battleback2Name;
             }
             else if (!string.IsNullOrEmpty(Rmmz.gameMap.Battleback2Name()))
             {

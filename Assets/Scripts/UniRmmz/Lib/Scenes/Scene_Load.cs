@@ -73,7 +73,7 @@ namespace UniRmmz
 
         protected virtual void ReloadMapIfUpdated()
         {
-            if (Rmmz.gameSystem.VersionId() != Rmmz.DataSystem.VersionId)
+            if (Rmmz.gameSystem.VersionId() != Rmmz.dataSystem.VersionId)
             {
                 int mapId = Rmmz.gameMap.MapId();
                 int x = Rmmz.gamePlayer.X;

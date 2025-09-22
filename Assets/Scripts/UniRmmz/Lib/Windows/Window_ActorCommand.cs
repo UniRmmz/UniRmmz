@@ -40,7 +40,7 @@ namespace UniRmmz
             var skillTypes = _actor.SkillTypes();
             foreach (int stypeId in skillTypes)
             {
-                string name = Rmmz.DataSystem.SkillTypes[stypeId];
+                string name = Rmmz.dataSystem.SkillTypes[stypeId];
                 AddCommand(name, "skill", true, stypeId);
             }
         }

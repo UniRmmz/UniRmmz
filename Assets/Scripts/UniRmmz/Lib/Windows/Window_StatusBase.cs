@@ -95,7 +95,7 @@ namespace UniRmmz
         {
             PlaceGauge(actor, "hp", x, y);
             PlaceGauge(actor, "mp", x, y + GaugeLineHeight());
-            if (Rmmz.DataSystem.OptDisplayTp)
+            if (Rmmz.dataSystem.OptDisplayTp)
             {
                 PlaceGauge(actor, "tp", x, y + GaugeLineHeight() * 2);
             }
@@ -167,7 +167,7 @@ namespace UniRmmz
         protected virtual string ActorSlotName(Game_Actor actor, int index)
         {
             List<int> slots = actor.EquipSlots();
-            return Rmmz.DataSystem.EquipTypes[slots[index]];
+            return Rmmz.dataSystem.EquipTypes[slots[index]];
         }
 
     }

@@ -45,7 +45,7 @@ namespace UniRmmz
         {
             Rmmz.AudioManager.StopBgm();
             Rmmz.AudioManager.StopBgs();
-            Rmmz.AudioManager.PlayMe(Rmmz.DataSystem.GameoverMe);
+            Rmmz.AudioManager.PlayMe(Rmmz.dataSystem.GameoverMe);
         }
         
         private void CreateBackground()

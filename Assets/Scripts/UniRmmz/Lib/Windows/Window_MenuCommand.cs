@@ -96,7 +96,7 @@ namespace UniRmmz
             int index = System.Array.IndexOf(table, name);
             if (index >= 0)
             {
-                return Rmmz.DataSystem.MenuCommands[index];
+                return Rmmz.dataSystem.MenuCommands[index];
             }
             return true;
         }

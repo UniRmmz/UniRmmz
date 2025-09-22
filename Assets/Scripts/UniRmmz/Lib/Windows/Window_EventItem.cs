@@ -110,7 +110,7 @@ namespace UniRmmz
             if (itypeId == 2)
             {
                 // Key Item
-                return Rmmz.DataSystem.OptKeyItemsNumber;
+                return Rmmz.dataSystem.OptKeyItemsNumber;
             }
             else if (itypeId >= 3)
             {

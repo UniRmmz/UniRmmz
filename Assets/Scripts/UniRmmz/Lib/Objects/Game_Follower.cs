@@ -15,7 +15,7 @@ namespace UniRmmz
         protected Game_Follower(int memberIndex) : base()
         {
             _memberIndex = memberIndex;
-            SetTransparent(Rmmz.DataSystem.OptTransparent);
+            SetTransparent(Rmmz.dataSystem.OptTransparent);
             SetThrough(true);
         }
 

@@ -9,15 +9,15 @@ namespace UniRmmz
     /// </summary>
     public partial class TextManager
     {
-        public string Basic(int basicId) => Rmmz.DataSystem.Terms.Basic[basicId];
+        public string Basic(int basicId) => Rmmz.dataSystem.Terms.Basic[basicId];
 
-        public string Param(int paramId) => Rmmz.DataSystem.Terms.Params[paramId];
+        public string Param(int paramId) => Rmmz.dataSystem.Terms.Params[paramId];
 
-        public string Command(int commandId) => Rmmz.DataSystem.Terms.Commands[commandId];
+        public string Command(int commandId) => Rmmz.dataSystem.Terms.Commands[commandId];
 
-        public DataSystem.DataMessages Message() => Rmmz.DataSystem.Terms.Messages;
+        public DataSystem.DataMessages Message() => Rmmz.dataSystem.Terms.Messages;
 
-        public string CurrencyUnit => Rmmz.DataSystem.CurrencyUnit ?? string.Empty;
+        public string CurrencyUnit => Rmmz.dataSystem.CurrencyUnit ?? string.Empty;
 
         public string Level => Basic(0);
         public string LevelA => Basic(1);

@@ -21,7 +21,7 @@ namespace UniRmmz
 
         public void Initialize()
         {
-            _visible = Rmmz.DataSystem.OptFollowers;
+            _visible = Rmmz.dataSystem.OptFollowers;
             _gathering = false;
             _data = new List<Game_Follower>();
             Setup();

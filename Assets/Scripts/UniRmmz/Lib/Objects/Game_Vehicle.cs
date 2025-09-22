@@ -81,15 +81,15 @@ namespace UniRmmz
         {
             if (IsBoat())
             {
-                return Rmmz.DataSystem.Boat;
+                return Rmmz.dataSystem.Boat;
             }
             else if (IsShip())
             {
-                return Rmmz.DataSystem.Ship;
+                return Rmmz.dataSystem.Ship;
             }
             else if (IsAirship())
             {
-                return Rmmz.DataSystem.Airship;
+                return Rmmz.dataSystem.Airship;
             }
             else
             {

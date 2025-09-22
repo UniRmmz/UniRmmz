@@ -68,9 +68,9 @@ namespace UniRmmz.Editor
 
         private static void CollectFromMapEvent(RmmzCollectJavascriptResult result)
         {
-            for (int i = 0; i < Rmmz.DataMap.Events.Count; i++)
+            for (int i = 0; i < Rmmz.dataMap.Events.Count; i++)
             {
-                var ev = Rmmz.DataMap.Events[i];
+                var ev = Rmmz.dataMap.Events[i];
                 if (ev != null && ev.Id != 0)
                 {
                     foreach (var page in ev.Pages)

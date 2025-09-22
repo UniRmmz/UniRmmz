@@ -10,24 +10,24 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Player : Game_Character
     {
-        private Game_Vehicle.VehicleTypes _vehicleType = Game_Vehicle.VehicleTypes.Walk;
-        private bool _vehicleGettingOn = false;
-        private bool _vehicleGettingOff = false;
-        private bool _dashing = false;
-        private bool _needsMapReload = false;
+        protected Game_Vehicle.VehicleTypes _vehicleType = Game_Vehicle.VehicleTypes.Walk;
+        protected bool _vehicleGettingOn = false;
+        protected bool _vehicleGettingOff = false;
+        protected bool _dashing = false;
+        protected bool _needsMapReload = false;
 
-        private bool _transferring = false;
-        private int _newMapId = 0;
-        private int _newX = 0;
-        private int _newY = 0;
-        private int _newDirection = 0;
-        private int _fadeType = 0;
-        private Game_Followers _followers = Game_Followers.Create();
-        private float _encounterCount = 0;
+        protected bool _transferring = false;
+        protected int _newMapId = 0;
+        protected int _newX = 0;
+        protected int _newY = 0;
+        protected int _newDirection = 0;
+        protected int _fadeType = 0;
+        protected Game_Followers _followers = Game_Followers.Create();
+        protected float _encounterCount = 0;
 
         protected Game_Player()
         {
-            SetTransparent(Rmmz.DataSystem.OptTransparent);
+            SetTransparent(Rmmz.dataSystem.OptTransparent);
         }
 
         public void ClearTransferInfo()
@@ -72,7 +72,7 @@ namespace UniRmmz
         
         public virtual void SetupForNewGame()
         {
-            ReserveTransfer(Rmmz.DataSystem.StartMapId, Rmmz.DataSystem.StartX, Rmmz.DataSystem.StartY, 2, 0);
+            ReserveTransfer(Rmmz.dataSystem.StartMapId, Rmmz.dataSystem.StartX, Rmmz.dataSystem.StartY, 2, 0);
         }
 
         public virtual void RequestMapReload() => _needsMapReload = true;
@@ -197,7 +197,7 @@ namespace UniRmmz
             }
         }
 
-        public void MakeEncounterCount()
+        public virtual void MakeEncounterCount()
         {
             int n = Rmmz.gameMap.EncounterStep();
             _encounterCount = RmmzMath.RandomInt(n) + RmmzMath.RandomInt(n) + 1;

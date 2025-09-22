@@ -7,17 +7,17 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Picture : Sprite_Clickable
     {
-        private int _pictureId;
-        private string _pictureName;
+        protected int _pictureId;
+        protected string _pictureName;
 
-        public void Initialize(int pictureId)
+        public virtual void Initialize(int pictureId)
         {
             _pictureId = pictureId;
             _pictureName = "";
             UpdateRmmz();
         }
 
-        public Game_Picture Picture()
+        public virtual Game_Picture Picture()
         {
             return Rmmz.gameScreen.Picture(_pictureId);
         }
@@ -36,7 +36,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateBitmap()
+        protected virtual void UpdateBitmap()
         {
             var picture = Picture();
             if (picture != null)
@@ -58,7 +58,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateOrigin()
+        protected virtual void UpdateOrigin()
         {
             var picture = Picture();
             if (picture.Origin == 0)
@@ -71,20 +71,20 @@ namespace UniRmmz
             }
         }
 
-        private void UpdatePosition()
+        protected virtual void UpdatePosition()
         {
             var picture = Picture();
             X = (float)Mathf.Round(picture.X);
             Y = (float)Mathf.Round(picture.Y);
         }
 
-        private void UpdateScale()
+        protected virtual void UpdateScale()
         {
             var picture = Picture();
             Scale = new Vector2(picture.ScaleX, picture.ScaleY) / 100f;
         }
 
-        private void UpdateTone()
+        protected virtual void UpdateTone()
         {
             var picture = Picture();
             if (picture.Tone != Vector4.zero)
@@ -97,7 +97,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateOther()
+        protected virtual void UpdateOther()
         {
             var picture = Picture();
             Opacity = picture.Opacity;
@@ -123,7 +123,7 @@ namespace UniRmmz
             Rotation = picture.Angle * Mathf.PI / 180f;
         }
 
-        private void LoadBitmap()
+        protected virtual void LoadBitmap()
         {
             Bitmap = Rmmz.ImageManager.LoadPicture(_pictureName);
         }

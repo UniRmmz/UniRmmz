@@ -243,7 +243,7 @@ namespace UniRmmz
             return Contents.MeasureTextWidth(text);
         }
         
-        protected virtual float DrawTextEx(string text, int x, int y, int width)
+        public virtual float DrawTextEx(string text, int x, int y, int width)
         {
             ResetFontSettings();
             var textState = CreateTextState(text, x, y, width);
@@ -251,7 +251,7 @@ namespace UniRmmz
             return textState.outputWidth;
         }
         
-        protected virtual Vector2 TextSizeEx(string text)
+        public virtual Vector2 TextSizeEx(string text)
         {
             ResetFontSettings();
             var textState = CreateTextState(text, 0, 0, 0);

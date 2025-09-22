@@ -31,13 +31,13 @@ namespace UniRmmz
         private AudioManager.Sound _savedBgm = null;
         private AudioManager.Sound _walkingBgm = null;
         
-        public bool IsJapanese() => Rmmz.DataSystem.Locale.StartsWith("ja");
-        public bool IsChinese() => Rmmz.DataSystem.Locale.StartsWith("zh");
-        public bool IsKorean() => Rmmz.DataSystem.Locale.StartsWith("ko");
+        public bool IsJapanese() => Rmmz.dataSystem.Locale.StartsWith("ja");
+        public bool IsChinese() => Rmmz.dataSystem.Locale.StartsWith("zh");
+        public bool IsKorean() => Rmmz.dataSystem.Locale.StartsWith("ko");
         public bool IsCJK() => IsJapanese() || IsChinese() || IsKorean();
-        public bool IsRussian() => Rmmz.DataSystem.Locale.StartsWith("ru");
-        public bool IsSideView() => Rmmz.DataSystem.OptSideView;
-        public bool IsAutosaveEnabled() => Rmmz.DataSystem.OptAutosave;
+        public bool IsRussian() => Rmmz.dataSystem.Locale.StartsWith("ru");
+        public bool IsSideView() => Rmmz.dataSystem.OptSideView;
+        public bool IsAutosaveEnabled() => Rmmz.dataSystem.OptAutosave;
 
         public bool IsSaveEnabled() => _saveEnabled;
         public void DisableSave() => _saveEnabled = false;
@@ -63,16 +63,16 @@ namespace UniRmmz
         public int SavefileId() => _savefileId;
         public void SetSavefileId(int id) => _savefileId = id;
 
-        public int[] WindowTone() => _windowTone ?? Rmmz.DataSystem.WindowTone;
+        public int[] WindowTone() => _windowTone ?? Rmmz.dataSystem.WindowTone;
         public void SetWindowTone(int[] tone) => _windowTone = tone;
 
-        public DataSystem.DataSound BattleBgm() => _battleBgm ?? Rmmz.DataSystem.BattleBgm;
+        public DataSystem.DataSound BattleBgm() => _battleBgm ?? Rmmz.dataSystem.BattleBgm;
         public void SetBattleBgm(DataSystem.DataSound bgm) => _battleBgm = bgm;
 
-        public DataSystem.DataSound VictoryMe() => _victoryMe ?? Rmmz.DataSystem.VictoryMe;
+        public DataSystem.DataSound VictoryMe() => _victoryMe ?? Rmmz.dataSystem.VictoryMe;
         public void SetVictoryMe(DataSystem.DataSound me) => _victoryMe = me;
 
-        public DataSystem.DataSound DefeatMe() => _defeatMe ?? Rmmz.DataSystem.DefeatMe;
+        public DataSystem.DataSound DefeatMe() => _defeatMe ?? Rmmz.dataSystem.DefeatMe;
         public void SetDefeatMe(DataSystem.DataSound me) => _defeatMe = me;
 
         public void OnBattleStart() => _battleCount++;
@@ -84,7 +84,7 @@ namespace UniRmmz
         public void OnBeforeSave()
         {
             _saveCount++;
-            _versionId = Rmmz.DataSystem.VersionId;
+            _versionId = Rmmz.dataSystem.VersionId;
             _framesOnSave = Graphics.FrameCount;
             _bgmOnSave = Rmmz.AudioManager.SaveBgm();
             _bgsOnSave = Rmmz.AudioManager.SaveBgs();
@@ -138,12 +138,12 @@ namespace UniRmmz
 
         public void SaveWalkingBgm2()
         {
-            _walkingBgm = Rmmz.DataMap.Bgm;
+            _walkingBgm = Rmmz.dataMap.Bgm;
         }
         
         public string MainFontFace()
         {
-            return $"rmmz-mainfont, {Rmmz.DataSystem.advanced.FallbackFonts}";
+            return $"rmmz-mainfont, {Rmmz.dataSystem.advanced.FallbackFonts}";
         }
 
         public string NumberFontFace()
@@ -153,14 +153,14 @@ namespace UniRmmz
 
         public int MainFontSize()
         {
-            return Rmmz.DataSystem.advanced.FontSize;
+            return Rmmz.dataSystem.advanced.FontSize;
         }
 
         public int WindowPadding() => 12;
 
         public int WindowOpacity()
         {
-            return Rmmz.DataSystem.advanced.WindowOpacity;
+            return Rmmz.dataSystem.advanced.WindowOpacity;
         }
 
     }

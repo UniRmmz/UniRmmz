@@ -24,7 +24,7 @@ namespace UniRmmz
         {
             base.Create();
             _transfer = Rmmz.gamePlayer.IsTransferring();
-            _lastMapWasNull = Rmmz.DataMap == null;
+            _lastMapWasNull = Rmmz.dataMap == null;
             if (_transfer)
             {
                 Rmmz.DataManager.LoadMapData(Rmmz.gamePlayer.NewMapId());

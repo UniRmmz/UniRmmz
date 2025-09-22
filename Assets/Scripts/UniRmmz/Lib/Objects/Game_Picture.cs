@@ -9,38 +9,38 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Picture
     {
-        private string _name;
-        private int _origin;
-        private float _x;
-        private float _y;
-        private float _scaleX;
-        private float _scaleY;
-        private int _opacity;
-        private int _blendMode;
+        protected string _name;
+        protected int _origin;
+        protected float _x;
+        protected float _y;
+        protected float _scaleX;
+        protected float _scaleY;
+        protected int _opacity;
+        protected int _blendMode;
         
-        private float _targetX;
-        private float _targetY;
-        private float _targetScaleX;
-        private float _targetScaleY;
-        private float _targetOpacity;
-        private int _duration;
-        private int _wholeDuration;
-        private int _easingType;
-        private float _easingExponent;
+        protected float _targetX;
+        protected float _targetY;
+        protected float _targetScaleX;
+        protected float _targetScaleY;
+        protected float _targetOpacity;
+        protected int _duration;
+        protected int _wholeDuration;
+        protected int _easingType;
+        protected float _easingExponent;
         
-        private Vector4 _tone;
-        private Vector4 _toneTarget;
-        private int _toneDuration;
+        protected Vector4 _tone;
+        protected Vector4 _toneTarget;
+        protected int _toneDuration;
         
-        private float _angle;
-        private float _rotationSpeed;
+        protected float _angle;
+        protected float _rotationSpeed;
 
         protected Game_Picture()
         {
             Initialize();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             InitBasic();
             InitTarget();
@@ -48,18 +48,18 @@ namespace UniRmmz
             InitRotation();
         }
 
-        public string Name => _name;
-        public int Origin => _origin;
-        public float X => _x;
-        public float Y => _y;
-        public float ScaleX => _scaleX;
-        public float ScaleY => _scaleY;
-        public int Opacity => _opacity;
-        public int BlendMode => _blendMode;
-        public Vector4 Tone => _tone;
-        public float Angle => _angle;
+        public virtual string Name => _name;
+        public virtual int Origin => _origin;
+        public virtual float X => _x;
+        public virtual float Y => _y;
+        public virtual float ScaleX => _scaleX;
+        public virtual float ScaleY => _scaleY;
+        public virtual int Opacity => _opacity;
+        public virtual int BlendMode => _blendMode;
+        public virtual Vector4 Tone => _tone;
+        public virtual float Angle => _angle;
 
-        private void InitBasic()
+        protected virtual void InitBasic()
         {
             _name = "";
             _origin = 0;
@@ -71,7 +71,7 @@ namespace UniRmmz
             _blendMode = 0;
         }
 
-        private void InitTarget()
+        protected virtual void InitTarget()
         {
             _targetX = _x;
             _targetY = _y;
@@ -84,20 +84,20 @@ namespace UniRmmz
             _easingExponent = 0;
         }
 
-        private void InitTone()
+        protected virtual void InitTone()
         {
             _tone = Vector4.zero;
             _toneTarget = Vector4.zero;
             _toneDuration = 0;
         }
 
-        private void InitRotation()
+        protected virtual void InitRotation()
         {
             _angle = 0;
             _rotationSpeed = 0;
         }
 
-        public void Show(string name, int origin, float x, float y, float scaleX, float scaleY, int opacity, int blendMode)
+        public virtual void Show(string name, int origin, float x, float y, float scaleX, float scaleY, int opacity, int blendMode)
         {
             _name = name;
             _origin = origin;
@@ -112,7 +112,7 @@ namespace UniRmmz
             InitRotation();
         }
 
-        public void Move(int origin, float x, float y, float scaleX, float scaleY, float opacity, int blendMode, int duration, int easingType)
+        public virtual void Move(int origin, float x, float y, float scaleX, float scaleY, float opacity, int blendMode, int duration, int easingType)
         {
             _origin = origin;
             _targetX = x;
@@ -127,12 +127,12 @@ namespace UniRmmz
             _easingExponent = 2;
         }
 
-        public void Rotate(float speed)
+        public virtual void Rotate(float speed)
         {
             _rotationSpeed = speed;
         }
 
-        public void Tint(Vector4 tone, int duration)
+        public virtual void Tint(Vector4 tone, int duration)
         {
             if (_tone == Vector4.zero)
             {
@@ -146,14 +146,14 @@ namespace UniRmmz
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
             UpdateMove();
             UpdateTone();
             UpdateRotation();
         }
 
-        private void UpdateMove()
+        protected virtual void UpdateMove()
         {
             if (_duration > 0)
             {
@@ -166,7 +166,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateTone()
+        protected virtual void UpdateTone()
         {
             if (_toneDuration > 0 && _tone != null && _toneTarget != null)
             {
@@ -179,7 +179,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateRotation()
+        protected virtual void UpdateRotation()
         {
             if (_rotationSpeed != 0)
             {
@@ -187,7 +187,7 @@ namespace UniRmmz
             }
         }
 
-        private float ApplyEasing(float current, float target)
+        protected virtual float ApplyEasing(float current, float target)
         {
             float d = _duration;
             float wd = _wholeDuration;
@@ -197,7 +197,7 @@ namespace UniRmmz
             return start + (target - start) * t;
         }
 
-        private float CalcEasing(float t)
+        protected virtual float CalcEasing(float t)
         {
             float exponent = _easingExponent;
             switch (_easingType)
@@ -213,17 +213,17 @@ namespace UniRmmz
             }
         }
 
-        private float EaseIn(float t, float exponent)
+        protected virtual float EaseIn(float t, float exponent)
         {
             return (float)Math.Pow(t, exponent);
         }
 
-        private float EaseOut(float t, float exponent)
+        protected virtual float EaseOut(float t, float exponent)
         {
             return 1 - (float)Math.Pow(1 - t, exponent);
         }
 
-        private float EaseInOut(float t, float exponent)
+        protected virtual float EaseInOut(float t, float exponent)
         {
             if (t < 0.5f)
             {

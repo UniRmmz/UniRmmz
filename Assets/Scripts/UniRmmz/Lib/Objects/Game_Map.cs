@@ -66,12 +66,12 @@ namespace UniRmmz
 
         public void Setup(int mapId)
         {
-            if (Rmmz.DataMap == null)
+            if (Rmmz.dataMap == null)
             {
                 throw new Exception("The map data is not available");
             }
             _mapId = mapId;
-            _tilesetId = Rmmz.DataMap.TilesetId;
+            _tilesetId = Rmmz.dataMap.TilesetId;
             _displayX = 0;
             _displayY = 0;
             RefreshVehicles();
@@ -89,9 +89,9 @@ namespace UniRmmz
 
         public int TileWidth()
         {
-            if (Rmmz.DataSystem.TileSize > 0)
+            if (Rmmz.dataSystem.TileSize > 0)
             {
-                return Rmmz.DataSystem.TileSize;
+                return Rmmz.dataSystem.TileSize;
             }
             return 48;
         }
@@ -144,12 +144,12 @@ namespace UniRmmz
 
         public void SetupEvents()
         {
-            _events = new List<Game_Event>(Enumerable.Repeat<Game_Event>(null, Rmmz.DataMap.Events.Count));
+            _events = new List<Game_Event>(Enumerable.Repeat<Game_Event>(null, Rmmz.dataMap.Events.Count));
             _commonEvents = new List<Game_CommonEvent>();
 
-            for (int i = 0; i < Rmmz.DataMap.Events.Count; i++)
+            for (int i = 0; i < Rmmz.dataMap.Events.Count; i++)
             {
-                var ev = Rmmz.DataMap.Events[i];
+                var ev = Rmmz.dataMap.Events[i];
                 if (ev != null && ev.Id != 0)
                 {
                     _events[ev.Id] = Game_Event.Create(_mapId, ev.Id);
@@ -199,22 +199,22 @@ namespace UniRmmz
 
         public void SetupParallax()
         {
-            _parallaxName = Rmmz.DataMap.ParallaxName ?? "";
+            _parallaxName = Rmmz.dataMap.ParallaxName ?? "";
             _parallaxZero = Rmmz.ImageManager.IsZeroParallax(_parallaxName);
-            _parallaxLoopX = Rmmz.DataMap.ParallaxLoopX;
-            _parallaxLoopY = Rmmz.DataMap.ParallaxLoopY;
-            _parallaxSx = Rmmz.DataMap.ParallaxSx;
-            _parallaxSy = Rmmz.DataMap.ParallaxSy;
+            _parallaxLoopX = Rmmz.dataMap.ParallaxLoopX;
+            _parallaxLoopY = Rmmz.dataMap.ParallaxLoopY;
+            _parallaxSx = Rmmz.dataMap.ParallaxSx;
+            _parallaxSy = Rmmz.dataMap.ParallaxSy;
             _parallaxX = 0;
             _parallaxY = 0;
         }
 
         public void SetupBattleback()
         {
-            if (Rmmz.DataMap.SpecifyBattleback)
+            if (Rmmz.dataMap.SpecifyBattleback)
             {
-                _battleback1Name = Rmmz.DataMap.Battleback1Name;
-                _battleback2Name = Rmmz.DataMap.Battleback2Name;
+                _battleback1Name = Rmmz.dataMap.Battleback1Name;
+                _battleback2Name = Rmmz.dataMap.Battleback2Name;
             }
             else
             {
@@ -264,23 +264,23 @@ namespace UniRmmz
 
         public int[] TilesetFlags() => Tileset()?.Flags ?? Array.Empty<int>();
         
-        public string DisplayName() => Rmmz.DataMap.DisplayName;
+        public string DisplayName() => Rmmz.dataMap.DisplayName;
 
-        public int Width() => Rmmz.DataMap.Width;
+        public int Width() => Rmmz.dataMap.Width;
 
-        public int Height() => Rmmz.DataMap.Height;
+        public int Height() => Rmmz.dataMap.Height;
 
-        public int[] Data() => Rmmz.DataMap.Data;
+        public int[] Data() => Rmmz.dataMap.Data;
 
-        public bool IsLoopHorizontal() => Rmmz.DataMap.ScrollType == 2 || Rmmz.DataMap.ScrollType == 3;
+        public bool IsLoopHorizontal() => Rmmz.dataMap.ScrollType == 2 || Rmmz.dataMap.ScrollType == 3;
 
-        public bool IsLoopVertical() => Rmmz.DataMap.ScrollType == 1 || Rmmz.DataMap.ScrollType == 3;
+        public bool IsLoopVertical() => Rmmz.dataMap.ScrollType == 1 || Rmmz.dataMap.ScrollType == 3;
 
-        public bool IsDashDisabled() => Rmmz.DataMap.DisableDashing;
+        public bool IsDashDisabled() => Rmmz.dataMap.DisableDashing;
 
-        public List<Encounter> EncounterList() => Rmmz.DataMap.EncounterList;
+        public List<Encounter> EncounterList() => Rmmz.dataMap.EncounterList;
 
-        public int EncounterStep() => Rmmz.DataMap.EncounterStep;
+        public int EncounterStep() => Rmmz.dataMap.EncounterStep;
 
         public bool IsOverworld() => Tileset()?.Mode == 0;
 
@@ -292,7 +292,7 @@ namespace UniRmmz
         {
             if (IsLoopHorizontal() && x < _displayX - (Width() - ScreenTileX()) / 2)
             {
-                return x - _displayX + Rmmz.DataMap.Width;
+                return x - _displayX + Rmmz.dataMap.Width;
             }
             else
             {
@@ -304,7 +304,7 @@ namespace UniRmmz
         {
             if (IsLoopVertical() && y < _displayY - (Height() - ScreenTileY()) / 2)
             {
-                return y - _displayY + Rmmz.DataMap.Height;
+                return y - _displayY + Rmmz.dataMap.Height;
             }
             else
             {
@@ -365,7 +365,7 @@ namespace UniRmmz
 
         public void Autoplay()
         {
-            if (Rmmz.DataMap.AutoplayBgm)
+            if (Rmmz.dataMap.AutoplayBgm)
             {
                 if (Rmmz.gamePlayer.IsInVehicle())
                 {
@@ -373,12 +373,12 @@ namespace UniRmmz
                 }
                 else
                 {
-                    Rmmz.AudioManager.PlayBgm(Rmmz.DataMap.Bgm);
+                    Rmmz.AudioManager.PlayBgm(Rmmz.dataMap.Bgm);
                 }
             }
-            if (Rmmz.DataMap.AutoplayBgs)
+            if (Rmmz.dataMap.AutoplayBgs)
             {
-                Rmmz.AudioManager.PlayBgs(Rmmz.DataMap.Bgs);
+                Rmmz.AudioManager.PlayBgs(Rmmz.dataMap.Bgs);
             }
         }
 
@@ -426,7 +426,7 @@ namespace UniRmmz
             if (IsLoopVertical())
             {
                 _displayY += distance;
-                _displayY %= Rmmz.DataMap.Height;
+                _displayY %= Rmmz.dataMap.Height;
                 if (_parallaxLoopY) { _parallaxY += distance; }
             }
             else if (Height() >= ScreenTileY())
@@ -441,8 +441,8 @@ namespace UniRmmz
         {
             if (IsLoopHorizontal())
             {
-                _displayX += Rmmz.DataMap.Width - distance;
-                _displayX %= Rmmz.DataMap.Width;
+                _displayX += Rmmz.dataMap.Width - distance;
+                _displayX %= Rmmz.dataMap.Width;
                 if (_parallaxLoopX) { _parallaxX -= distance; }
             }
             else if (Width() >= ScreenTileX())
@@ -458,7 +458,7 @@ namespace UniRmmz
             if (IsLoopHorizontal())
             {
                 _displayX += distance;
-                _displayX %= Rmmz.DataMap.Width;
+                _displayX %= Rmmz.dataMap.Width;
                 if (_parallaxLoopX) { _parallaxX += distance; }
             }
             else if (Width() >= ScreenTileX())
@@ -473,8 +473,8 @@ namespace UniRmmz
         {
             if (IsLoopVertical())
             {
-                _displayY += Rmmz.DataMap.Height - distance;
-                _displayY %= Rmmz.DataMap.Height;
+                _displayY += Rmmz.dataMap.Height - distance;
+                _displayY %= Rmmz.dataMap.Height;
                 if (_parallaxLoopY) { _parallaxY -= distance; }
             }
             else if (Height() >= ScreenTileY())
@@ -515,10 +515,10 @@ namespace UniRmmz
 
         public int TileId(int x, int y, int z)
         {
-            int width = Rmmz.DataMap.Width;
-            int height = Rmmz.DataMap.Height;
+            int width = Rmmz.dataMap.Width;
+            int height = Rmmz.dataMap.Height;
             int index = (z * height + y) * width + x;
-            return Rmmz.DataMap.Data.ElementAtOrDefault(index);
+            return Rmmz.dataMap.Data.ElementAtOrDefault(index);
         }
 
         public List<int> LayeredTiles(int x, int y)

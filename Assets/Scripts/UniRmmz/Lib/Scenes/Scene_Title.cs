@@ -56,10 +56,10 @@ namespace UniRmmz
         private void CreateBackground()
         {
             _backSprite1 = Sprite.Create("backSprite1");
-            _backSprite1.Bitmap = Rmmz.ImageManager.LoadTitle1(Rmmz.DataSystem.Title1Name);
+            _backSprite1.Bitmap = Rmmz.ImageManager.LoadTitle1(Rmmz.dataSystem.Title1Name);
             
             _backSprite2 = Sprite.Create("backSprite2");
-            _backSprite2.Bitmap = Rmmz.ImageManager.LoadTitle2(Rmmz.DataSystem.Title2Name);
+            _backSprite2.Bitmap = Rmmz.ImageManager.LoadTitle2(Rmmz.dataSystem.Title2Name);
 
             this.AddChild(_backSprite1);
             this.AddChild(_backSprite2);
@@ -70,7 +70,7 @@ namespace UniRmmz
             _gameTitleSprite = Sprite.Create("gameTitleSprite");
             _gameTitleSprite.Bitmap = new Bitmap(Graphics.Width, Graphics.Height);
             this.AddChild(_gameTitleSprite);
-            if (Rmmz.DataSystem.OptDrawTitle)
+            if (Rmmz.dataSystem.OptDrawTitle)
             {
                 DrawGameTitle();
             }
@@ -81,7 +81,7 @@ namespace UniRmmz
             int x = 20;
             int y = Graphics.Height / 4;
             int maxWidth = Graphics.Width - x * 2;
-            var text = Rmmz.DataSystem.GameTitle;
+            var text = Rmmz.dataSystem.GameTitle;
             var bitmap = _gameTitleSprite.Bitmap;
             
             bitmap.FontFace = Rmmz.gameSystem.MainFontFace();
@@ -101,7 +101,7 @@ namespace UniRmmz
 
         private void CreateCommandWindow()
         {
-            var background = Rmmz.DataSystem.TitleCommandWindow.Background;
+            var background = Rmmz.dataSystem.TitleCommandWindow.Background;
             var rect = CommandWindowRect();
             var window = Window_TitleCommand.Create(rect, "titleCommand");
             window.SetBackgroundType(background);
@@ -114,8 +114,8 @@ namespace UniRmmz
 
         private Rect CommandWindowRect()
         {
-            int offsetX = Rmmz.DataSystem.TitleCommandWindow.OffsetX;
-            int offsetY = Rmmz.DataSystem.TitleCommandWindow.OffsetY;
+            int offsetX = Rmmz.dataSystem.TitleCommandWindow.OffsetX;
+            int offsetY = Rmmz.dataSystem.TitleCommandWindow.OffsetY;
             int ww = MainCommandWidth();
             int wh = CalcWindowHeight(3, true);
             int wx = (UniRmmz.Graphics.BoxWidth - ww) / 2 + offsetX;
@@ -145,7 +145,7 @@ namespace UniRmmz
 
         private void PlayTitleMusic()
         {
-            Rmmz.AudioManager.PlayBgm(Rmmz.DataSystem.TitleBgm);
+            Rmmz.AudioManager.PlayBgm(Rmmz.dataSystem.TitleBgm);
             Rmmz.AudioManager.StopBgs();
             Rmmz.AudioManager.StopMe();
         }

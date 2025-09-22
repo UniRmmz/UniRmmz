@@ -29,7 +29,7 @@ namespace UniRmmz
         }
         
         [System.Serializable]
-        private class SaveContents
+        protected class SaveContents
         {
             public Game_System system;
             public Game_Screen screen;
@@ -43,15 +43,15 @@ namespace UniRmmz
             public Game_Player player;
         }
 
-        private List<GlobalInfoElement> _globalInfo;
-        private SynchronizationContext _mainThreadContext;
-        private Dictionary<Type, (Func<object> getter, Action<object> setter, string src)> _databaseFiles = null;
-        private (Type, (Func<object> getter, Action<object> setter, string src)) GetEntry<T>(Func<T> getter, Action<T> setter, string filename)
+        protected List<GlobalInfoElement> _globalInfo;
+        protected SynchronizationContext _mainThreadContext;
+        protected Dictionary<Type, (Func<object> getter, Action<object> setter, string src)> _databaseFiles = null;
+        protected (Type, (Func<object> getter, Action<object> setter, string src)) GetEntry<T>(Func<T> getter, Action<T> setter, string filename)
         {
             return new (typeof(T), (() => getter(), o => setter((T)o), filename));
         }
         
-        DataManager()
+        protected DataManager()
         {
             _databaseFiles = new[]
             {
@@ -67,20 +67,20 @@ namespace UniRmmz
                 GetEntry( () => Rmmz.dataAnimations, o => Rmmz.dataAnimations = o, "Animations.json"),
                 GetEntry( () => Rmmz.dataTilesets, o => Rmmz.dataTilesets = o, "Tilesets.json"),
                 GetEntry( () => Rmmz.dataCommonEvents, o => Rmmz.dataCommonEvents = o, "CommonEvents.json"),
-                GetEntry( () => Rmmz.DataSystem, o => Rmmz.DataSystem = o, "System.json"),
+                GetEntry( () => Rmmz.dataSystem, o => Rmmz.dataSystem = o, "System.json"),
                 GetEntry( () => Rmmz.dataMapInfos, o => Rmmz.dataMapInfos = o, "MapInfos.json"),
             }.ToDictionary(pair => pair.Item1, pair => pair.Item2);
             _mainThreadContext = SynchronizationContext.Current;
         }
 
-        public void LoadGlobalInfo()
+        public virtual void LoadGlobalInfo()
         {
             Rmmz.StorageManager.LoadObject<List<GlobalInfoElement>>("global", 
                 (globalInfo) => { _globalInfo = globalInfo; RemoveInvalidGlobalInfo(); },
                 () => { _globalInfo = new ();;});
         }
 
-        private void RemoveInvalidGlobalInfo()
+        protected virtual void RemoveInvalidGlobalInfo()
         {
             for (int savefileId = 0; savefileId < _globalInfo.Count; ++savefileId) 
             {
@@ -91,12 +91,12 @@ namespace UniRmmz
             }
         }
 
-        public void SaveGlobalInfo(Action resolve = null, Action reject = null)
+        public virtual void SaveGlobalInfo(Action resolve = null, Action reject = null)
         {
             Rmmz.StorageManager.SaveObject("global", _globalInfo, resolve, reject);
         }
 
-        public bool IsGlobalInfoLoaded()
+        public virtual bool IsGlobalInfoLoaded()
         {
             return _globalInfo != null;
         }
@@ -104,7 +104,7 @@ namespace UniRmmz
         /// <summary>
         /// Loads all database files into memory.
         /// </summary>
-        public void LoadDatabase()
+        public virtual void LoadDatabase()
         {
             bool test = IsBattleTest() || IsEventTest();
             string prefix = test ? "Test_" : "";
@@ -133,7 +133,7 @@ namespace UniRmmz
         /// <summary>
         /// Loads a specific data file. (wrapper)
         /// </summary>
-        private void LoadDataFile<T>() where T : class
+        protected virtual void LoadDataFile<T>() where T : class
         {
             var data = _databaseFiles[typeof(T)];
             data.setter(null);
@@ -145,7 +145,7 @@ namespace UniRmmz
         /// </summary>
         /// <param name="onLoaded">result callback</param>
         /// <param name="fileName">The file name of the data file.</param>
-        private void LoadDataFile<T>(Action<object> onLoaded, string fileName) where T : class
+        protected virtual void LoadDataFile<T>(Action<object> onLoaded, string fileName) where T : class
         {
             Debug.Log($"loading {fileName}");
             System.Collections.IEnumerator LoadCoroutine(Action<object> onLoaded, string fileName)
@@ -175,7 +175,7 @@ namespace UniRmmz
         /// Checks if all database files are loaded.
         /// </summary>
         /// <returns>Returns true if all database files are loaded, false otherwise.</returns>
-        public bool IsDatabaseLoaded()
+        public virtual bool IsDatabaseLoaded()
         {
             foreach (var pair in _databaseFiles)
             {
@@ -187,13 +187,13 @@ namespace UniRmmz
             return true;
         }
 
-        public void LoadMapData(int mapId)
+        public virtual void LoadMapData(int mapId)
         {
             if (mapId > 0) 
             {
                 var filename = string.Format("Map{0:D3}.json", mapId);
-                Rmmz.DataMap = null;
-                LoadDataFile<DataMap>((o) => Rmmz.DataMap = (DataMap)OnLoad(o), filename);
+                Rmmz.dataMap = null;
+                LoadDataFile<DataMap>((o) => Rmmz.dataMap = (DataMap)OnLoad(o), filename);
             } 
             else 
             {
@@ -201,23 +201,23 @@ namespace UniRmmz
             }        
         }
         
-        public void MakeEmptyMap()
+        public virtual void MakeEmptyMap()
         {
-            Rmmz.DataMap = new DataMap();
-            Rmmz.DataMap.data = new int[0];
-            Rmmz.DataMap.events.Clear();
-            Rmmz.DataMap.width = 100;
-            Rmmz.DataMap.height = 100;
-            Rmmz.DataMap.scrollType = 3;
+            Rmmz.dataMap = new DataMap();
+            Rmmz.dataMap.data = new int[0];
+            Rmmz.dataMap.events.Clear();
+            Rmmz.dataMap.width = 100;
+            Rmmz.dataMap.height = 100;
+            Rmmz.dataMap.scrollType = 3;
         }
 
-        public bool IsMapLoaded()
+        public virtual bool IsMapLoaded()
         {
             CheckError();
-            return Rmmz.DataMap != null;        
+            return Rmmz.dataMap != null;        
         }
 
-        private object OnLoad(object obj)
+        protected virtual object OnLoad(object obj)
         {
             if (IsMapObject(obj))
             {
@@ -233,12 +233,12 @@ namespace UniRmmz
             return obj;
         }
 
-        private bool IsMapObject(object obj)
+        protected virtual bool IsMapObject(object obj)
         {
             return obj is DataMap;
         }
 
-        private void ExtractArrayMetadata(object obj)
+        protected virtual void ExtractArrayMetadata(object obj)
         {
             if (obj is object[] array)
             {
@@ -252,9 +252,9 @@ namespace UniRmmz
             }
         }
         
-        private readonly Regex RegExp = new Regex(@"<([^<>:]+)(:?)([^>]*)>", RegexOptions.Compiled);
+        protected readonly Regex RegExp = new Regex(@"<([^<>:]+)(:?)([^>]*)>", RegexOptions.Compiled);
         
-        private void ExtractMetadata(object obj)
+        protected virtual void ExtractMetadata(object obj)
         {
             if (obj is IMetadataContainer container)
             {
@@ -282,7 +282,7 @@ namespace UniRmmz
             }
         }
 
-        private void CheckError()
+        protected virtual void CheckError()
         {
             /*
             if (_errors.Length > 0)
@@ -296,42 +296,42 @@ namespace UniRmmz
             */
         }
 
-        public bool IsBattleTest()
+        public virtual bool IsBattleTest()
         {
             return Utils.IsOptionValid("btest");
         }
 
-        public bool IsEventTest()
+        public virtual bool IsEventTest()
         {
             return Utils.IsOptionValid("etest");
         }
         
-        public bool IsTitleSkip()
+        public virtual bool IsTitleSkip()
         {
             return Utils.IsOptionValid("tskip");
         }
 
-        public bool IsSkill(DataCommonItem item)
+        public virtual bool IsSkill(DataCommonItem item)
         {
             return item != null && Rmmz.dataSkills.Contains(item);
         }
 
-        public bool IsItem(DataCommonItem item)
+        public virtual bool IsItem(DataCommonItem item)
         {
             return item != null && Rmmz.dataItems.Contains(item);
         }
 
-        public bool IsWeapon(DataCommonItem item)
+        public virtual bool IsWeapon(DataCommonItem item)
         {
             return item != null && Rmmz.dataWeapons.Contains(item);
         }
 
-        public bool IsArmor(DataCommonItem item)
+        public virtual bool IsArmor(DataCommonItem item)
         {
             return item != null && Rmmz.dataArmors.Contains(item);
         }
         
-        private void CreateGameObjects()
+        protected virtual void CreateGameObjects()
         {
             Rmmz.gameTemp = Game_Temp.Create();
             Rmmz.gameSystem = Game_System.Create();
@@ -348,7 +348,7 @@ namespace UniRmmz
             Rmmz.gamePlayer = Game_Player.Create();
         }
 
-        public void SetupNewGame()
+        public virtual void SetupNewGame()
         {
             CreateGameObjects();
             SelectSavefileForNewGame();
@@ -357,12 +357,12 @@ namespace UniRmmz
             Graphics.FrameCount = 0;
         }
 
-        public void SetupBattleTest()
+        public virtual void SetupBattleTest()
         {
             throw new NotImplementedException();
         }
         
-        public void SetupEventTest()
+        public virtual void SetupEventTest()
         {
             throw new NotImplementedException();
         }
@@ -384,12 +384,12 @@ DataManager.setupEventTest = function() {
     $gamePlayer.setTransparent(false);
 };
 */
-        public bool IsAnySavefileExists()
+        public virtual bool IsAnySavefileExists()
         {
             return _globalInfo.Any(x => x != null);
         }
 
-        public int LatestSavefileId()
+        public virtual int LatestSavefileId()
         {
             var valid = _globalInfo.Skip(1).Where(x => x != null).ToList();
             if (valid.Count == 0)
@@ -402,7 +402,7 @@ DataManager.setupEventTest = function() {
             return index > 0 ? index : 0;
         }
 
-        public int EarliestSavefileId()
+        public virtual int EarliestSavefileId()
         {
             var valid = _globalInfo.Skip(1).Where(x => x != null).ToList();
             if (valid.Count == 0)
@@ -415,7 +415,7 @@ DataManager.setupEventTest = function() {
             return index > 0 ? index : 0;
         }
 
-        public int EmptySavefileId()
+        public virtual int EmptySavefileId()
         {
             if (_globalInfo.Count < MaxSavefiles())
             {
@@ -428,7 +428,7 @@ DataManager.setupEventTest = function() {
             }
         }
 
-        public void LoadAllSavefileImages()
+        public virtual void LoadAllSavefileImages()
         {
             foreach (var info in _globalInfo.Where(x => x != null))
             {
@@ -436,7 +436,7 @@ DataManager.setupEventTest = function() {
             }
         }
 
-        private void LoadSavefileImages(GlobalInfoElement info)
+        protected virtual void LoadSavefileImages(GlobalInfoElement info)
         {
             if (info.characters != null)
             {
@@ -455,14 +455,14 @@ DataManager.setupEventTest = function() {
             }
         }
 
-        public int MaxSavefiles() => 20;
+        public virtual int MaxSavefiles() => 20;
 
-        public GlobalInfoElement SavefileInfo(int savefileId)
+        public virtual GlobalInfoElement SavefileInfo(int savefileId)
         {
             return savefileId >= 0 && savefileId < _globalInfo.Count ? _globalInfo[savefileId] : null;
         }
         
-        public void SaveGame(int savefileId, Action resolve = null, Action reject = null)
+        public virtual void SaveGame(int savefileId, Action resolve = null, Action reject = null)
         {
             var contents = MakeSaveContents();
             var saveName = MakeSavename(savefileId);
@@ -473,7 +473,7 @@ DataManager.setupEventTest = function() {
             }, reject);
         }
 
-        public void LoadGame(int savefileId, Action resolve = null, Action reject = null)
+        public virtual void LoadGame(int savefileId, Action resolve = null, Action reject = null)
         {
             var saveName = MakeSavename(savefileId);
             Rmmz.StorageManager.LoadObject<SaveContents>(saveName, (contents) =>
@@ -485,18 +485,18 @@ DataManager.setupEventTest = function() {
             }, reject);
         }
         
-        public bool SavefileExists(int savefileId) 
+        public virtual bool SavefileExists(int savefileId) 
         {
             var saveName = MakeSavename(savefileId); 
             return Rmmz.StorageManager.Exists(saveName);
         }
 
-        public string MakeSavename(int savefileId)
+        public virtual string MakeSavename(int savefileId)
         {
             return $"file{savefileId}";
         }
 
-        public void SelectSavefileForNewGame()
+        public virtual void SelectSavefileForNewGame()
         {
             int id = EmptySavefileId();
             if (id > 0)
@@ -509,11 +509,11 @@ DataManager.setupEventTest = function() {
             }
         }
 
-        private GlobalInfoElement MakeSavefileInfo()
+        protected virtual GlobalInfoElement MakeSavefileInfo()
         {
             return new GlobalInfoElement
             {
-                title = Rmmz.DataSystem.GameTitle,
+                title = Rmmz.dataSystem.GameTitle,
                 characters = Rmmz.gameParty.CharactersForSavefile().ToList(),
                 faces = Rmmz.gameParty.FacesForSavefile().ToList(),
                 playtime = Rmmz.gameSystem.PlaytimeText(),
@@ -521,7 +521,7 @@ DataManager.setupEventTest = function() {
             };
         }
 
-        private SaveContents MakeSaveContents()
+        protected virtual SaveContents MakeSaveContents()
         {
             return new SaveContents
             {
@@ -538,7 +538,7 @@ DataManager.setupEventTest = function() {
             };
         }
 
-        private void ExtractSaveContents(SaveContents contents)
+        protected virtual void ExtractSaveContents(SaveContents contents)
         {
             Rmmz.gameSystem = contents.system;
             Rmmz.gameScreen = contents.screen;
@@ -552,7 +552,7 @@ DataManager.setupEventTest = function() {
             Rmmz.gamePlayer = contents.player;
         }
 
-        public void CorrectDataErrors()
+        public virtual void CorrectDataErrors()
         {
             Rmmz.gameParty.RemoveInvalidMembers();
         }

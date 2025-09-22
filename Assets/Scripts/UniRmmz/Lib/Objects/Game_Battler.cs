@@ -739,7 +739,7 @@ namespace UniRmmz
 
         protected virtual int MaxSlipDamage()
         {
-            return Rmmz.DataSystem.OptSlipDeath ? Hp : Mathf.Max(Hp - 1, 0);
+            return Rmmz.dataSystem.OptSlipDeath ? Hp : Mathf.Max(Hp - 1, 0);
         }
 
         public virtual void RegenerateMp()

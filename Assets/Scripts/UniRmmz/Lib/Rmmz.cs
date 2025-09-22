@@ -30,9 +30,9 @@ namespace UniRmmz
         public static DataAnimation[] dataAnimations;
         public static DataTileset[] dataTilesets;
         public static DataCommonEvent[] dataCommonEvents;
-        public static DataSystem DataSystem;
+        public static DataSystem dataSystem;
         public static DataMapInfo[] dataMapInfos;
-        public static DataMap DataMap;
+        public static DataMap dataMap;
 
         public static Game_Temp gameTemp;
         public static Game_System gameSystem;
@@ -94,9 +94,9 @@ namespace UniRmmz
             Rmmz.dataAnimations = null;
             Rmmz.dataTilesets = null;
             Rmmz.dataCommonEvents = null;
-            Rmmz.DataSystem = null;
+            Rmmz.dataSystem = null;
             Rmmz.dataMapInfos = null;
-            Rmmz.DataMap = null;
+            Rmmz.dataMap = null;
 
             Rmmz.gameTemp = null;
             Rmmz.gameSystem = null;

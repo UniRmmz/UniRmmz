@@ -26,7 +26,7 @@ namespace UniRmmz
 
         public void SetValue(int variableId, int value)
         {
-            if (variableId > 0 && variableId < Rmmz.DataSystem.Variables.Length)
+            if (variableId > 0 && variableId < Rmmz.dataSystem.Variables.Length)
             {
                 _data.SetWithExpansion(variableId, value);
                 OnChange();
