@@ -9,9 +9,9 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_ChoiceList : Window_Command
     {
-        private Window_Message _messageWindow;
-        private int _background = 0;
-        private Sprite_Button _cancelButton;
+        protected Window_Message _messageWindow;
+        protected int _background = 0;
+        protected Sprite_Button _cancelButton;
 
         public override void Initialize(Rect _)
         {
@@ -23,12 +23,12 @@ namespace UniRmmz
             _canRepeat = false;
         }
 
-        public void SetMessageWindow(Window_Message messageWindow)
+        public virtual void SetMessageWindow(Window_Message messageWindow)
         {
             _messageWindow = messageWindow;
         }
 
-        private void CreateCancelButton()
+        protected virtual void CreateCancelButton()
         {
             if (Rmmz.ConfigManager.TouchUI)
             {
@@ -39,7 +39,7 @@ namespace UniRmmz
             }
         }
 
-        public void StartRmmz()
+        public virtual void StartRmmz()
         {
             UpdatePlacement();
             UpdateBackground();
@@ -58,7 +58,7 @@ namespace UniRmmz
             UpdateCancelButton();
         }
 
-        private void UpdateCancelButton()
+        protected virtual void UpdateCancelButton()
         {
             if (_cancelButton != null)
             {
@@ -66,12 +66,12 @@ namespace UniRmmz
             }
         }
 
-        private void SelectDefault()
+        protected virtual void SelectDefault()
         {
             Select(Rmmz.gameMessage.ChoiceDefaultType());
         }
 
-        private void UpdatePlacement()
+        protected virtual void UpdatePlacement()
         {
             X = WindowX();
             Y = WindowY();
@@ -79,13 +79,13 @@ namespace UniRmmz
             Height = WindowHeight();
         }
 
-        private void UpdateBackground()
+        protected virtual void UpdateBackground()
         {
             _background = Rmmz.gameMessage.ChoiceBackground();
             SetBackgroundType(_background);
         }
 
-        private void PlaceCancelButton()
+        protected virtual void PlaceCancelButton()
         {
             if (_cancelButton != null)
             {
@@ -106,7 +106,7 @@ namespace UniRmmz
             }
         }
 
-        private float WindowX()
+        protected virtual float WindowX()
         {
             int positionType = Rmmz.gameMessage.ChoicePositionType();
             
@@ -124,7 +124,7 @@ namespace UniRmmz
             }
         }
 
-        private float WindowY()
+        protected virtual float WindowY()
         {
             float messageY = _messageWindow.Y;
             
@@ -138,24 +138,24 @@ namespace UniRmmz
             }
         }
 
-        private float WindowWidth()
+        protected virtual float WindowWidth()
         {
             float width = MaxChoiceWidth() + ColSpacing() + Padding * 2;
             return Mathf.Min(width, Graphics.BoxWidth);
         }
 
-        private float WindowHeight()
+        protected virtual float WindowHeight()
         {
             return FittingHeight(NumVisibleRows());
         }
 
-        private int NumVisibleRows()
+        protected virtual int NumVisibleRows()
         {
             List<string> choices = Rmmz.gameMessage.Choices();
             return Math.Min(choices.Count, MaxLines());
         }
 
-        private int MaxLines()
+        protected virtual int MaxLines()
         {
             Window_Message messageWindow = _messageWindow;
             float messageY = messageWindow != null ? messageWindow.Y : 0;
@@ -172,7 +172,7 @@ namespace UniRmmz
             }
         }
 
-        private int MaxChoiceWidth()
+        protected virtual int MaxChoiceWidth()
         {
             int maxWidth = 96;
             List<string> choices = Rmmz.gameMessage.Choices();
@@ -211,7 +211,7 @@ namespace UniRmmz
             return Rmmz.gameMessage.ChoiceCancelType() != -1;
         }
 
-        public bool NeedsCancelButton()
+        public virtual bool NeedsCancelButton()
         {
             return Rmmz.gameMessage.ChoiceCancelType() == -2;
         }

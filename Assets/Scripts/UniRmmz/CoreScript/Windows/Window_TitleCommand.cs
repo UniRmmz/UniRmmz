@@ -7,7 +7,7 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_TitleCommand : Window_Command
     {
-        private static string _lastCommandSymbol = null;
+        protected static string _lastCommandSymbol = null;
 
         public static void InitCommandPosition()
         {
@@ -40,7 +40,7 @@ namespace UniRmmz
             base.ProcessOk();
         }
 
-        private void SelectLast()
+        protected virtual void SelectLast()
         {
             if (!string.IsNullOrEmpty(_lastCommandSymbol))
             {

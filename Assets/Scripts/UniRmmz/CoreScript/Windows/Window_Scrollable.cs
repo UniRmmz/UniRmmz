@@ -44,10 +44,10 @@ namespace UniRmmz
             _scrollLastCursorVisible = false;
         }
 
-        public float ScrollX() => _scrollX;
-        public float ScrollY() => _scrollY;
-        public float ScrollBaseX() => _scrollBaseX;
-        public float ScrollBaseY() => _scrollBaseY;
+        public virtual float ScrollX() => _scrollX;
+        public virtual float ScrollY() => _scrollY;
+        public virtual float ScrollBaseX() => _scrollBaseX;
+        public virtual float ScrollBaseY() => _scrollBaseY;
 
         public virtual void ScrollTo(float x, float y)
         {
@@ -61,19 +61,19 @@ namespace UniRmmz
             }
         }
 
-        public void ScrollBy(float dx, float dy)
+        public virtual void ScrollBy(float dx, float dy)
         {
             ScrollTo(_scrollX + dx, _scrollY + dy);
         }
 
-        public void SmoothScrollTo(float x, float y)
+        public virtual void SmoothScrollTo(float x, float y)
         {
             _scrollTargetX = Mathf.Clamp(x, 0, MaxScrollX());
             _scrollTargetY = Mathf.Clamp(y, 0, MaxScrollY());
             _scrollDuration = Input.KeyRepeatInterval;
         }
 
-        public void SmoothScrollBy(float dx, float dy)
+        public virtual void SmoothScrollBy(float dx, float dy)
         {
             if (_scrollDuration == 0)
             {
@@ -83,7 +83,7 @@ namespace UniRmmz
             SmoothScrollTo(_scrollTargetX + dx, _scrollTargetY + dy);
         }
 
-        public void SetScrollAccel(float x, float y)
+        public virtual void SetScrollAccel(float x, float y)
         {
             _scrollAccelX = x;
             _scrollAccelY = y;
@@ -97,8 +97,8 @@ namespace UniRmmz
         public virtual float ScrollBlockWidth() => ItemWidth();
         public virtual float ScrollBlockHeight() => ItemHeight();
 
-        public void SmoothScrollDown(int lines) => SmoothScrollBy(0, ItemHeight() * lines);
-        public void SmoothScrollUp(int lines) => SmoothScrollBy(0, -ItemHeight() * lines);
+        public virtual void SmoothScrollDown(int lines) => SmoothScrollBy(0, ItemHeight() * lines);
+        public virtual void SmoothScrollUp(int lines) => SmoothScrollBy(0, -ItemHeight() * lines);
 
         public override void UpdateRmmz()
         {

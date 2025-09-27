@@ -11,14 +11,14 @@ namespace UniRmmz
             AddVolumeOptions();
         }
 
-        private void AddGeneralOptions()
+        public virtual void AddGeneralOptions()
         {
             AddCommand(Rmmz.TextManager.AlwaysDash, "alwaysDash");
             AddCommand(Rmmz.TextManager.CommandRemember, "commandRemember");
             AddCommand(Rmmz.TextManager.TouchUI, "touchUI");
         }
 
-        private void AddVolumeOptions()
+        public virtual void AddVolumeOptions()
         {
             AddCommand(Rmmz.TextManager.BgmVolume, "bgmVolume");
             AddCommand(Rmmz.TextManager.BgsVolume, "bgsVolume");
@@ -40,9 +40,9 @@ namespace UniRmmz
             DrawText(status, (int)(rect.x + titleWidth), (int)rect.y, (int)statusWidth, Bitmap.TextAlign.Right);
         }
 
-        protected int StatusWidth() => 120;
+        protected virtual int StatusWidth() => 120;
 
-        protected string StatusText(int index)
+        protected virtual string StatusText(int index)
         {
             var symbol = CommandSymbol(index);
             if (IsVolumeSymbol(symbol))
@@ -55,11 +55,11 @@ namespace UniRmmz
             }
         }
 
-        private bool IsVolumeSymbol(string symbol) => symbol.Contains("Volume");
+        public virtual bool IsVolumeSymbol(string symbol) => symbol.Contains("Volume");
 
-        private string BooleanStatusText(bool value) => value ? "ON" : "OFF";
+        public virtual string BooleanStatusText(bool value) => value ? "ON" : "OFF";
 
-        private string VolumeStatusText(int value) => value + "%";
+        public virtual string VolumeStatusText(int value) => value + "%";
 
         protected override void ProcessOk()
         {
@@ -103,7 +103,7 @@ namespace UniRmmz
             }
         }
 
-        private void ChangeVolume(string symbol, bool forward, bool wrap)
+        public virtual void ChangeVolume(string symbol, bool forward, bool wrap)
         {
             var lastValue = GetConfigValueAsInt(symbol);
             var offset = VolumeOffset();
@@ -118,9 +118,9 @@ namespace UniRmmz
             }
         }
 
-        private int VolumeOffset() => 20;
+        public virtual int VolumeOffset() => 20;
 
-        private void ChangeValue(string symbol, int value)
+        public virtual void ChangeValue(string symbol, int value)
         {
             bool wasChanged = false;
             bool boolValue = value != 0;
@@ -198,7 +198,7 @@ namespace UniRmmz
             }
         }
 
-        private bool GetConfigValueAsBool(string symbol)
+        public virtual bool GetConfigValueAsBool(string symbol)
         {
             switch (symbol)
             {
@@ -213,7 +213,7 @@ namespace UniRmmz
             }
         }
 
-        private int GetConfigValueAsInt(string symbol)
+        public virtual int GetConfigValueAsInt(string symbol)
         {
             switch (symbol)
             {

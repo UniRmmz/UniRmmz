@@ -7,7 +7,7 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_MapName : Window_Base
     {
-        private int _showCount;
+        protected int _showCount;
 
         public override void Initialize(Rect rect)
         {
@@ -32,12 +32,12 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateFadeIn()
+        protected virtual void UpdateFadeIn()
         {
             ContentsOpacity += 16;
         }
 
-        private void UpdateFadeOut()
+        protected virtual void UpdateFadeOut()
         {
             ContentsOpacity -= 16;
         }

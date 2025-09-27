@@ -10,19 +10,19 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_ScrollText : Window_Base
     {
-        private int _maxBitmapHeight = 2048;
+        protected int _maxBitmapHeight = 2048;
 
-        private Rect _reservedRect;
-        private string _text = "";
-        private int _allTextHeight = 0;
-        private float _blockHeight = 0f;
-        private int _blockIndex = 0;
-        private float _scrollY = 0f;
+        protected Rect _reservedRect;
+        protected string _text = "";
+        protected int _allTextHeight = 0;
+        protected float _blockHeight = 0f;
+        protected int _blockIndex = 0;
+        protected float _scrollY = 0f;
 
-        private ScrollRect _scrollRect;
-        private RectTransform _contentTransform;
-        private Text _textComponent;
-        private ContentSizeFitter _contentSizeFitter;
+        protected ScrollRect _scrollRect;
+        protected RectTransform _contentTransform;
+        protected Text _textComponent;
+        protected ContentSizeFitter _contentSizeFitter;
 
         public override void Initialize(Rect rect)
         {
@@ -86,7 +86,7 @@ namespace UniRmmz
             DrawTextEx(_text, (int)rect.x, (int)y, (int)rect.width);
         }
 
-        private void UpdatePlacement()
+        protected virtual void UpdatePlacement()
         {
             var rect = _reservedRect;
             Move(rect.x, rect.y, rect.width, rect.height);
@@ -102,7 +102,7 @@ namespace UniRmmz
             return 0;
         }
 
-        private void UpdateMessage()
+        protected virtual void UpdateMessage()
         {
             _scrollY += ScrollSpeed();
             if (_scrollY >= _allTextHeight)
@@ -122,7 +122,7 @@ namespace UniRmmz
             }
         }
 
-        private float ScrollSpeed()
+        protected virtual float ScrollSpeed()
         {
             float speed = Rmmz.gameMessage.ScrollSpeed() / 2f;
             if (IsFastForward())
@@ -133,7 +133,7 @@ namespace UniRmmz
             return speed;
         }
 
-        private bool IsFastForward()
+        protected virtual bool IsFastForward()
         {
             if (Rmmz.gameMessage.ScrollNoFast())
             {
@@ -147,12 +147,12 @@ namespace UniRmmz
             );
         }
 
-        private float FastForwardRate()
+        protected virtual float FastForwardRate()
         {
             return 3;
         }
 
-        private void TerminateMessage()
+        protected virtual void TerminateMessage()
         {
             _text = null;
             Rmmz.gameMessage.Clear();

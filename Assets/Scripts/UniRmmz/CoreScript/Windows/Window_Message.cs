@@ -7,19 +7,19 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_Message : Window_Base
     {
-        private int _background;
-        private int _positionType;
-        private int _waitCount;
-        private Bitmap _faceBitmap;
-        private TextState _textState;
-        private Window_Gold _goldWindow;
-        private Window_NameBox _nameBoxWindow;
-        private Window_ChoiceList _choiceListWindow;
-        private Window_NumberInput _numberInputWindow;
-        private Window_EventItem _eventItemWindow;
-        private bool _showFast;
-        private bool _lineShowFast;
-        private bool _pauseSkip;
+        protected int _background;
+        protected int _positionType;
+        protected int _waitCount;
+        protected Bitmap _faceBitmap;
+        protected TextState _textState;
+        protected Window_Gold _goldWindow;
+        protected Window_NameBox _nameBoxWindow;
+        protected Window_ChoiceList _choiceListWindow;
+        protected Window_NumberInput _numberInputWindow;
+        protected Window_EventItem _eventItemWindow;
+        protected bool _showFast;
+        protected bool _lineShowFast;
+        protected bool _pauseSkip;
 
         public override void Initialize(Rect rect)
         {
@@ -43,32 +43,32 @@ namespace UniRmmz
             ClearFlags();
         }
 
-        public void SetGoldWindow(Window_Gold goldWindow)
+        public virtual void SetGoldWindow(Window_Gold goldWindow)
         {
             _goldWindow = goldWindow;
         }
 
-        public void SetNameBoxWindow(Window_NameBox nameBoxWindow)
+        public virtual void SetNameBoxWindow(Window_NameBox nameBoxWindow)
         {
             _nameBoxWindow = nameBoxWindow;
         }
         
-        public void SetChoiceListWindow(Window_ChoiceList choiceListWindow)
+        public virtual void SetChoiceListWindow(Window_ChoiceList choiceListWindow)
         {
             _choiceListWindow = choiceListWindow;
         }
 
-        public void SetNumberInputWindow(Window_NumberInput numberInputWindow)
+        public virtual void SetNumberInputWindow(Window_NumberInput numberInputWindow)
         {
             _numberInputWindow = numberInputWindow;
         }
 
-        public void SetEventItemWindow(Window_EventItem eventItemWindow)
+        public virtual void SetEventItemWindow(Window_EventItem eventItemWindow)
         {
             _eventItemWindow = eventItemWindow;
         }
 
-        public void ClearFlags()
+        public virtual void ClearFlags()
         {
             _showFast = false;
             _lineShowFast = false;
@@ -123,12 +123,12 @@ namespace UniRmmz
             _nameBoxWindow.Openness = this.Openness;
         }
 
-        public bool CanStart()
+        public virtual bool CanStart()
         {
             return Rmmz.gameMessage.HasText() && !Rmmz.gameMessage.ScrollMode();
         }
 
-        public void StartMessage()
+        public virtual void StartMessage()
         {
             string text = Rmmz.gameMessage.AllText();
             TextState textState = CreateTextState(text, 0, 0, 0);
@@ -167,7 +167,7 @@ namespace UniRmmz
             SetBackgroundType(_background);
         }
 
-        public void TerminateMessage()
+        public virtual void TerminateMessage()
         {
             Close();
             _goldWindow.Close();
@@ -230,7 +230,7 @@ namespace UniRmmz
             return false;
         }
 
-        public bool IsAnySubWindowActive()
+        public virtual bool IsAnySubWindowActive()
         {
             return (
                 _choiceListWindow.Active ||
@@ -488,13 +488,13 @@ namespace UniRmmz
             _waitCount = count;
         }
 
-        protected void StartPause()
+        protected virtual void StartPause()
         {
             StartWait(10);
             Pause = true;
         }
 
-        public bool IsWaiting()
+        public virtual bool IsWaiting()
         {
             return Pause || _waitCount > 0;
         }

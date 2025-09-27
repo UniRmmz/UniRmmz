@@ -8,7 +8,7 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_MenuCommand : Window_Command
     {
-        private static string _lastCommandSymbol = null;
+        protected static string _lastCommandSymbol = null;
         
         public override void Initialize(Rect rect)
         {

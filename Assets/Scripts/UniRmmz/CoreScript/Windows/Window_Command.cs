@@ -44,9 +44,9 @@ namespace UniRmmz
             _list.Add(new Command { Name = name, Symbol = symbol, Enabled = enabled, Ext = ext });
         }
 
-        public string CommandName(int index) => _list[index].Name;
-        public string CommandSymbol(int index) => _list[index].Symbol;
-        public bool IsCommandEnabled(int index) => _list[index].Enabled;
+        public virtual string CommandName(int index) => _list[index].Name;
+        public virtual string CommandSymbol(int index) => _list[index].Symbol;
+        public virtual bool IsCommandEnabled(int index) => _list[index].Enabled;
 
         protected Command CurrentData() => Index() >= 0 ? _list.ElementAtOrDefault(Index()) : null;
         
@@ -54,15 +54,15 @@ namespace UniRmmz
         {
             return CurrentData()?.Enabled ?? false;
         }
-        public string CurrentSymbol() => CurrentData()?.Symbol;
-        public object CurrentExt() => CurrentData()?.Ext;
+        public virtual string CurrentSymbol() => CurrentData()?.Symbol;
+        public virtual object CurrentExt() => CurrentData()?.Ext;
 
-        public int FindSymbol(string symbol)
+        public virtual int FindSymbol(string symbol)
         {
             return _list.FindIndex(cmd => cmd.Symbol == symbol);
         }
 
-        public void SelectSymbol(string symbol)
+        public virtual void SelectSymbol(string symbol)
         {
             int index = FindSymbol(symbol);
             if (index >= 0)
@@ -75,12 +75,12 @@ namespace UniRmmz
             }
         }
 
-        public int FindExt(object ext)
+        public virtual int FindExt(object ext)
         {
             return _list.FindIndex(cmd => Equals(cmd.Ext, ext));
         }
 
-        public void SelectExt(object ext)
+        public virtual void SelectExt(object ext)
         {
             int index = FindExt(ext);
             if (index >= 0)

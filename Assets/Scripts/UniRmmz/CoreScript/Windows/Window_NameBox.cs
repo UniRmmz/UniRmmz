@@ -8,8 +8,8 @@ namespace UniRmmz
     /// </summary>
     public partial class Window_NameBox : Window_Base
     {
-        private Window_Message _messageWindow;
-        private string _name = string.Empty;
+        protected Window_Message _messageWindow;
+        protected string _name = string.Empty;
 
         public override void Initialize(Rect _)
         {
