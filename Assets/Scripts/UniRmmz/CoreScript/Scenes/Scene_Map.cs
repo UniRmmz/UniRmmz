@@ -7,18 +7,18 @@ namespace UniRmmz
     /// </summary>
     public partial class Scene_Map : Scene_Message
     {
-        private int _waitCount;
-        private int _encounterEffectDuration;
-        private bool _mapLoaded;
-        private int _touchCount;
-        private bool _menuEnabled;
-        private bool _transfer;
-        private bool _lastMapWasNull;
-        private bool _menuCalling;
+        protected int _waitCount;
+        protected int _encounterEffectDuration;
+        protected bool _mapLoaded;
+        protected int _touchCount;
+        protected bool _menuEnabled;
+        protected bool _transfer;
+        protected bool _lastMapWasNull;
+        protected bool _menuCalling;
 
-        private Window_MapName _mapNameWindow;
-        private Sprite_Button _menuButton;
-        private Spriteset_Map _spriteset;
+        protected Window_MapName _mapNameWindow;
+        protected Sprite_Button _menuButton;
+        protected Spriteset_Map _spriteset;
 
         public override void Create()
         {
@@ -46,7 +46,7 @@ namespace UniRmmz
             return _mapLoaded && base.IsReady();
         }
 
-        private void OnMapLoaded()
+        protected virtual void OnMapLoaded()
         {
             if (_transfer)
             {
@@ -55,7 +55,7 @@ namespace UniRmmz
             CreateDisplayObjects();
         }
 
-        private void OnTransfer()
+        protected virtual void OnTransfer()
         {
             Rmmz.ImageManager.Clear();
             Rmmz.EffectManager.Clear();
@@ -78,7 +78,7 @@ namespace UniRmmz
             _menuCalling = false;
         }
 
-        private void OnTransferEnd()
+        protected virtual void OnTransferEnd()
         {
             _mapNameWindow.Open();
             Rmmz.gameMap.Autoplay();
@@ -88,7 +88,7 @@ namespace UniRmmz
             }
         }
 
-        private bool ShouldAutosave() => !_lastMapWasNull;
+        protected virtual bool ShouldAutosave() => !_lastMapWasNull;
 
         public override void UpdateRmmz()
         {
@@ -110,7 +110,7 @@ namespace UniRmmz
             UpdateWaitCount();
         }
 
-        private void UpdateMainMultiply()
+        protected virtual void UpdateMainMultiply()
         {
             if (IsFastForward())
             {
@@ -119,7 +119,7 @@ namespace UniRmmz
             UpdateMain();
         }
 
-        private void UpdateMain()
+        protected virtual void UpdateMain()
         {
             Rmmz.gameMap.Update(IsSceneActive());
             Rmmz.gamePlayer.Update(IsPlayerActive());
@@ -127,9 +127,9 @@ namespace UniRmmz
             Rmmz.gameScreen.Update();
         }
 
-        private bool IsPlayerActive() => IsSceneActive() && !IsFading();
+        protected virtual bool IsPlayerActive() => IsSceneActive() && !IsFading();
 
-        private bool IsFastForward()
+        protected virtual bool IsFastForward()
         {
             return Rmmz.gameMap.IsEventRunning() &&
                    !Rmmz.SceneManager.IsSceneChanging() && 
@@ -174,10 +174,10 @@ namespace UniRmmz
             Rmmz.gameScreen.ClearZoom();
         }
 
-        private bool NeedsFadeIn() => Rmmz.SceneManager.IsPreviousScene(typeof (Scene_Battle)) || Rmmz.SceneManager.IsPreviousScene(typeof (Scene_Load));
-        private bool NeedsSlowFadeOut() => Rmmz.SceneManager.IsNextScene(typeof (Scene_Title)) || Rmmz.SceneManager.IsNextScene(typeof (Scene_Gameover));
+        protected virtual bool NeedsFadeIn() => Rmmz.SceneManager.IsPreviousScene(typeof (Scene_Battle)) || Rmmz.SceneManager.IsPreviousScene(typeof (Scene_Load));
+        protected virtual bool NeedsSlowFadeOut() => Rmmz.SceneManager.IsNextScene(typeof (Scene_Title)) || Rmmz.SceneManager.IsNextScene(typeof (Scene_Gameover));
 
-        private bool UpdateWaitCount()
+        protected virtual bool UpdateWaitCount()
         {
             if (_waitCount > 0)
             {
@@ -187,7 +187,7 @@ namespace UniRmmz
             return false;
         }
 
-        private void UpdateDestination()
+        protected virtual void UpdateDestination()
         {
             if (IsMapTouchOk())
             {
@@ -200,7 +200,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateMenuButton()
+        protected virtual void UpdateMenuButton()
         {
             if (_menuButton != null)
             {
@@ -216,7 +216,7 @@ namespace UniRmmz
             }
         }
 
-        private void HideMenuButton()
+        protected virtual void HideMenuButton()
         {
             if (_menuButton != null)
             {
@@ -225,7 +225,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateMapNameWindow()
+        protected virtual void UpdateMapNameWindow()
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -233,10 +233,10 @@ namespace UniRmmz
             }
         }
 
-        private bool IsMenuEnabled() => Rmmz.gameSystem.IsMenuEnabled() && !Rmmz.gameMap.IsEventRunning();
-        private bool IsMapTouchOk() => IsSceneActive() && Rmmz.gamePlayer.CanMove();
+        protected virtual bool IsMenuEnabled() => Rmmz.gameSystem.IsMenuEnabled() && !Rmmz.gameMap.IsEventRunning();
+        protected virtual bool IsMapTouchOk() => IsSceneActive() && Rmmz.gamePlayer.CanMove();
 
-        private void ProcessMapTouch()
+        protected virtual void ProcessMapTouch()
         {
             if (TouchInput.IsTriggered() || _touchCount > 0)
             {
@@ -252,18 +252,18 @@ namespace UniRmmz
             }
         }
 
-        private bool IsAnyButtonPressed() => _menuButton?.IsPressed() ?? false;
+        protected virtual bool IsAnyButtonPressed() => _menuButton?.IsPressed() ?? false;
 
-        private void OnMapTouch()
+        protected virtual void OnMapTouch()
         {
             int x = Rmmz.gameMap.CanvasToMapX(TouchInput.X);
             int y = Rmmz.gameMap.CanvasToMapY(TouchInput.Y);
             Rmmz.gameTemp.SetDestination(x, y);
         }
 
-        private bool IsSceneChangeOk() => IsSceneActive() && !Rmmz.gameMessage.IsBusy();
+        protected virtual bool IsSceneChangeOk() => IsSceneActive() && !Rmmz.gameMessage.IsBusy();
 
-        private void UpdateScene()
+        protected virtual void UpdateScene()
         {
             CheckGameover();
             if (!Rmmz.SceneManager.IsSceneChanging())
@@ -284,7 +284,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateDisplayObjects()
+        protected virtual void CreateDisplayObjects()
         {
             CreateSpriteset();
             CreateWindowLayer();
@@ -292,7 +292,7 @@ namespace UniRmmz
             CreateButtons();
         }
 
-        private void CreateSpriteset()
+        protected virtual void CreateSpriteset()
         {
             _spriteset = Spriteset_Map.Create("spritesetMap");
             this.AddChild(_spriteset);
@@ -305,19 +305,19 @@ namespace UniRmmz
             base.CreateAllWindows();
         }
 
-        private void CreateMapNameWindow()
+        protected virtual void CreateMapNameWindow()
         {
             var rect = MapNameWindowRect();
             _mapNameWindow = Window_MapName.Create(rect, "mapName");
             AddWindow(_mapNameWindow);
         }
 
-        private Rect MapNameWindowRect()
+        protected virtual Rect MapNameWindowRect()
         {
             return new Rect(0, 0, 360, CalcWindowHeight(1, false));
         }
 
-        private void CreateButtons()
+        protected virtual void CreateButtons()
         {
             if (Rmmz.ConfigManager.TouchUI)
             {
@@ -325,7 +325,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateMenuButton()
+        protected virtual void CreateMenuButton()
         {
             _menuButton = Sprite_Button.Create("menu");
             _menuButton.Initialize(Input.ButtonTypes.Menu);
@@ -335,7 +335,7 @@ namespace UniRmmz
             AddWindow(_menuButton);
         }
 
-        private void UpdateTransferPlayer()
+        protected virtual void UpdateTransferPlayer()
         {
             if (Rmmz.gamePlayer.IsTransferring())
             {
@@ -343,7 +343,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateEncounter()
+        protected virtual void UpdateEncounter()
         {
             if (Rmmz.gamePlayer.ExecuteEncounter())
             {
@@ -351,7 +351,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateCallMenu()
+        protected virtual void UpdateCallMenu()
         {
             if (IsMenuEnabled())
             {
@@ -370,9 +370,9 @@ namespace UniRmmz
             }
         }
 
-        private bool IsMenuCalled() => Input.IsTriggered("menu") || TouchInput.IsCancelled();
+        protected virtual bool IsMenuCalled() => Input.IsTriggered("menu") || TouchInput.IsCancelled();
 
-        private void CallMenu()
+        protected virtual void CallMenu()
         {
             Rmmz.SoundManager.PlayOk();
             Scene_Menu.Push();
@@ -382,7 +382,7 @@ namespace UniRmmz
             _waitCount = 2;
         }
 
-        private void UpdateCallDebug()
+        protected virtual void UpdateCallDebug()
         {
             /*
             if (IsDebugCalled())
@@ -392,9 +392,9 @@ namespace UniRmmz
             */
         }
 
-        //private bool IsDebugCalled() => Input.IsTriggered("debug") && Rmmz.gameTemp.IsPlaytest();
+        //protected virtual bool IsDebugCalled() => Input.IsTriggered("debug") && Rmmz.gameTemp.IsPlaytest();
 
-        private void FadeInForTransfer()
+        protected virtual void FadeInForTransfer()
         {
             int fadeType = Rmmz.gamePlayer.FadeType();
             if (fadeType == 0 || fadeType == 1)
@@ -403,7 +403,7 @@ namespace UniRmmz
             }
         }
 
-        private void FadeOutForTransfer()
+        protected virtual void FadeOutForTransfer()
         {
             int fadeType = Rmmz.gamePlayer.FadeType();
             if (fadeType == 0 || fadeType == 1)
@@ -412,7 +412,7 @@ namespace UniRmmz
             }
         }
 
-        private void LaunchBattle()
+        protected virtual void LaunchBattle()
         {
             Rmmz.BattleManager.SaveBgmAndBgs();
             StopAudioOnBattleStart();
@@ -421,7 +421,7 @@ namespace UniRmmz
             _mapNameWindow.Hide();
         }
 
-        private void StopAudioOnBattleStart()
+        protected virtual void StopAudioOnBattleStart()
         {
             if (!Rmmz.AudioManager.IsCurrentBgm(Rmmz.gameSystem.BattleBgm()))
             {
@@ -432,13 +432,13 @@ namespace UniRmmz
             Rmmz.AudioManager.StopSe();
         }
 
-        private void StartEncounterEffect()
+        protected virtual void StartEncounterEffect()
         {
             _spriteset.HideCharacters();
             _encounterEffectDuration = EncounterEffectSpeed();
         }
 
-        private void UpdateEncounterEffect()
+        protected virtual void UpdateEncounterEffect()
         {
             if (_encounterEffectDuration > 0)
             {
@@ -479,13 +479,13 @@ namespace UniRmmz
             _windowLayer.Visible = true;
         }
 
-        private void StartFlashForEncounter(int duration)
+        protected virtual void StartFlashForEncounter(int duration)
         {
             var color = new Color32(255, 255, 255, 255);
             Rmmz.gameScreen.StartFlash(color, duration);
         }
 
-        private int EncounterEffectSpeed() => 60;
+        protected virtual int EncounterEffectSpeed() => 60;
     }
 
 }

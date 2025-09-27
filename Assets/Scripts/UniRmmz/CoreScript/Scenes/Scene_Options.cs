@@ -22,7 +22,7 @@ namespace UniRmmz
             Rmmz.ConfigManager.Save();
         }
 
-        private void CreateOptionsWindow()
+        protected virtual void CreateOptionsWindow()
         {
             Rect rect = OptionsWindowRect();
             var window = Window_Options.Create(rect, "options");
@@ -31,7 +31,7 @@ namespace UniRmmz
             AddWindow(_optionsWindow);
         }
 
-        private Rect OptionsWindowRect()
+        protected virtual  Rect OptionsWindowRect()
         {
             int n = Mathf.Min(MaxCommands(), MaxVisibleCommands());
             int ww = 400;
@@ -41,13 +41,13 @@ namespace UniRmmz
             return new Rect(wx, wy, ww, wh);
         }
 
-        private int MaxCommands()
+        protected virtual  int MaxCommands()
         {
             // Increase this value when adding option items.
             return 7;
         }
 
-        private int MaxVisibleCommands()
+        protected virtual  int MaxVisibleCommands()
         {
             return 12;
         }

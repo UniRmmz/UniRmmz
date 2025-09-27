@@ -6,10 +6,10 @@ namespace UniRmmz
 {
     public partial class Scene_Title : Scene_Base
     {
-        private Sprite _gameTitleSprite;
-        private Sprite _backSprite1;
-        private Sprite _backSprite2;
-        private Window_Base _commandWindow;
+        protected Sprite _gameTitleSprite;
+        protected Sprite _backSprite1;
+        protected Sprite _backSprite2;
+        protected Window_Base _commandWindow;
         
         public override void Create()
         {
@@ -53,7 +53,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateBackground()
+        protected virtual  void CreateBackground()
         {
             _backSprite1 = Sprite.Create("backSprite1");
             _backSprite1.Bitmap = Rmmz.ImageManager.LoadTitle1(Rmmz.dataSystem.Title1Name);
@@ -65,7 +65,7 @@ namespace UniRmmz
             this.AddChild(_backSprite2);
         }
         
-        private void CreateForeground()
+        protected virtual  void CreateForeground()
         {
             _gameTitleSprite = Sprite.Create("gameTitleSprite");
             _gameTitleSprite.Bitmap = new Bitmap(Graphics.Width, Graphics.Height);
@@ -76,7 +76,7 @@ namespace UniRmmz
             }
         }
 
-        private void DrawGameTitle()
+        protected virtual  void DrawGameTitle()
         {
             int x = 20;
             int y = Graphics.Height / 4;
@@ -91,7 +91,7 @@ namespace UniRmmz
             bitmap.DrawText(text, x, y, maxWidth, 48, Bitmap.TextAlign.Center);
         }
         
-        private void AdjustBackgrond()
+        protected virtual  void AdjustBackgrond()
         {
             ScaleSprite(_backSprite1);
             ScaleSprite(_backSprite2);
@@ -99,7 +99,7 @@ namespace UniRmmz
             CenterSprite(_backSprite2);
         }
 
-        private void CreateCommandWindow()
+        protected virtual  void CreateCommandWindow()
         {
             var background = Rmmz.dataSystem.TitleCommandWindow.Background;
             var rect = CommandWindowRect();
@@ -112,7 +112,7 @@ namespace UniRmmz
             AddWindow(_commandWindow);
         }
 
-        private Rect CommandWindowRect()
+        protected virtual  Rect CommandWindowRect()
         {
             int offsetX = Rmmz.dataSystem.TitleCommandWindow.OffsetX;
             int offsetY = Rmmz.dataSystem.TitleCommandWindow.OffsetY;
@@ -123,7 +123,7 @@ namespace UniRmmz
             return new Rect(wx, wy, ww, wh);
         }
 
-        private void CommandNewGame()
+        protected virtual  void CommandNewGame()
         {
             Rmmz.DataManager.SetupNewGame();
             _commandWindow.Close();
@@ -131,19 +131,19 @@ namespace UniRmmz
             Scene_Map.Goto();
         }
 
-        private void CommandContinue()
+        protected virtual  void CommandContinue()
         {
             _commandWindow.Close();
             Scene_Load.Push();
         }
 
-        private void CommandOptions()
+        protected virtual  void CommandOptions()
         {
             _commandWindow.Close();
             Scene_Optiions.Push();
         }
 
-        private void PlayTitleMusic()
+        protected virtual  void PlayTitleMusic()
         {
             Rmmz.AudioManager.PlayBgm(Rmmz.dataSystem.TitleBgm);
             Rmmz.AudioManager.StopBgs();

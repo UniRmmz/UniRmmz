@@ -5,7 +5,7 @@ namespace UniRmmz
 {
     public partial class Scene_Boot : Scene_Base
     {
-        public bool _databaseLoaded = false;
+        protected bool _databaseLoaded = false;
 
         public override void Initialize()
         {
@@ -37,7 +37,7 @@ namespace UniRmmz
             return base.IsReady() && IsPlayerDataLoaded();
         }
 
-        private void OnDatabaseLoaded()
+        protected virtual void OnDatabaseLoaded()
         {
             SetEncryptionInfo();
             LoadSystemImages();
@@ -45,7 +45,7 @@ namespace UniRmmz
             LoadGameFonts();
         }
 
-        private void SetEncryptionInfo()
+        protected virtual  void SetEncryptionInfo()
         {
             bool hasImages = Rmmz.dataSystem.HasEncryptedImages;
             bool hasAudio = Rmmz.dataSystem.HasEncryptedAudio;
@@ -53,27 +53,27 @@ namespace UniRmmz
             Utils.SetEncryptionInfo(hasImages, hasAudio, key);
         }
 
-        private void LoadSystemImages()
+        protected virtual  void LoadSystemImages()
         {
             Rmmz.ColorManager.LoadWindowskin();
             Rmmz.ImageManager.LoadSystem("Window");
             Rmmz.ImageManager.LoadSystem("IconSet");
         }
 
-        private void LoadPlayerData()
+        protected virtual  void LoadPlayerData()
         {
             Rmmz.DataManager.LoadGlobalInfo();
             Rmmz.ConfigManager.Load();
         }
 
-        private void LoadGameFonts()
+        protected virtual  void LoadGameFonts()
         {
             var advanced = Rmmz.dataSystem.Advanced;
             Rmmz.FontManager.Load("rmmz-mainfont", advanced.MainFontFilename);
             Rmmz.FontManager.Load("rmmz-numberfont", advanced.NumberFontFilename);
         }
 
-        private bool IsPlayerDataLoaded()
+        protected virtual  bool IsPlayerDataLoaded()
         {
             return Rmmz.DataManager.IsGlobalInfoLoaded() && Rmmz.ConfigManager.IsLoaded();
         }
@@ -107,7 +107,7 @@ namespace UniRmmz
             UpdateDocumentTitle();
         }
 
-        private void StartNormalGame()
+        protected virtual  void StartNormalGame()
         {
             CheckPlayerLocation();
             Rmmz.DataManager.SetupNewGame();
@@ -115,7 +115,7 @@ namespace UniRmmz
             Window_TitleCommand.InitCommandPosition();
         }
 
-        private void ResizeScreen()
+        protected virtual  void ResizeScreen()
         {
             int screenWidth = Rmmz.dataSystem.Advanced.ScreenWidth;
             int screenHeight = Rmmz.dataSystem.Advanced.ScreenHeight;
@@ -125,7 +125,7 @@ namespace UniRmmz
             AdjustWindow();
         }
 
-        private void AdjustBoxSize()
+        protected virtual  void AdjustBoxSize()
         {
             int uiAreaWidth = Rmmz.dataSystem.Advanced.UiAreaWidth;
             int uiAreaHeight = Rmmz.dataSystem.Advanced.UiAreaHeight;
@@ -134,7 +134,7 @@ namespace UniRmmz
             Graphics.BoxHeight = uiAreaHeight - boxMargin * 2;
         }
 
-        private void AdjustWindow()
+        protected virtual  void AdjustWindow()
         {
             /* TODO
             float scale = ScreenScale();
@@ -145,7 +145,7 @@ namespace UniRmmz
             */
         }
 
-        private float ScreenScale()
+        protected virtual  float ScreenScale()
         {
             if (Rmmz.dataSystem.Advanced.ScreenScale > 0)
             {
@@ -157,12 +157,12 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateDocumentTitle()
+        protected virtual  void UpdateDocumentTitle()
         {
             // UnityではPlayerSettingsで指定したものが反映される
         }
 
-        private void CheckPlayerLocation()
+        protected virtual  void CheckPlayerLocation()
         {
             if (Rmmz.dataSystem.StartMapId == 0) 
             {

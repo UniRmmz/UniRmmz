@@ -7,13 +7,13 @@ namespace UniRmmz
 {
     public abstract partial class Scene_Base : RmmzContainer
     {
-        private bool _started = false;
-        private bool _active = false;
-        private int _fadeSign = 0;
-        private int _fadeDuration = 0;
-        private int _fadeWhite = 0;
-        private float _fadeOpacity = 0;
-        private ColorFilter _colorFilter;
+        protected bool _started = false;
+        protected bool _active = false;
+        protected int _fadeSign = 0;
+        protected int _fadeDuration = 0;
+        protected int _fadeWhite = 0;
+        protected float _fadeOpacity = 0;
+        protected ColorFilter _colorFilter;
         protected WindowLayer _windowLayer;
 
         protected override void Awake()
@@ -106,7 +106,7 @@ namespace UniRmmz
             _windowLayer.AddChild(window);
         }
         
-        public void StartFadeIn(int duration, bool white)
+        public virtual void StartFadeIn(int duration, bool white)
         {
             _fadeSign = 1;
             _fadeDuration = duration > 0 ? duration : 30;
@@ -115,7 +115,7 @@ namespace UniRmmz
             UpdateColorFilter();
         }
 
-        public void StartFadeOut(int duration, bool white = false)
+        public virtual void StartFadeOut(int duration, bool white = false)
         {
             _fadeSign = -1;
             _fadeDuration = duration > 0 ? duration : 30;
@@ -124,20 +124,20 @@ namespace UniRmmz
             UpdateColorFilter();
         }
 
-        public void CreateColorFilter()
+        public virtual void CreateColorFilter()
         {
             _colorFilter = new ColorFilter();
             AddFilter(_colorFilter);
         }
 
-        public void UpdateColorFilter()
+        public virtual void UpdateColorFilter()
         {
             int c = _fadeWhite == 1 ? 255 : 0;
             var blendColor = new Color32((byte)c, (byte)c, (byte)c, (byte)_fadeOpacity);
             _colorFilter.SetBlendColor(blendColor);
         }
 
-        public void UpdateFade()
+        public virtual void UpdateFade()
         {
             if (_fadeDuration > 0)
             {
@@ -154,33 +154,33 @@ namespace UniRmmz
             }
         }
 
-        public void PopScene()
+        public virtual void PopScene()
         {
             Rmmz.SceneManager.Pop();
         }
 
-        public void CheckGameover()
+        public virtual void CheckGameover()
         {
             // Placeholder for gameover logic
         }
 
-        public void FadeOutAll()
+        public virtual void FadeOutAll()
         {
             int time = SlowFadeSpeed();
             StartFadeOut(time, false);
         }
 
-        public int FadeSpeed()
+        public virtual int FadeSpeed()
         {
             return 24;
         }
 
-        public int SlowFadeSpeed()
+        public virtual int SlowFadeSpeed()
         {
             return FadeSpeed() * 2;
         }
 
-        public void ScaleSprite(Sprite sprite)
+        public virtual void ScaleSprite(Sprite sprite)
         {
             float ratioX = Graphics.Width / sprite.texture.width;
             float ratioY = Graphics.Height / sprite.texture.height;
@@ -188,7 +188,7 @@ namespace UniRmmz
             sprite.Scale = new Vector3(scale, scale, 1);
         }
 
-        public void CenterSprite(Sprite sprite)
+        public virtual void CenterSprite(Sprite sprite)
         {
             sprite.X = (float)Graphics.Width / 2;
             sprite.Y = (float)Graphics.Height / 2;
@@ -230,7 +230,7 @@ namespace UniRmmz
             return ButtonAreaTop() + offsetY;
         }
 
-        public int CalcWindowHeight(int numLines, bool selectable)
+        public virtual int CalcWindowHeight(int numLines, bool selectable)
         {
             if (selectable) 
             {
@@ -242,7 +242,7 @@ namespace UniRmmz
             }
         }
 
-        public void RequestAutosave()
+        public virtual void RequestAutosave()
         {
             if (IsAutosaveEnabled())
             {
@@ -250,22 +250,22 @@ namespace UniRmmz
             }
         }
 
-        public bool IsAutosaveEnabled()
+        public virtual bool IsAutosaveEnabled()
         {
             return true;
         }
 
-        public void ExecuteAutosave()
+        public virtual void ExecuteAutosave()
         {
             Debug.Log("Autosave executed");
         }
 
-        public void OnAutosaveSuccess()
+        public virtual void OnAutosaveSuccess()
         {
             Debug.Log("Autosave successful");
         }
 
-        public void OnAutosaveFailure()
+        public virtual void OnAutosaveFailure()
         {
             Debug.Log("Autosave failed");
         }
