@@ -18,8 +18,15 @@ namespace UniRmmz
     /// </summary>
     public partial class PluginManager
     {
-        private readonly Dictionary<string, Dictionary<string, string>> _parameters = new (); 
-        private readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
+        public class PluginItem
+        {
+            public string Name { get; set; }
+            public Dictionary<string, string> RawParameter { get; set; }
+            public object ParsedParameter { get; set; }
+        }
+        
+        protected readonly Dictionary<string, PluginItem> _plugins = new (); 
+        protected readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
 
         public virtual void Setup(List<DataPlugin> plugins)
         {
@@ -27,45 +34,47 @@ namespace UniRmmz
             {
                 if (plugin.Status)
                 {
-                    SetParameters(plugin.Name, plugin.Parameters);
+                    RegisterPlugin(plugin.Name, plugin.Parameters);
                 }
             }
         }
 
-        public  Dictionary<string, string> Parameters(string name)
+        public virtual Dictionary<string, string> Parameters(string name)
         {
             var key = name.ToLowerInvariant();
-            return _parameters.ContainsKey(key) ? _parameters[key] : new Dictionary<string, string>();
+            return _plugins.GetValueOrDefault(key)?.RawParameter;
         }
         
-        public T Parameters<T>(string name) where T : class
+        public virtual T Parameters<T>(string name) where T : class
         {
-            var pluginKey = name.ToLowerInvariant();
-            if (_parameters.TryGetValue(pluginKey, out var param))
+            var key = name.ToLowerInvariant();
+            var plugin = _plugins.GetValueOrDefault(key);
+            if (plugin != null)
             {
-                var sb = new StringBuilder();
-                sb.AppendLine("{");
-                foreach ((var key, var value) in param)
+                if (plugin.ParsedParameter == null)
                 {
-                    var tmp = Regex.Unescape(value);
-                    tmp = tmp.Replace(@"""{", "{").Replace(@"""[", "[").Replace(@"}""", "}").Replace(@"]""", "]");
-                    sb.AppendLine($"{key} : {tmp},");
+                    var json = ConvertToJson(plugin.RawParameter);
+                    plugin.ParsedParameter = JsonEx.Parse<T>(json);    
                 }
-                sb.AppendLine("}");
-                var json = sb.ToString();
-                return JsonEx.Parse<T>(json);
+
+                return plugin.ParsedParameter as T;
             }
             return null;
         }
 
-        public void SetParameters(string name, Dictionary<string, string> parameters)
+        protected virtual void RegisterPlugin(string name, Dictionary<string, string> parameters)
         {
             var key = name.ToLowerInvariant();
-            _parameters[key] = parameters ?? new Dictionary<string, string>();
+            var plugin = new PluginItem()
+            {
+                Name = name,
+                RawParameter = new Dictionary<string, string>(),
+                ParsedParameter = null
+            };
+            _plugins[key] = plugin;
         }
 
-        public void RegisterCommand(string pluginName, string commandName, 
-            Action<Game_Interpreter, JObject> func)
+        public virtual void RegisterCommand(string pluginName, string commandName, Action<Game_Interpreter, JObject> func)
         {
             var key = $"{pluginName}:{commandName}";
             _commands[key] = func;
@@ -73,7 +82,7 @@ namespace UniRmmz
             Debug.Log($"Registered plugin command: {key}");
         }
 
-        public void CallCommand(Game_Interpreter self, string pluginName, string commandName, 
+        public virtual void CallCommand(Game_Interpreter self, string pluginName, string commandName, 
             JObject args)
         {
             var key = $"{pluginName}:{commandName}";
@@ -94,6 +103,22 @@ namespace UniRmmz
             {
                 Debug.LogWarning($"Plugin command not found: {key}");
             }
+        }
+        
+        #region UniRmz
+
+        private static string ConvertToJson(Dictionary<string, string> rawParameter)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("{");
+            foreach ((var key, var value) in rawParameter)
+            {
+                var tmp = Regex.Unescape(value);
+                tmp = tmp.Replace(@"""{", "{").Replace(@"""[", "[").Replace(@"}""", "}").Replace(@"]""", "]");
+                sb.AppendLine($"{key} : {tmp},");
+            }
+            sb.AppendLine("}");
+            return sb.ToString();
         }
         
         public static void LoadConfig(Action<DataPlugin[]> onLoaded) 
@@ -123,6 +148,8 @@ namespace UniRmmz
 
             RmmzRoot.RunCoroutine(LoadCoroutine(onLoaded, fileName));
         }
+        
+        #endregion // UniRmmz
 
     }
 }
