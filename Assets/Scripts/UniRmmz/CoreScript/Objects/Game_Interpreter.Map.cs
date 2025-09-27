@@ -6,7 +6,7 @@ namespace UniRmmz
    public partial class Game_Interpreter
    {
        // マップ名表示の変更
-       public virtual bool Command281(object[] parameters)
+       protected virtual bool Command281(object[] parameters)
        {
            if (Convert.ToInt32(parameters[0]) == 0)
            {
@@ -20,7 +20,7 @@ namespace UniRmmz
        }
 
        // タイルセットの変更
-       public virtual bool Command282(object[] parameters)
+       protected virtual bool Command282(object[] parameters)
        {
            int tilesetId = Convert.ToInt32(parameters[0]);
            var tileset = Rmmz.dataTilesets[tilesetId];
@@ -42,14 +42,14 @@ namespace UniRmmz
        }
 
        // 戦闘背景の変更
-       public virtual bool Command283(object[] parameters)
+       protected virtual bool Command283(object[] parameters)
        {
            Rmmz.gameMap.ChangeBattleback(Convert.ToString(parameters[0]), Convert.ToString(parameters[1]));
            return true;
        }
 
        // 遠景の変更
-       public virtual bool Command284(object[] parameters)
+       protected virtual bool Command284(object[] parameters)
        {
            Rmmz.gameMap.ChangeParallax(
                Convert.ToString(parameters[0]),
@@ -62,7 +62,7 @@ namespace UniRmmz
        }
 
        // 指定位置の情報取得
-       public virtual bool Command285(object[] parameters)
+       protected virtual bool Command285(object[] parameters)
        {
            int x, y, value;
            int locationType = Convert.ToInt32(parameters[2]);

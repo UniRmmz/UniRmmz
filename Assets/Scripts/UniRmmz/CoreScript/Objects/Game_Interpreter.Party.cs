@@ -5,7 +5,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // 所持金の増減
-        private bool Command125(object[] parameters)
+        protected virtual bool Command125(object[] parameters)
         {
             int operation = Convert.ToInt32(parameters[0]);
             int operandType = Convert.ToInt32(parameters[1]);
@@ -16,7 +16,7 @@ namespace UniRmmz
         }
         
         // アイテムの増減
-        private bool Command126(object[] parameters)
+        protected virtual bool Command126(object[] parameters)
         {
             int itemId = Convert.ToInt32(parameters[0]);
             int operation = Convert.ToInt32(parameters[1]);
@@ -28,7 +28,7 @@ namespace UniRmmz
         }
         
         // 武器の増減
-        private bool Command127(object[] parameters)
+        protected virtual bool Command127(object[] parameters)
         {
             int weaponId = Convert.ToInt32(parameters[0]);
             int operation = Convert.ToInt32(parameters[1]);
@@ -41,7 +41,7 @@ namespace UniRmmz
         }
         
         // 防具の増減
-        private bool Command128(object[] parameters)
+        protected virtual bool Command128(object[] parameters)
         {
             int armorId = Convert.ToInt32(parameters[0]);
             int operation = Convert.ToInt32(parameters[1]);
@@ -54,7 +54,7 @@ namespace UniRmmz
         }
         
         // メンバーの入れ替え
-        public bool Command129(object[] parameters)
+        protected virtual bool Command129(object[] parameters)
         {
             int actorId = Convert.ToInt32(parameters[0]);
             var actor = Rmmz.gameActors.Actor(actorId);

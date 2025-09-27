@@ -7,7 +7,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // ピクチャの表示
-        private bool Command231(object[] parameters)
+        protected virtual bool Command231(object[] parameters)
         {
             var point = PicturePoint(parameters);
             Rmmz.gameScreen.ShowPicture(
@@ -18,7 +18,7 @@ namespace UniRmmz
         }
         
         // ピクチャの移動
-        private bool Command232(object[] parameters)
+        protected virtual bool Command232(object[] parameters)
         {
             var point = PicturePoint(parameters);
             Rmmz.gameScreen.MovePicture(
@@ -33,7 +33,7 @@ namespace UniRmmz
             return true;
         }
 
-        private Vector2 PicturePoint(object[] parameters)
+        protected virtual Vector2 PicturePoint(object[] parameters)
         {
             Vector2 point;
             if (Convert.ToInt32(parameters[3]) == 0)
@@ -53,14 +53,14 @@ namespace UniRmmz
         }
         
         // ピクチャの回転
-        private bool Command233(object[] parameters)
+        protected virtual bool Command233(object[] parameters)
         {
             Rmmz.gameScreen.RotatePicture(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]));
             return true;
         }
         
         // ピクチャの色調変更
-        private bool Command234(object[] parameters)
+        protected virtual bool Command234(object[] parameters)
         {
             Rmmz.gameScreen.TintPicture(Convert.ToInt32(parameters[0]), 
                 ConvertEx.ToVector4(parameters[1]),
@@ -73,7 +73,7 @@ namespace UniRmmz
         }
         
         // ピクチャの消去
-        private bool Command235(object[] parameters)
+        protected virtual bool Command235(object[] parameters)
         {
             Rmmz.gameScreen.ErasePicture(Convert.ToInt32(parameters[0]));
             return true;

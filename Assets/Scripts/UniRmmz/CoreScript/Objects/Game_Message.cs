@@ -10,37 +10,37 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Message
     {
-        private List<string> _texts;
-        private List<string> _choices;
-        private string _speakerName;
-        private string _faceName;
-        private int _faceIndex;
-        private int _background;
-        private int _positionType;
-        private int _choiceDefaultType;
-        private int _choiceCancelType;
-        private int _choiceBackground;
-        private int _choicePositionType;
-        private int _numInputVariableId;
-        private int _numInputMaxDigits;
-        private int _itemChoiceVariableId;
-        private int _itemChoiceItypeId;
-        private bool _scrollMode;
-        private int _scrollSpeed;
-        private bool _scrollNoFast;
-        private Action<int> _choiceCallback;
+        protected List<string> _texts;
+        protected List<string> _choices;
+        protected string _speakerName;
+        protected string _faceName;
+        protected int _faceIndex;
+        protected int _background;
+        protected int _positionType;
+        protected int _choiceDefaultType;
+        protected int _choiceCancelType;
+        protected int _choiceBackground;
+        protected int _choicePositionType;
+        protected int _numInputVariableId;
+        protected int _numInputMaxDigits;
+        protected int _itemChoiceVariableId;
+        protected int _itemChoiceItypeId;
+        protected bool _scrollMode;
+        protected int _scrollSpeed;
+        protected bool _scrollNoFast;
+        protected Action<int> _choiceCallback;
 
         protected Game_Message()
         {
             Initialize();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             Clear();
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             _texts = new List<string>();
             _choices = new List<string>();
@@ -63,159 +63,159 @@ namespace UniRmmz
             _choiceCallback = null;
         }
 
-        public List<string> Choices()
+        public virtual List<string> Choices()
         {
             return _choices;
         }
 
-        public string SpeakerName()
+        public virtual string SpeakerName()
         {
             return _speakerName;
         }
 
-        public string FaceName()
+        public virtual string FaceName()
         {
             return _faceName;
         }
 
-        public int FaceIndex()
+        public virtual int FaceIndex()
         {
             return _faceIndex;
         }
 
-        public int Background()
+        public virtual int Background()
         {
             return _background;
         }
 
-        public int PositionType()
+        public virtual int PositionType()
         {
             return _positionType;
         }
 
-        public int ChoiceDefaultType()
+        public virtual int ChoiceDefaultType()
         {
             return _choiceDefaultType;
         }
 
-        public int ChoiceCancelType()
+        public virtual int ChoiceCancelType()
         {
             return _choiceCancelType;
         }
 
-        public int ChoiceBackground()
+        public virtual int ChoiceBackground()
         {
             return _choiceBackground;
         }
 
-        public int ChoicePositionType()
+        public virtual int ChoicePositionType()
         {
             return _choicePositionType;
         }
 
-        public int NumInputVariableId()
+        public virtual int NumInputVariableId()
         {
             return _numInputVariableId;
         }
 
-        public int NumInputMaxDigits()
+        public virtual int NumInputMaxDigits()
         {
             return _numInputMaxDigits;
         }
 
-        public int ItemChoiceVariableId()
+        public virtual int ItemChoiceVariableId()
         {
             return _itemChoiceVariableId;
         }
 
-        public int ItemChoiceItypeId()
+        public virtual int ItemChoiceItypeId()
         {
             return _itemChoiceItypeId;
         }
 
-        public bool ScrollMode()
+        public virtual bool ScrollMode()
         {
             return _scrollMode;
         }
 
-        public int ScrollSpeed()
+        public virtual int ScrollSpeed()
         {
             return _scrollSpeed;
         }
 
-        public bool ScrollNoFast()
+        public virtual bool ScrollNoFast()
         {
             return _scrollNoFast;
         }
 
-        public void Add(string text)
+        public virtual void Add(string text)
         {
             _texts.Add(text);
         }
 
-        public void SetSpeakerName(string speakerName)
+        public virtual void SetSpeakerName(string speakerName)
         {
             _speakerName = !string.IsNullOrEmpty(speakerName) ? speakerName : "";
         }
 
-        public void SetFaceImage(string faceName, int faceIndex)
+        public virtual void SetFaceImage(string faceName, int faceIndex)
         {
             _faceName = faceName;
             _faceIndex = faceIndex;
         }
 
-        public void SetBackground(int background)
+        public virtual void SetBackground(int background)
         {
             _background = background;
         }
 
-        public void SetPositionType(int positionType)
+        public virtual void SetPositionType(int positionType)
         {
             _positionType = positionType;
         }
 
-        public void SetChoices(List<string> choices, int defaultType, int cancelType)
+        public virtual void SetChoices(List<string> choices, int defaultType, int cancelType)
         {
             _choices = choices;
             _choiceDefaultType = defaultType;
             _choiceCancelType = cancelType;
         }
 
-        public void SetChoiceBackground(int background)
+        public virtual void SetChoiceBackground(int background)
         {
             _choiceBackground = background;
         }
 
-        public void SetChoicePositionType(int positionType)
+        public virtual void SetChoicePositionType(int positionType)
         {
             _choicePositionType = positionType;
         }
 
-        public void SetNumberInput(int variableId, int maxDigits)
+        public virtual void SetNumberInput(int variableId, int maxDigits)
         {
             _numInputVariableId = variableId;
             _numInputMaxDigits = maxDigits;
         }
 
-        public void SetItemChoice(int variableId, int itemType)
+        public virtual void SetItemChoice(int variableId, int itemType)
         {
             _itemChoiceVariableId = variableId;
             _itemChoiceItypeId = itemType;
         }
 
-        public void SetScroll(int speed, bool noFast)
+        public virtual void SetScroll(int speed, bool noFast)
         {
             _scrollMode = true;
             _scrollSpeed = speed;
             _scrollNoFast = noFast;
         }
 
-        public void SetChoiceCallback(Action<int> callback)
+        public virtual void SetChoiceCallback(Action<int> callback)
         {
             _choiceCallback = callback;
         }
 
-        public void OnChoice(int n)
+        public virtual void OnChoice(int n)
         {
             if (_choiceCallback != null)
             {
@@ -224,32 +224,32 @@ namespace UniRmmz
             }
         }
 
-        public bool HasText()
+        public virtual bool HasText()
         {
             return _texts.Count > 0;
         }
 
-        public bool IsChoice()
+        public virtual bool IsChoice()
         {
             return _choices.Count > 0;
         }
 
-        public bool IsNumberInput()
+        public virtual bool IsNumberInput()
         {
             return _numInputVariableId > 0;
         }
 
-        public bool IsItemChoice()
+        public virtual bool IsItemChoice()
         {
             return _itemChoiceVariableId > 0;
         }
 
-        public bool IsBusy()
+        public virtual bool IsBusy()
         {
             return HasText() || IsChoice() || IsNumberInput() || IsItemChoice();
         }
 
-        public void NewPage()
+        public virtual void NewPage()
         {
             if (_texts.Count > 0)
             {
@@ -258,12 +258,12 @@ namespace UniRmmz
             }
         }
 
-        public string AllText()
+        public virtual string AllText()
         {
             return string.Join("\n", _texts);
         }
 
-        public bool IsRTL()
+        public virtual bool IsRTL()
         {
             return Utils.ContainsArabic(AllText());
         }

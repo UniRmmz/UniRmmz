@@ -5,7 +5,7 @@ namespace UniRmmz
    public partial class Game_Interpreter
    {
        // 戦闘BGMの変更
-       public virtual bool Command132(object[] parameters)
+       protected virtual bool Command132(object[] parameters)
        {
            var soundData = ConvertEx.ToSoundData(parameters[0]);
            Rmmz.gameSystem.SetBattleBgm(soundData);
@@ -13,7 +13,7 @@ namespace UniRmmz
        }
 
        // 勝利MEの変更
-       public virtual bool Command133(object[] parameters)
+       protected virtual bool Command133(object[] parameters)
        {
            var soundData = ConvertEx.ToSoundData(parameters[0]);
            Rmmz.gameSystem.SetVictoryMe(soundData);
@@ -21,7 +21,7 @@ namespace UniRmmz
        }
 
        // セーブ禁止の変更
-       public virtual bool Command134(object[] parameters)
+       protected virtual bool Command134(object[] parameters)
        {
            if (Convert.ToInt32(parameters[0]) == 0)
            {
@@ -35,7 +35,7 @@ namespace UniRmmz
        }
 
        // メニュー禁止の変更
-       public virtual bool Command135(object[] parameters)
+       protected virtual bool Command135(object[] parameters)
        {
            if (Convert.ToInt32(parameters[0]) == 0)
            {
@@ -49,7 +49,7 @@ namespace UniRmmz
        }
 
        // エンカウント禁止の変更
-       public virtual bool Command136(object[] parameters)
+       protected virtual bool Command136(object[] parameters)
        {
            if (Convert.ToInt32(parameters[0]) == 0)
            {
@@ -64,7 +64,7 @@ namespace UniRmmz
        }
 
        // 並び替え禁止の変更
-       public virtual bool Command137(object[] parameters)
+       protected virtual bool Command137(object[] parameters)
        {
            if (Convert.ToInt32(parameters[0]) == 0)
            {
@@ -78,7 +78,7 @@ namespace UniRmmz
        }
 
        // ウィンドウカラー変更
-       public virtual bool Command138(object[] parameters)
+       protected virtual bool Command138(object[] parameters)
        {
            var tone = ConvertEx.ToArray<int>(parameters[0]);
            Rmmz.gameSystem.SetWindowTone(tone);
@@ -86,7 +86,7 @@ namespace UniRmmz
        }
 
        // 敗北MEの変更
-       public virtual bool Command139(object[] parameters)
+       protected virtual bool Command139(object[] parameters)
        {
            var soundData = ConvertEx.ToSoundData(parameters[0]);
            Rmmz.gameSystem.SetDefeatMe(soundData);
@@ -94,7 +94,7 @@ namespace UniRmmz
        }
 
        // 乗り物BGMの変更
-       public virtual bool Command140(object[] parameters)
+       protected virtual bool Command140(object[] parameters)
        {
            var vehicleType = (Game_Vehicle.VehicleTypes)Convert.ToInt32(parameters[0]);
            var vehicle = Rmmz.gameMap.Vehicle(vehicleType);
@@ -107,7 +107,7 @@ namespace UniRmmz
        }
 
        // 主人公のグラフィックの変更
-       public virtual bool Command322(object[] parameters)
+       protected virtual bool Command322(object[] parameters)
        {
            var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
            if (actor != null)
@@ -121,7 +121,7 @@ namespace UniRmmz
        }
 
        // 乗り物グラフィックの変更
-       public virtual bool Command323(object[] parameters)
+       protected virtual bool Command323(object[] parameters)
        {
            var vehicleType = (Game_Vehicle.VehicleTypes)Convert.ToInt32(parameters[0]);
            var vehicle = Rmmz.gameMap.Vehicle(vehicleType);

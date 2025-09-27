@@ -7,7 +7,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // スイッチの操作
-        private bool Command121(object[] parameters)
+        protected virtual bool Command121(object[] parameters)
         {
             int startId = Convert.ToInt32(parameters[0]);
             int endId = Convert.ToInt32(parameters[1]);
@@ -256,7 +256,7 @@ namespace UniRmmz
             return true;
         }
 
-        private float EvaluateScript(string script)
+        protected virtual float EvaluateScript(string script)
         {
             Debug.LogWarning($"Script evaluation not implemented: {script}");
             return 0;

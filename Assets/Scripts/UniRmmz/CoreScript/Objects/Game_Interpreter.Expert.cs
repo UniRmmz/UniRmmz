@@ -8,7 +8,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // スクリプト
-        public bool Command355(object[] parameters)
+        protected virtual bool Command355(object[] parameters)
         {
             var script = new RmmzJavascriptCode();
             script.AddLine(Convert.ToString(CurrentCommand().Parameters[0]));
@@ -22,7 +22,7 @@ namespace UniRmmz
         }
         
         // プラグインコマンド（MV）
-        public bool Command356(object[] parameters)
+        protected virtual bool Command356(object[] parameters)
         {
             var args = Convert.ToString(parameters[0]).Split(" ").ToList();
             var command = args[0];
@@ -31,13 +31,13 @@ namespace UniRmmz
             return true;
         }
 
-        public virtual void PluginCommand(string command, string[] args)
+        protected virtual void PluginCommand(string command, string[] args)
         {
             // deprecated
         }
 
         // プラグインコマンド
-        public bool Command357(object[] parameters)
+        protected virtual bool Command357(object[] parameters)
         {
             string pluginName = Utils.ExtractFileName(parameters[0].ToString());
             Rmmz.PluginManager.CallCommand(this, pluginName, parameters[1].ToString(), parameters[3] as JObject);

@@ -18,7 +18,7 @@ namespace UniRmmz
             _inBattle = false;
         }
 
-        public bool InBattle()
+        public virtual bool InBattle()
         {
             return _inBattle;
         }
@@ -35,12 +35,12 @@ namespace UniRmmz
             return Members().Where(member => member.IsDead());
         }
 
-        public IEnumerable<Game_Battler> MovableMembers()
+        public virtual IEnumerable<Game_Battler> MovableMembers()
         {
             return Members().Where(member => member.CanMove());
         }
 
-        public void ClearActions()
+        public virtual void ClearActions()
         {
             foreach (var member in Members())
             {
@@ -48,7 +48,7 @@ namespace UniRmmz
             }
         }
 
-        public int Agility()
+        public virtual int Agility()
         {
             var members = Members();
             if (!members.Any())
@@ -60,12 +60,12 @@ namespace UniRmmz
             return Math.Max(1, sum / members.Count());
         }
 
-        public float TgrSum()
+        public virtual float TgrSum()
         {
             return AliveMembers().Sum(member => member.Tgr);
         }
 
-        public Game_Battler RandomTarget()
+        public virtual Game_Battler RandomTarget()
         {
             var tgrSum = TgrSum();
             if (tgrSum <= 0) return null;
@@ -86,7 +86,7 @@ namespace UniRmmz
             return target;
         }
 
-        public Game_Battler RandomDeadTarget()
+        public virtual Game_Battler RandomDeadTarget()
         {
             var deadMembers = DeadMembers().ToList();
             if (!deadMembers.Any())
@@ -98,7 +98,7 @@ namespace UniRmmz
             return deadMembers[randomIndex];
         }
 
-        public Game_Battler SmoothTarget(int index)
+        public virtual Game_Battler SmoothTarget(int index)
         {
             var members = Members().ToList();
             var safeIndex = Mathf.Max(0, index);
@@ -116,7 +116,7 @@ namespace UniRmmz
             return aliveMembers.Count > 0 ? aliveMembers[0] : null;
         }
 
-        public Game_Battler SmoothDeadTarget(int index)
+        public virtual Game_Battler SmoothDeadTarget(int index)
         {
             var members = Members().ToList();
             var safeIndex = Mathf.Max(0, index);
@@ -134,7 +134,7 @@ namespace UniRmmz
             return deadMembers.Count > 0 ? deadMembers[0] : null;
         }
 
-        public void ClearResults()
+        public virtual void ClearResults()
         {
             foreach (var member in Members())
             {
@@ -142,7 +142,7 @@ namespace UniRmmz
             }
         }
 
-        public void OnBattleStart(bool advantageous = false)
+        public virtual void OnBattleStart(bool advantageous = false)
         {
             foreach (var member in Members())
             {
@@ -152,7 +152,7 @@ namespace UniRmmz
             _inBattle = true;
         }
 
-        public void OnBattleEnd()
+        public virtual void OnBattleEnd()
         {
             _inBattle = false;
             foreach (var member in Members())
@@ -161,7 +161,7 @@ namespace UniRmmz
             }
         }
 
-        public void MakeActions()
+        public virtual void MakeActions()
         {
             foreach (var member in Members())
             {
@@ -169,7 +169,7 @@ namespace UniRmmz
             }
         }
 
-        public void Select(Game_Battler activeMember)
+        public virtual void Select(Game_Battler activeMember)
         {
             foreach (var member in Members())
             {
@@ -189,7 +189,7 @@ namespace UniRmmz
             return !AliveMembers().Any();
         }
 
-        public Game_Battler SubstituteBattler()
+        public virtual Game_Battler SubstituteBattler()
         {
             foreach (var member in Members())
             {
@@ -202,7 +202,7 @@ namespace UniRmmz
             return null;
         }
 
-        public float TpbBaseSpeed()
+        public virtual float TpbBaseSpeed()
         {
             var members = Members();
             if (members.Count() == 0)
@@ -213,12 +213,12 @@ namespace UniRmmz
             return members.Max(member => member.TpbBaseSpeed());
         }
 
-        public int TpbReferenceTime()
+        public virtual int TpbReferenceTime()
         {
             return Rmmz.BattleManager.IsActiveTpb() ? 240 : 60;
         }
 
-        public void UpdateTpb()
+        public virtual void UpdateTpb()
         {
             foreach (var member in Members())
             {
@@ -226,55 +226,55 @@ namespace UniRmmz
             }
         }
 
-        public Game_Battler FirstAliveMember()
+        public virtual Game_Battler FirstAliveMember()
         {
             var aliveMembers = AliveMembers().ToList();
             return aliveMembers.Count > 0 ? aliveMembers[0] : null;
         }
 
-        public Game_Battler LastAliveMember()
+        public virtual Game_Battler LastAliveMember()
         {
             var aliveMembers = AliveMembers().ToList();
             return aliveMembers.Count > 0 ? aliveMembers[aliveMembers.Count - 1] : null;
         }
 
-        public bool HasAliveMember()
+        public virtual bool HasAliveMember()
         {
             return AliveMembers().Any();
         }
 
-        public bool HasDeadMember()
+        public virtual bool HasDeadMember()
         {
             return DeadMembers().Any();
         }
 
-        public int MemberCount()
+        public virtual int MemberCount()
         {
             return Members().Count();
         }
 
-        public int AliveCount()
+        public virtual int AliveCount()
         {
             return AliveMembers().Count();
         }
 
-        public int DeadCount()
+        public virtual int DeadCount()
         {
             return DeadMembers().Count();
         }
 
-        public bool ContainsMember(Game_Battler member)
+        public virtual bool ContainsMember(Game_Battler member)
         {
             return Members().Contains(member);
         }
 
-        public Game_Battler GetMember(int index)
+        public virtual Game_Battler GetMember(int index)
         {
             var members = Members();
             return members.ElementAtOrDefault(index);
         }
         
-        public int FindMemberIndex(Game_Battler member)
+        public virtual int FindMemberIndex(Game_Battler member)
         {
             return Members().ToList().IndexOf(member);
         }
@@ -284,7 +284,7 @@ namespace UniRmmz
             return Members().Any(member => member.CanInput());
         }
 
-        public bool CanMove()
+        public virtual bool CanMove()
         {
             return MovableMembers().Any();
         }

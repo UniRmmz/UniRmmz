@@ -8,7 +8,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // 注釈
-        private bool Command108(object[] parameters)
+        protected virtual bool Command108(object[] parameters)
         {
             _comments = new List<string>();
             _comments.Add((string)parameters[0]);
@@ -21,14 +21,14 @@ namespace UniRmmz
         }
 
         // スキップ
-        private bool Command109(object[] parameters)
+        protected virtual bool Command109(object[] parameters)
         {
             SkipBranch();
             return true;
         }
 
         // 条件分岐
-        private bool Command111(object[] parameters)
+        protected virtual bool Command111(object[] parameters)
         {
             bool result = false;
             int typeId = Convert.ToInt32(parameters[0]);
@@ -211,7 +211,7 @@ namespace UniRmmz
         }
         
         // それ以外のとき
-        private bool Command411(object[] parameters)
+        protected virtual bool Command411(object[] parameters)
         {
             if (_branch.GetValueOrDefault(_indent) > 0)
             {
@@ -221,13 +221,13 @@ namespace UniRmmz
         }
 
         // ループ
-        private bool Command112(object[] parameters)
+        protected virtual bool Command112(object[] parameters)
         {
             return true;
         }
         
         // 以上繰り返し
-        private bool Command413(object[] parameters)
+        protected virtual bool Command413(object[] parameters)
         {
             do
             {
@@ -237,7 +237,7 @@ namespace UniRmmz
         } 
 
         // ループの中断
-        private bool Command113(object[] parameters)
+        protected virtual bool Command113(object[] parameters)
         {
             int depth = 0;
             while (_index < _list.Count - 1)
@@ -264,14 +264,14 @@ namespace UniRmmz
         }
 
         // イベント処理の中断
-        private bool Command115(object[] parameters)
+        protected virtual bool Command115(object[] parameters)
         {
             _index = _list.Count;
             return true;
         }
 
         // コモンイベント
-        private bool Command117(object[] parameters)
+        protected virtual bool Command117(object[] parameters)
         {
             int commonEventId = Convert.ToInt32(parameters[0]);
             var commonEvent = Rmmz.dataCommonEvents[commonEventId];
@@ -286,13 +286,13 @@ namespace UniRmmz
         }
 
         // ラベル
-        private bool Command118(object[] parameters)
+        protected virtual bool Command118(object[] parameters)
         {
             return true;
         }
 
         // ラベルジャンプ
-        private bool Command119(object[] parameters)
+        protected virtual bool Command119(object[] parameters)
         {
             string labelName = parameters[0].ToString();
             for (int i = 0; i < _list.Count; i++)
@@ -306,7 +306,7 @@ namespace UniRmmz
             return true;
         }
 
-        private void JumpTo(int index)
+        protected virtual void JumpTo(int index)
         {
             int lastIndex = _index;
             int startIndex = Math.Min(index, lastIndex);

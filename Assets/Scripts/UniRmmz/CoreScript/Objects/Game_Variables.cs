@@ -11,20 +11,20 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Variables
     {
-        private List<int> _data = new();
+        protected List<int> _data = new();
 
         protected Game_Variables() {}
-        public void Clear()
+        public virtual void Clear()
         {
             _data.Clear();
         }
 
-        public int Value(int variableId)
+        public virtual int Value(int variableId)
         {
             return _data.ElementAtOrDefault(variableId);
         }
 
-        public void SetValue(int variableId, int value)
+        public virtual void SetValue(int variableId, int value)
         {
             if (variableId > 0 && variableId < Rmmz.dataSystem.Variables.Length)
             {
@@ -33,12 +33,12 @@ namespace UniRmmz
             }
         }
 
-        public void SetValue(int variableId, float value)
+        public virtual void SetValue(int variableId, float value)
         {
             SetValue(variableId, Mathf.FloorToInt(value));
         }
 
-        public void OnChange()
+        public virtual void OnChange()
         {
             Rmmz.gameMap.RequestRefresh();
         }

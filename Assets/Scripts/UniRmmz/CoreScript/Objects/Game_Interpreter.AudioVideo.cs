@@ -13,7 +13,7 @@ namespace UniRmmz
         }
         
         // BGMのフェードアウト
-        private bool Command242(object[] parameters)
+        protected virtual bool Command242(object[] parameters)
         {
             var duration = Convert.ToSingle(parameters[0]);
             Rmmz.AudioManager.FadeOutBgm(duration);
@@ -21,21 +21,21 @@ namespace UniRmmz
         }
         
         // BGMの保存
-        private bool Command243(object[] _)
+        protected virtual bool Command243(object[] _)
         {
             Rmmz.gameSystem.SaveBgm();
             return true;
         }
         
         // BGMの再開
-        private bool Command244(object[] _)
+        protected virtual bool Command244(object[] _)
         {
             Rmmz.gameSystem.ReplayBgm();
             return true;
         }
         
         // BGSの演奏
-        private bool Command245(object[] parameters)
+        protected virtual bool Command245(object[] parameters)
         {
             var soundData = ConvertEx.ToSoundData(parameters[0]);
             Rmmz.AudioManager.PlayBgs(soundData);
@@ -43,7 +43,7 @@ namespace UniRmmz
         }
         
         // BGSのフェードアウト
-        private bool Command246(object[] parameters)
+        protected virtual bool Command246(object[] parameters)
         {
             var duration = Convert.ToSingle(parameters[0]);
             Rmmz.AudioManager.FadeOutBgs(duration);
@@ -51,7 +51,7 @@ namespace UniRmmz
         }
         
         // MEの演奏
-        private bool Command249(object[] parameters)
+        protected virtual bool Command249(object[] parameters)
         {
             var soundData = ConvertEx.ToSoundData(parameters[0]);
             Rmmz.AudioManager.PlayMe(soundData);
@@ -59,7 +59,7 @@ namespace UniRmmz
         }
         
         // SEの演奏
-        private bool Command250(object[] parameters)
+        protected virtual bool Command250(object[] parameters)
         {
             var soundData = ConvertEx.ToSoundData(parameters[0]);
             Rmmz.AudioManager.PlaySe(soundData);
@@ -67,14 +67,14 @@ namespace UniRmmz
         }
         
         // SEの停止
-        private bool Command251(object[] parameters)
+        protected virtual bool Command251(object[] parameters)
         {
             Rmmz.AudioManager.StopSe();
             return true;
         }
         
         // ムービー再生
-        private bool Command261(object[] parameters)
+        protected virtual bool Command261(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -91,7 +91,7 @@ namespace UniRmmz
             return true;
         }
         
-        private string VideoFileExt()
+        protected virtual string VideoFileExt()
         {
             if (Utils.CanPlayWebm())
             {

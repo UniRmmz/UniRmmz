@@ -10,16 +10,16 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Followers
     {
-        private bool _visible;
-        private bool _gathering;
-        private List<Game_Follower> _data;
+        protected bool _visible;
+        protected bool _gathering;
+        protected List<Game_Follower> _data;
 
         protected Game_Followers()
         {
             Initialize();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             _visible = Rmmz.dataSystem.OptFollowers;
             _gathering = false;
@@ -27,7 +27,7 @@ namespace UniRmmz
             Setup();
         }
 
-        public void Setup()
+        public virtual void Setup()
         {
             _data.Clear();
             for (int i = 1; i < Rmmz.gameParty.MaxBattleMembers(); i++)
@@ -36,39 +36,39 @@ namespace UniRmmz
             }
         }
 
-        public bool IsVisible()
+        public virtual bool IsVisible()
         {
             return _visible;
         }
 
-        public void Show()
+        public virtual void Show()
         {
             _visible = true;
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             _visible = false;
         }
 
-        public List<Game_Follower> Data()
+        public virtual List<Game_Follower> Data()
         {
             return new List<Game_Follower>(_data);
         }
 
-        public List<Game_Follower> ReverseData()
+        public virtual List<Game_Follower> ReverseData()
         {
             var reversedData = new List<Game_Follower>(_data);
             reversedData.Reverse();
             return reversedData;
         }
 
-        public Game_Follower Follower(int index)
+        public virtual Game_Follower Follower(int index)
         {
             return _data[index];
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             foreach (var follower in _data)
             {
@@ -76,7 +76,7 @@ namespace UniRmmz
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (AreGathering())
             {
@@ -95,7 +95,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateMove()
+        public virtual void UpdateMove()
         {
             for (int i = _data.Count - 1; i >= 0; i--)
             {
@@ -104,7 +104,7 @@ namespace UniRmmz
             }
         }
 
-        public void JumpAll()
+        public virtual void JumpAll()
         {
             if (Rmmz.gamePlayer.IsJumping())
             {
@@ -117,7 +117,7 @@ namespace UniRmmz
             }
         }
 
-        public void Synchronize(int x, int y, int d)
+        public virtual void Synchronize(int x, int y, int d)
         {
             foreach (var follower in _data)
             {
@@ -126,32 +126,32 @@ namespace UniRmmz
             }
         }
 
-        public void Gather()
+        public virtual void Gather()
         {
             _gathering = true;
         }
 
-        public bool AreGathering()
+        public virtual bool AreGathering()
         {
             return _gathering;
         }
 
-        public IEnumerable<Game_Follower> VisibleFollowers()
+        public virtual IEnumerable<Game_Follower> VisibleFollowers()
         {
             return _data.Where(follower => follower.IsVisible());
         }
 
-        public bool AreMoving()
+        public virtual bool AreMoving()
         {
             return VisibleFollowers().Any(follower => follower.IsMoving());
         }
 
-        public bool AreGathered()
+        public virtual bool AreGathered()
         {
             return VisibleFollowers().All(follower => follower.IsGathered());
         }
 
-        public bool IsSomeoneCollided(int x, int y)
+        public virtual bool IsSomeoneCollided(int x, int y)
         {
             return VisibleFollowers().Any(follower => follower.Pos(x, y));
         }

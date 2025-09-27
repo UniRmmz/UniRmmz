@@ -13,18 +13,18 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Event : Game_Character
     {
-        private int _mapId;
-        private int _eventId;
-        private int _moveType;
-        private int _trigger;
-        private bool _starting;
-        private bool _erased;
-        private int _pageIndex;
-        private int _originalPattern;
-        private int _originalDirection;
-        private int _prelockDirection;
-        private bool _locked;
-        private Game_Interpreter _interpreter;
+        protected int _mapId;
+        protected int _eventId;
+        protected int _moveType;
+        protected int _trigger;
+        protected bool _starting;
+        protected bool _erased;
+        protected int _pageIndex;
+        protected int _originalPattern;
+        protected int _originalDirection;
+        protected int _prelockDirection;
+        protected bool _locked;
+        protected Game_Interpreter _interpreter;
 
         protected Game_Event(int mapId, int eventId)
         {

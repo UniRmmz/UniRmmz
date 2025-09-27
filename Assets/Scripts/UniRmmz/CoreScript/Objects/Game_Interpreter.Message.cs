@@ -7,7 +7,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // テキスト表示
-        private bool Command101(object[] parameters)
+        protected virtual bool Command101(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -47,7 +47,7 @@ namespace UniRmmz
 
         
         // 選択肢の表示
-        private bool Command102(object[] parameters)
+        protected virtual bool Command102(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -59,7 +59,7 @@ namespace UniRmmz
         }
         
         // 数値入力
-        private bool Command103(object[] parameters)
+        protected virtual bool Command103(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -71,7 +71,7 @@ namespace UniRmmz
         }
         
         // アイテム選択
-        private bool Command104(object[] parameters)
+        protected virtual bool Command104(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -83,7 +83,7 @@ namespace UniRmmz
         }
         
         // スクロールテキスト表示
-        private bool Command105(object[] parameters)
+        protected virtual bool Command105(object[] parameters)
         {
             if (Rmmz.gameMessage.IsBusy())
             {
@@ -100,7 +100,7 @@ namespace UniRmmz
         }
         
         // 選択肢のとき
-        private bool Command402(object[] parameters)
+        protected virtual bool Command402(object[] parameters)
         {
             if (!_branch.ContainsKey(_indent) || _branch[_indent] != Convert.ToInt32(parameters[0]))
             {
@@ -110,7 +110,7 @@ namespace UniRmmz
         }
         
         // キャンセルのとき
-        private bool Command403(object[] parameters)
+        protected virtual bool Command403(object[] parameters)
         {
             if (!_branch.ContainsKey(_indent) || _branch[_indent] >= 0)
             {
@@ -119,7 +119,7 @@ namespace UniRmmz
             return true;
         }
 
-        private void SetupChoices(object[] parameters)
+        protected virtual void SetupChoices(object[] parameters)
         {
             var choices = new List<string>(ConvertEx.ToStringArray(parameters[0]));
             int cancelType = Convert.ToInt32(parameters[1]) < choices.Count ? Convert.ToInt32(parameters[1]) : -2;
@@ -142,12 +142,12 @@ namespace UniRmmz
             });
         }
 
-        private void SetupNumInput(object[] parameters)
+        protected virtual void SetupNumInput(object[] parameters)
         {
             Rmmz.gameMessage.SetNumberInput(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]));
         }
         
-        private void SetupItemChoice(object[] parameters)
+        protected virtual void SetupItemChoice(object[] parameters)
         {
             int param2 = Convert.ToInt32(parameters.ElementAtOrDefault(1));
             if (param2 == 0)

@@ -11,20 +11,20 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Interpreter
     {
-        private int _depth;
-        private int _mapId;
-        private int _eventId;
-        private List<DataEventCommand> _list = new();
-        private int _index;
-        private int _waitCount;
-        private string _waitMode;
-        private List<string> _comments = new();
-        private int _characterId;
-        private Game_Interpreter _childInterpreter;
-        private Dictionary<int, int> _branch = new Dictionary<int, int>();
-        private int _indent;
-        private int _frameCount;
-        private int _freezeChecker;
+        protected int _depth;
+        protected int _mapId;
+        protected int _eventId;
+        protected List<DataEventCommand> _list = new();
+        protected int _index;
+        protected int _waitCount;
+        protected string _waitMode;
+        protected List<string> _comments = new();
+        protected int _characterId;
+        protected Game_Interpreter _childInterpreter;
+        protected Dictionary<int, int> _branch = new Dictionary<int, int>();
+        protected int _indent;
+        protected int _frameCount;
+        protected int _freezeChecker;
         
         protected Game_Interpreter(int depth = 0)
         {
@@ -37,7 +37,7 @@ namespace UniRmmz
             _freezeChecker = 0;
         }
 
-        private void CheckOverflow()
+        protected virtual void CheckOverflow()
         {
             if (_depth >= 100)
             {
@@ -45,7 +45,7 @@ namespace UniRmmz
             }
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             _mapId = 0;
             _eventId = 0;
@@ -58,7 +58,7 @@ namespace UniRmmz
             _childInterpreter = null;
         }
 
-        public void Setup(List<DataEventCommand> list, int eventId = 0)
+        public virtual void Setup(List<DataEventCommand> list, int eventId = 0)
         {
             Clear();
             _mapId = Rmmz.gameMap.MapId();
@@ -67,7 +67,7 @@ namespace UniRmmz
             LoadImages();
         }
 
-        private void LoadImages()
+        protected virtual void LoadImages()
         {
             // [Note] The certain versions of MV had a more complicated preload scheme.
             //   However it is usually sufficient to preload face and picture images.
@@ -86,17 +86,17 @@ namespace UniRmmz
             }
         }
 
-        public int EventId()
+        public virtual int EventId()
         {
             return _eventId;
         }
 
-        public bool IsOnCurrentMap()
+        public virtual bool IsOnCurrentMap()
         {
             return _mapId == Rmmz.gameMap.MapId();
         }
 
-        public bool SetupReservedCommonEvent()
+        public virtual bool SetupReservedCommonEvent()
         {
             if (Rmmz.gameTemp.IsCommonEventReserved())
             {
@@ -111,12 +111,12 @@ namespace UniRmmz
             return false;
         }
 
-        public bool IsRunning()
+        public virtual bool IsRunning()
         {
             return _list != null;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             while (IsRunning())
             {
@@ -139,7 +139,7 @@ namespace UniRmmz
             }
         }
 
-        private bool UpdateChild()
+        protected virtual bool UpdateChild()
         {
             if (_childInterpreter != null)
             {
@@ -156,12 +156,12 @@ namespace UniRmmz
             return false;
         }
 
-        private bool UpdateWait()
+        protected virtual bool UpdateWait()
         {
             return UpdateWaitCount() || UpdateWaitMode();
         }
 
-        private bool UpdateWaitCount()
+        protected virtual bool UpdateWaitCount()
         {
             if (_waitCount > 0)
             {
@@ -171,7 +171,7 @@ namespace UniRmmz
             return false;
         }
 
-        private bool UpdateWaitMode()
+        protected virtual bool UpdateWaitMode()
         {
             Game_Character character = null;
             bool waiting = false;
@@ -221,22 +221,22 @@ namespace UniRmmz
             return waiting;
         }
 
-        public void SetWaitMode(string waitMode)
+        public virtual void SetWaitMode(string waitMode)
         {
             _waitMode = waitMode;
         }
 
-        public void Wait(int duration)
+        public virtual void Wait(int duration)
         {
             _waitCount = duration;
         }
 
-        private int FadeSpeed()
+        protected virtual int FadeSpeed()
         {
             return 24;
         }
 
-        private bool ExecuteCommand()
+        protected virtual bool ExecuteCommand()
         {
             var command = CurrentCommand();
             if (command != null)
@@ -382,7 +382,7 @@ namespace UniRmmz
             return true;
         }
 
-        private bool CheckFreeze()
+        protected virtual bool CheckFreeze()
         {
             if (_frameCount != Graphics.FrameCount)
             {
@@ -400,13 +400,13 @@ namespace UniRmmz
             }
         }
 
-        public void Terminate()
+        public virtual void Terminate()
         {
             _list = null;
             _comments.Clear();
         }
 
-        private void SkipBranch()
+        protected virtual void SkipBranch()
         {
             while (_index + 1 < _list.Count && _list[_index + 1].Indent > _indent)
             {
@@ -414,7 +414,7 @@ namespace UniRmmz
             }
         }
 
-        private DataEventCommand CurrentCommand()
+        protected virtual DataEventCommand CurrentCommand()
         {
             if (_list != null && _index < _list.Count)
             {
@@ -423,7 +423,7 @@ namespace UniRmmz
             return null;
         }
 
-        private int NextEventCode()
+        protected virtual int NextEventCode()
         {
             if (_list != null && _index + 1 < _list.Count)
             {
@@ -435,7 +435,7 @@ namespace UniRmmz
             }
         }
 
-        private void IterateActorId(int param, Action<Game_Actor> callback)
+        protected virtual void IterateActorId(int param, Action<Game_Actor> callback)
         {
             if (param == 0)
             {
@@ -454,7 +454,7 @@ namespace UniRmmz
             }
         }
 
-        private void IterateActorEx(int param1, int param2, Action<Game_Actor> callback)
+        protected virtual void IterateActorEx(int param1, int param2, Action<Game_Actor> callback)
         {
             if (param1 == 0)
             {
@@ -466,7 +466,7 @@ namespace UniRmmz
             }
         }
 
-        private void IterateActorIndex(int param, Action<Game_Actor> callback)
+        protected virtual void IterateActorIndex(int param, Action<Game_Actor> callback)
         {
             if (param < 0)
             {
@@ -489,7 +489,7 @@ namespace UniRmmz
             }
         }
 
-        private void IterateEnemyIndex(int param, Action<Game_Enemy> callback)
+        protected virtual void IterateEnemyIndex(int param, Action<Game_Enemy> callback)
         {
             if (param < 0)
             {
@@ -512,7 +512,7 @@ namespace UniRmmz
             }
         }
         
-        private void IterateBattler(int param1, int param2, Action<Game_Battler> callback)
+        protected virtual void IterateBattler(int param1, int param2, Action<Game_Battler> callback)
         {
             if (Rmmz.gameParty.InBattle())
             {
@@ -527,7 +527,7 @@ namespace UniRmmz
             }
         }
 
-        public Game_Character Character(int param)
+        public virtual Game_Character Character(int param)
         {
             if (Rmmz.gameParty.InBattle())
             {
@@ -547,13 +547,13 @@ namespace UniRmmz
             }
         }
 
-        private int OperateValue(int operation, int operandType, int operand)
+        protected virtual int OperateValue(int operation, int operandType, int operand)
         {
             int value = operandType == 0 ? operand : Rmmz.gameVariables.Value(operand);
             return operation == 0 ? value : -value;
         }
 
-        private void ChangeHp(Game_Battler target, int value, bool allowDeath)
+        protected virtual void ChangeHp(Game_Battler target, int value, bool allowDeath)
         {
             if (target.IsAlive())
             {
@@ -570,7 +570,7 @@ namespace UniRmmz
         }
 
         // ウェイト
-        public bool Command230(object[] parameters)
+        public virtual bool Command230(object[] parameters)
         {
             Wait(Convert.ToInt32(parameters[0]));
             return true;

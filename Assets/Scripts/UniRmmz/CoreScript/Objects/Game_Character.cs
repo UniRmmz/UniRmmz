@@ -68,7 +68,7 @@ namespace UniRmmz
         protected int _originalMoveRouteIndex;
         protected int _waitCount;
 
-        private class Node
+        protected class Node
         {
             public Node Parent;
             public int X;

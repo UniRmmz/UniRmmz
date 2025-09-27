@@ -7,7 +7,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // HPの増減
-        public virtual bool Command311(object[] parameters)
+        protected virtual bool Command311(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -18,7 +18,7 @@ namespace UniRmmz
         }
 
         // MPの増減
-        public virtual bool Command312(object[] parameters)
+        protected virtual bool Command312(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -29,7 +29,7 @@ namespace UniRmmz
         }
 
         // TPの増減
-        public virtual bool Command326(object[] parameters)
+        protected virtual bool Command326(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -40,7 +40,7 @@ namespace UniRmmz
         }
 
         // ステートの変更
-        public virtual bool Command313(object[] parameters)
+        protected virtual bool Command313(object[] parameters)
         {
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
             {
@@ -66,7 +66,7 @@ namespace UniRmmz
         }
 
         // 全回復
-        public virtual bool Command314(object[] parameters)
+        protected virtual bool Command314(object[] parameters)
         {
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
             {
@@ -76,7 +76,7 @@ namespace UniRmmz
         }
 
         // 経験値アップ
-        public virtual bool Command315(object[] parameters)
+        protected virtual bool Command315(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -87,7 +87,7 @@ namespace UniRmmz
         }
 
         // レベルの増減
-        public virtual bool Command316(object[] parameters)
+        protected virtual bool Command316(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -98,7 +98,7 @@ namespace UniRmmz
         }
 
         // 能力値の増減
-        public virtual bool Command317(object[] parameters)
+        protected virtual bool Command317(object[] parameters)
         {
             int value = OperateValue(Convert.ToInt32(parameters[3]), Convert.ToInt32(parameters[4]), Convert.ToInt32(parameters[5]));
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
@@ -109,7 +109,7 @@ namespace UniRmmz
         }
 
         // スキルの増減
-        public virtual bool Command318(object[] parameters)
+        protected virtual bool Command318(object[] parameters)
         {
             IterateActorEx(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), actor =>
             {
@@ -126,7 +126,7 @@ namespace UniRmmz
         }
 
         // 装備の変更
-        public virtual bool Command319(object[] parameters)
+        protected virtual bool Command319(object[] parameters)
         {
             var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
             if (actor != null)
@@ -137,7 +137,7 @@ namespace UniRmmz
         }
 
         // 名前の変更
-        public virtual bool Command320(object[] parameters)
+        protected virtual bool Command320(object[] parameters)
         {
             var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
             if (actor != null)
@@ -148,7 +148,7 @@ namespace UniRmmz
         }
 
         // 職業の変更
-        public virtual bool Command321(object[] parameters)
+        protected virtual bool Command321(object[] parameters)
         {
             var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
             if (actor != null && Rmmz.dataClasses.ElementAtOrDefault(Convert.ToInt32(parameters[1])) != null)
@@ -159,7 +159,7 @@ namespace UniRmmz
         }
 
         // 二つ名の変更
-        public virtual bool Command324(object[] parameters)
+        protected virtual bool Command324(object[] parameters)
         {
             var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
             if (actor != null)
@@ -170,7 +170,7 @@ namespace UniRmmz
         }
 
         // プロフィールの変更
-        public virtual bool Command325(object[] parameters)
+        protected virtual bool Command325(object[] parameters)
         {
             var actor = Rmmz.gameActors.Actor(Convert.ToInt32(parameters[0]));
             if (actor != null)

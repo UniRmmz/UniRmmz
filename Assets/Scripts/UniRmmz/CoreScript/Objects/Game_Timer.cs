@@ -9,8 +9,8 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Timer
     {
-        private int _frames;
-        private bool _working;
+        protected int _frames;
+        protected bool _working;
 
         protected Game_Timer()
         {
@@ -58,7 +58,7 @@ namespace UniRmmz
 
         public virtual void OnExpire()
         {
-            //Rmmz.battleManager.Abort();
+            Rmmz.BattleManager.Abort();
         }
     }
 }

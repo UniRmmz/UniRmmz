@@ -5,7 +5,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // 場所移動
-        private bool Command201(object[] parameters)
+        protected virtual bool Command201(object[] parameters)
         {
             if (Rmmz.gameParty.InBattle() || Rmmz.gameMessage.IsBusy())
             {
@@ -34,7 +34,7 @@ namespace UniRmmz
         }
 
         // 乗り物の位置設定
-        private bool Command202(object[] parameters)
+        protected virtual bool Command202(object[] parameters)
         {
             int mapId, x, y;
             if (Convert.ToInt32(parameters[1]) == 0)
@@ -61,7 +61,7 @@ namespace UniRmmz
             return true;
         }
 
-        private bool Command203(object[] parameters)
+        protected virtual bool Command203(object[] parameters)
         {
             var character = Character(Convert.ToInt32(parameters[0]));
             if (character != null)
@@ -99,7 +99,7 @@ namespace UniRmmz
         }
 
         // マップスクロール
-        private bool Command204(object[] parameters)
+        protected virtual bool Command204(object[] parameters)
         {
             if (!Rmmz.gameParty.InBattle())
             {

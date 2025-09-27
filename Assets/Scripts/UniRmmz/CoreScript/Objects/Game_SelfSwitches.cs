@@ -50,21 +50,21 @@ namespace UniRmmz
             }
         }
         
-        private Dictionary<string, bool> _data = new();
+        protected Dictionary<string, bool> _data = new();
         
         protected Game_SelfSwitches() {}
 
-        public void Clear()
+        public virtual void Clear()
         {
             _data.Clear();
         }
 
-        public bool Value(Key key)
+        public virtual bool Value(Key key)
         {
             return _data.GetValueOrDefault(key.ToString());
         }
 
-        public void SetValue(Key key, bool value)
+        public virtual void SetValue(Key key, bool value)
         {
             if (value)
             {
@@ -77,7 +77,7 @@ namespace UniRmmz
             
             OnChange();
         }
-        public void OnChange()
+        public virtual void OnChange()
         {
             Rmmz.gameMap.RequestRefresh();
         }

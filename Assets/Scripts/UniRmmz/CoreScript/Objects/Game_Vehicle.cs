@@ -17,11 +17,11 @@ namespace UniRmmz
             Walk,
         }
         
-        private VehicleTypes _type;
-        private int _mapId;
-        private int _altitude;
-        private bool _driving;
-        private DataSystem.DataSound _bgm;
+        protected VehicleTypes _type;
+        protected int _mapId;
+        protected int _altitude;
+        protected bool _driving;
+        protected DataSystem.DataSound _bgm;
 
         protected Game_Vehicle(VehicleTypes type) : base()
         {

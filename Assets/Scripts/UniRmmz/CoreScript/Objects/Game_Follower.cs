@@ -10,7 +10,7 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Follower : Game_Character
     {
-        private int _memberIndex;
+        protected int _memberIndex;
 
         protected Game_Follower(int memberIndex) : base()
         {
@@ -19,24 +19,24 @@ namespace UniRmmz
             SetThrough(true);
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             string characterName = IsVisible() ? Actor().CharacterName() : "";
             int characterIndex = IsVisible() ? Actor().CharacterIndex() : 0;
             SetImage(characterName, characterIndex);
         }
 
-        public Game_Actor Actor()
+        public virtual Game_Actor Actor()
         {
             return Rmmz.gameParty.BattleMembers().ElementAtOrDefault(_memberIndex);
         }
 
-        public bool IsVisible()
+        public virtual bool IsVisible()
         {
             return Actor() != null && Rmmz.gamePlayer.Followers().IsVisible();
         }
 
-        public bool IsGathered()
+        public virtual bool IsGathered()
         {
             return !IsMoving() && Pos(Rmmz.gamePlayer.X, Rmmz.gamePlayer.Y);
         }
@@ -53,7 +53,7 @@ namespace UniRmmz
             SetTransparent(Rmmz.gamePlayer.IsTransparent());
         }
 
-        public void ChaseCharacter(Game_Character character)
+        public virtual void ChaseCharacter(Game_Character character)
         {
             int sx = DeltaXFrom(character.X);
             int sy = DeltaYFrom(character.Y);

@@ -17,17 +17,17 @@ namespace UniRmmz
             Refresh();
         }
 
-        public DataCommonEvent Event()
+        public virtual DataCommonEvent Event()
         {
             return Rmmz.dataCommonEvents[_commontEventId];
         }
 
-        public List<DataEventCommand> List()
+        public virtual List<DataEventCommand> List()
         {
             return Event().List;
         }
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             if (IsActive())
             {
@@ -42,13 +42,13 @@ namespace UniRmmz
             }
         }
 
-        public bool IsActive()
+        public virtual bool IsActive()
         {
             var ev = Event();
             return ev.Trigger == 2 && Rmmz.gameSwitches.Value(ev.SwitchId);
         }
 
-        public void Update()
+        public virtual void Update()
         {
             if (_interpreter != null)
             {

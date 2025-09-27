@@ -10,9 +10,9 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Actors
     {
-        private List<Game_Actor> _data = new();
+        protected List<Game_Actor> _data = new();
         
-        public Game_Actor Actor(int actorId)
+        public virtual Game_Actor Actor(int actorId)
         {
             if (Rmmz.dataActors[actorId] != null)
             {

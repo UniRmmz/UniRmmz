@@ -6,7 +6,7 @@ namespace UniRmmz
    public partial class Game_Interpreter
    {
        // 敵キャラのHP増減
-       public virtual bool Command331(object[] parameters)
+       protected virtual bool Command331(object[] parameters)
        {
            int value = OperateValue(Convert.ToInt32(parameters[1]), Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]));
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
@@ -17,7 +17,7 @@ namespace UniRmmz
        }
 
        // 敵キャラのMP増減
-       public virtual bool Command332(object[] parameters)
+       protected virtual bool Command332(object[] parameters)
        {
            int value = OperateValue(Convert.ToInt32(parameters[1]), Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]));
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
@@ -28,7 +28,7 @@ namespace UniRmmz
        }
 
        // 敵キャラのTP増減
-       public virtual bool Command342(object[] parameters)
+       protected virtual bool Command342(object[] parameters)
        {
            int value = OperateValue(Convert.ToInt32(parameters[1]), Convert.ToInt32(parameters[2]), Convert.ToInt32(parameters[3]));
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
@@ -39,7 +39,7 @@ namespace UniRmmz
        }
 
        // 敵キャラのステート
-       public virtual bool Command333(object[] parameters)
+       protected virtual bool Command333(object[] parameters)
        {
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
            {
@@ -65,7 +65,7 @@ namespace UniRmmz
        }
 
        // 敵キャラの全回復
-       public virtual bool Command334(object[] parameters)
+       protected virtual bool Command334(object[] parameters)
        {
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
            {
@@ -75,7 +75,7 @@ namespace UniRmmz
        }
 
        // 敵キャラの出現
-       public virtual bool Command335(object[] parameters)
+       protected virtual bool Command335(object[] parameters)
        {
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
            {
@@ -86,7 +86,7 @@ namespace UniRmmz
        }
 
        // 敵キャラの変身
-       public virtual bool Command336(object[] parameters)
+       protected virtual bool Command336(object[] parameters)
        {
            IterateEnemyIndex(Convert.ToInt32(parameters[0]), enemy =>
            {
@@ -97,7 +97,7 @@ namespace UniRmmz
        }
 
        // 戦闘アニメーションの表示
-       public virtual bool Command337(object[] parameters)
+       protected virtual bool Command337(object[] parameters)
        {
            int param = Convert.ToInt32(parameters[0]);
            if (parameters.Length > 2 && Convert.ToBoolean(parameters[2]))
@@ -119,7 +119,7 @@ namespace UniRmmz
        }
 
        // 戦闘行動の強制
-       public virtual bool Command339(object[] parameters)
+       protected virtual bool Command339(object[] parameters)
        {
            IterateBattler(Convert.ToInt32(parameters[0]), Convert.ToInt32(parameters[1]), battler =>
            {
@@ -134,14 +134,14 @@ namespace UniRmmz
        }
 
        // 戦闘中止
-       public virtual bool Command340(object[] parameters)
+       protected virtual bool Command340(object[] parameters)
        {
            Rmmz.BattleManager.Abort();
            return true;
        }
 
        // 勝ったとき
-       public virtual bool Command601(object[] parameters)
+       protected virtual bool Command601(object[] parameters)
        {
            if (_branch[_indent] != 0)
            {
@@ -151,7 +151,7 @@ namespace UniRmmz
        }
 
        // 逃げたとき
-       public virtual bool Command602(object[] parameters)
+       protected virtual bool Command602(object[] parameters)
        {
            if (_branch[_indent] != 1)
            {
@@ -161,7 +161,7 @@ namespace UniRmmz
        }
 
        // 負けたとき
-       public virtual bool Command603(object[] parameters)
+       protected virtual bool Command603(object[] parameters)
        {
            if (_branch[_indent] != 2)
            {

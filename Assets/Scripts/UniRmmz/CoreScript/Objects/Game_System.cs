@@ -8,80 +8,80 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_System
     {
-        private bool _saveEnabled = true;
-        private bool _menuEnabled = true;
-        private bool _encounterEnabled = true;
-        private bool _formationEnabled = true;
+        protected bool _saveEnabled = true;
+        protected bool _menuEnabled = true;
+        protected bool _encounterEnabled = true;
+        protected bool _formationEnabled = true;
 
-        private int _battleCount = 0;
-        private int _winCount = 0;
-        private int _escapeCount = 0;
-        private int _saveCount = 0;
+        protected int _battleCount = 0;
+        protected int _winCount = 0;
+        protected int _escapeCount = 0;
+        protected int _saveCount = 0;
 
-        private int _versionId = 0;
-        private int _savefileId = 0;
-        private int _framesOnSave = 0;
+        protected int _versionId = 0;
+        protected int _savefileId = 0;
+        protected int _framesOnSave = 0;
 
-        private AudioManager.Sound _bgmOnSave = null;
-        private AudioManager.Sound _bgsOnSave = null;
-        private int[] _windowTone = null;
-        private DataSystem.DataSound _battleBgm = null;
-        private DataSystem.DataSound _victoryMe = null;
-        private DataSystem.DataSound _defeatMe = null;
-        private AudioManager.Sound _savedBgm = null;
-        private AudioManager.Sound _walkingBgm = null;
+        protected AudioManager.Sound _bgmOnSave = null;
+        protected AudioManager.Sound _bgsOnSave = null;
+        protected int[] _windowTone = null;
+        protected DataSystem.DataSound _battleBgm = null;
+        protected DataSystem.DataSound _victoryMe = null;
+        protected DataSystem.DataSound _defeatMe = null;
+        protected AudioManager.Sound _savedBgm = null;
+        protected AudioManager.Sound _walkingBgm = null;
         
-        public bool IsJapanese() => Rmmz.dataSystem.Locale.StartsWith("ja");
-        public bool IsChinese() => Rmmz.dataSystem.Locale.StartsWith("zh");
-        public bool IsKorean() => Rmmz.dataSystem.Locale.StartsWith("ko");
-        public bool IsCJK() => IsJapanese() || IsChinese() || IsKorean();
-        public bool IsRussian() => Rmmz.dataSystem.Locale.StartsWith("ru");
-        public bool IsSideView() => Rmmz.dataSystem.OptSideView;
-        public bool IsAutosaveEnabled() => Rmmz.dataSystem.OptAutosave;
+        public virtual bool IsJapanese() => Rmmz.dataSystem.Locale.StartsWith("ja");
+        public virtual bool IsChinese() => Rmmz.dataSystem.Locale.StartsWith("zh");
+        public virtual bool IsKorean() => Rmmz.dataSystem.Locale.StartsWith("ko");
+        public virtual bool IsCJK() => IsJapanese() || IsChinese() || IsKorean();
+        public virtual bool IsRussian() => Rmmz.dataSystem.Locale.StartsWith("ru");
+        public virtual bool IsSideView() => Rmmz.dataSystem.OptSideView;
+        public virtual bool IsAutosaveEnabled() => Rmmz.dataSystem.OptAutosave;
 
-        public bool IsSaveEnabled() => _saveEnabled;
-        public void DisableSave() => _saveEnabled = false;
-        public void EnableSave() => _saveEnabled = true;
+        public virtual bool IsSaveEnabled() => _saveEnabled;
+        public virtual void DisableSave() => _saveEnabled = false;
+        public virtual void EnableSave() => _saveEnabled = true;
 
-        public bool IsMenuEnabled() => _menuEnabled;
-        public void DisableMenu() => _menuEnabled = false;
-        public void EnableMenu() => _menuEnabled = true;
+        public virtual bool IsMenuEnabled() => _menuEnabled;
+        public virtual void DisableMenu() => _menuEnabled = false;
+        public virtual void EnableMenu() => _menuEnabled = true;
 
-        public bool IsEncounterEnabled() => _encounterEnabled;
-        public void DisableEncounter() => _encounterEnabled = false;
-        public void EnableEncounter() => _encounterEnabled = true;
+        public virtual bool IsEncounterEnabled() => _encounterEnabled;
+        public virtual void DisableEncounter() => _encounterEnabled = false;
+        public virtual void EnableEncounter() => _encounterEnabled = true;
 
-        public bool IsFormationEnabled() => _formationEnabled;
-        public void DisableFormation() => _formationEnabled = false;
-        public void EnableFormation() => _formationEnabled = true;
+        public virtual bool IsFormationEnabled() => _formationEnabled;
+        public virtual void DisableFormation() => _formationEnabled = false;
+        public virtual void EnableFormation() => _formationEnabled = true;
 
-        public int BattleCount => _battleCount;
-        public int WinCount => _winCount;
-        public int EscapeCount => _escapeCount;
-        public int SaveCount => _saveCount;
-        public int VersionId() => _versionId;
-        public int SavefileId() => _savefileId;
-        public void SetSavefileId(int id) => _savefileId = id;
+        public virtual int BattleCount => _battleCount;
+        public virtual int WinCount => _winCount;
+        public virtual int EscapeCount => _escapeCount;
+        public virtual int SaveCount => _saveCount;
+        public virtual int VersionId() => _versionId;
+        public virtual int SavefileId() => _savefileId;
+        public virtual void SetSavefileId(int id) => _savefileId = id;
 
-        public int[] WindowTone() => _windowTone ?? Rmmz.dataSystem.WindowTone;
-        public void SetWindowTone(int[] tone) => _windowTone = tone;
+        public virtual int[] WindowTone() => _windowTone ?? Rmmz.dataSystem.WindowTone;
+        public virtual void SetWindowTone(int[] tone) => _windowTone = tone;
 
-        public DataSystem.DataSound BattleBgm() => _battleBgm ?? Rmmz.dataSystem.BattleBgm;
-        public void SetBattleBgm(DataSystem.DataSound bgm) => _battleBgm = bgm;
+        public virtual DataSystem.DataSound BattleBgm() => _battleBgm ?? Rmmz.dataSystem.BattleBgm;
+        public virtual void SetBattleBgm(DataSystem.DataSound bgm) => _battleBgm = bgm;
 
-        public DataSystem.DataSound VictoryMe() => _victoryMe ?? Rmmz.dataSystem.VictoryMe;
-        public void SetVictoryMe(DataSystem.DataSound me) => _victoryMe = me;
+        public virtual DataSystem.DataSound VictoryMe() => _victoryMe ?? Rmmz.dataSystem.VictoryMe;
+        public virtual void SetVictoryMe(DataSystem.DataSound me) => _victoryMe = me;
 
-        public DataSystem.DataSound DefeatMe() => _defeatMe ?? Rmmz.dataSystem.DefeatMe;
-        public void SetDefeatMe(DataSystem.DataSound me) => _defeatMe = me;
+        public virtual DataSystem.DataSound DefeatMe() => _defeatMe ?? Rmmz.dataSystem.DefeatMe;
+        public virtual void SetDefeatMe(DataSystem.DataSound me) => _defeatMe = me;
 
-        public void OnBattleStart() => _battleCount++;
-        public void OnBattleWin() => _winCount++;
-        public void OnBattleEscape() => _escapeCount++;
+        public virtual void OnBattleStart() => _battleCount++;
+        public virtual void OnBattleWin() => _winCount++;
+        public virtual void OnBattleEscape() => _escapeCount++;
         
         protected Game_System() {}
 
-        public void OnBeforeSave()
+        public virtual void OnBeforeSave()
         {
             _saveCount++;
             _versionId = Rmmz.dataSystem.VersionId;
@@ -90,19 +90,19 @@ namespace UniRmmz
             _bgsOnSave = Rmmz.AudioManager.SaveBgs();
         }
 
-        public void OnAfterLoad()
+        public virtual void OnAfterLoad()
         {
             Graphics.FrameCount = _framesOnSave;
             Rmmz.AudioManager.PlayBgm(_bgmOnSave);
             Rmmz.AudioManager.PlayBgs(_bgsOnSave);
         }
 
-        public int Playtime()
+        public virtual int Playtime()
         {
             return Graphics.FrameCount / 60;    
         }
 
-        public string PlaytimeText()
+        public virtual string PlaytimeText()
         {
             int hour = Playtime() / 60 / 60;
             int min = (Playtime() / 60) % 60;
@@ -110,12 +110,12 @@ namespace UniRmmz
             return $"{hour:D2}:{min:D2}:{sec:D2}";
         }
 
-        public void SaveBgm()
+        public virtual void SaveBgm()
         {
             _savedBgm = Rmmz.AudioManager.SaveBgm();
         }
 
-        public void ReplayBgm()
+        public virtual void ReplayBgm()
         {
             if (_savedBgm != null)
             {
@@ -123,12 +123,12 @@ namespace UniRmmz
             }
         }
 
-        public void SaveWalkingBgm()
+        public virtual void SaveWalkingBgm()
         {
             _walkingBgm = Rmmz.AudioManager.SaveBgm();
         }
         
-        public void ReplayWalkingBgm()
+        public virtual void ReplayWalkingBgm()
         {
             if (_walkingBgm != null)
             {
@@ -136,29 +136,29 @@ namespace UniRmmz
             }
         }
 
-        public void SaveWalkingBgm2()
+        public virtual void SaveWalkingBgm2()
         {
             _walkingBgm = Rmmz.dataMap.Bgm;
         }
         
-        public string MainFontFace()
+        public virtual string MainFontFace()
         {
             return $"rmmz-mainfont, {Rmmz.dataSystem.Advanced.FallbackFonts}";
         }
 
-        public string NumberFontFace()
+        public virtual string NumberFontFace()
         {
             return $"rmmz-numberfont, {MainFontFace()}";
         }
 
-        public int MainFontSize()
+        public virtual int MainFontSize()
         {
             return Rmmz.dataSystem.Advanced.FontSize;
         }
 
-        public int WindowPadding() => 12;
+        public virtual int WindowPadding() => 12;
 
-        public int WindowOpacity()
+        public virtual int WindowOpacity()
         {
             return Rmmz.dataSystem.Advanced.WindowOpacity;
         }

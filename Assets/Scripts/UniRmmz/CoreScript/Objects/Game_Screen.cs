@@ -12,41 +12,41 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Screen
     {
-        private float _brightness;
-        private int _fadeOutDuration;
-        private int _fadeInDuration;
-        private Vector4 _tone;
-        private Vector4 _toneTarget;
-        private int _toneDuration;
-        private float[] _flashColor;
-        private int _flashDuration;
-        private int _shakePower;
-        private int _shakeSpeed;
-        private int _shakeDuration;
-        private int _shakeDirection;
-        private float _shake;
-        private float _zoomX;
-        private float _zoomY;
-        private float _zoomScale;
-        private float _zoomScaleTarget;
-        private int _zoomDuration;
-        private Weather.WeatherTypes _weatherType;
-        private float _weatherPower;
-        private float _weatherPowerTarget;
-        private int _weatherDuration;
-        private List<Game_Picture> _pictures;
+        protected float _brightness;
+        protected int _fadeOutDuration;
+        protected int _fadeInDuration;
+        protected Vector4 _tone;
+        protected Vector4 _toneTarget;
+        protected int _toneDuration;
+        protected float[] _flashColor;
+        protected int _flashDuration;
+        protected int _shakePower;
+        protected int _shakeSpeed;
+        protected int _shakeDuration;
+        protected int _shakeDirection;
+        protected float _shake;
+        protected float _zoomX;
+        protected float _zoomY;
+        protected float _zoomScale;
+        protected float _zoomScaleTarget;
+        protected int _zoomDuration;
+        protected Weather.WeatherTypes _weatherType;
+        protected float _weatherPower;
+        protected float _weatherPowerTarget;
+        protected int _weatherDuration;
+        protected List<Game_Picture> _pictures;
 
         protected Game_Screen()
         {
             Initialize();
         }
 
-        public void Initialize()
+        public virtual void Initialize()
         {
             Clear();
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             ClearFade();
             ClearTone();
@@ -57,7 +57,7 @@ namespace UniRmmz
             ClearPictures();
         }
 
-        public void OnBattleStart()
+        public virtual void OnBattleStart()
         {
             ClearFade();
             ClearFlash();
@@ -66,58 +66,58 @@ namespace UniRmmz
             EraseBattlePictures();
         }
 
-        public int Brightness()
+        public virtual int Brightness()
         {
             return (int)_brightness;
         }
 
-        public Vector4 Tone()
+        public virtual Vector4 Tone()
         {
             return _tone;
         }
 
-        public Color32 FlashColor()
+        public virtual Color32 FlashColor()
         {
             return new Color32((byte)_flashColor[0], (byte)_flashColor[1], (byte)_flashColor[2], (byte)_flashColor[3]);
         }
 
-        public float Shake()
+        public virtual float Shake()
         {
             return _shake;
         }
 
-        public float ZoomX()
+        public virtual float ZoomX()
         {
             return _zoomX;
         }
 
-        public float ZoomY()
+        public virtual float ZoomY()
         {
             return _zoomY;
         }
 
-        public float ZoomScale()
+        public virtual float ZoomScale()
         {
             return _zoomScale;
         }
 
-        public Weather.WeatherTypes WeatherType()
+        public virtual Weather.WeatherTypes WeatherType()
         {
             return _weatherType;
         }
 
-        public float WeatherPower()
+        public virtual float WeatherPower()
         {
             return _weatherPower;
         }
 
-        public Game_Picture Picture(int pictureId)
+        public virtual Game_Picture Picture(int pictureId)
         {
             int realPictureId = RealPictureId(pictureId);
             return realPictureId < _pictures.Count ? _pictures[realPictureId] : null;
         }
 
-        public int RealPictureId(int pictureId)
+        public virtual int RealPictureId(int pictureId)
         {
             if (Rmmz.gameParty.InBattle())
             {
@@ -129,27 +129,27 @@ namespace UniRmmz
             }
         }
 
-        public void ClearFade()
+        public virtual void ClearFade()
         {
             _brightness = 255f;
             _fadeOutDuration = 0;
             _fadeInDuration = 0;
         }
 
-        public void ClearTone()
+        public virtual void ClearTone()
         {
             _tone = Vector4.zero;
             _toneTarget = Vector4.zero;
             _toneDuration = 0;
         }
 
-        public void ClearFlash()
+        public virtual void ClearFlash()
         {
             _flashColor = new float[]{0, 0, 0, 0};
             _flashDuration = 0;
         }
 
-        public void ClearShake()
+        public virtual void ClearShake()
         {
             _shakePower = 0;
             _shakeSpeed = 0;
@@ -158,7 +158,7 @@ namespace UniRmmz
             _shake = 0;
         }
 
-        public void ClearZoom()
+        public virtual void ClearZoom()
         {
             _zoomX = 0;
             _zoomY = 0;
@@ -167,7 +167,7 @@ namespace UniRmmz
             _zoomDuration = 0;
         }
 
-        public void ClearWeather()
+        public virtual void ClearWeather()
         {
             _weatherType = Weather.WeatherTypes.None;
             _weatherPower = 0;
@@ -175,34 +175,34 @@ namespace UniRmmz
             _weatherDuration = 0;
         }
 
-        public void ClearPictures()
+        public virtual void ClearPictures()
         {
             _pictures = new List<Game_Picture>();
         }
 
-        public void EraseBattlePictures()
+        public virtual void EraseBattlePictures()
         {
             _pictures = _pictures.Take(MaxPictures() + 1).ToList();
         }
 
-        public int MaxPictures()
+        public virtual int MaxPictures()
         {
             return 100;
         }
 
-        public void StartFadeOut(int duration)
+        public virtual void StartFadeOut(int duration)
         {
             _fadeOutDuration = duration;
             _fadeInDuration = 0;
         }
 
-        public void StartFadeIn(int duration)
+        public virtual void StartFadeIn(int duration)
         {
             _fadeInDuration = duration;
             _fadeOutDuration = 0;
         }
 
-        public void StartTint(Vector4 tone, int duration)
+        public virtual void StartTint(Vector4 tone, int duration)
         {
             _toneTarget = tone;
             _toneDuration = duration;
@@ -212,20 +212,20 @@ namespace UniRmmz
             }
         }
 
-        public void StartFlash(Color32 color, int duration)
+        public virtual void StartFlash(Color32 color, int duration)
         {
             _flashColor = new float[] {color.r, color.g, color.b, color.a};
             _flashDuration = duration;
         }
 
-        public void StartShake(int power, int speed, int duration)
+        public virtual void StartShake(int power, int speed, int duration)
         {
             _shakePower = power;
             _shakeSpeed = speed;
             _shakeDuration = duration;
         }
 
-        public void StartZoom(float x, float y, float scale, int duration)
+        public virtual void StartZoom(float x, float y, float scale, int duration)
         {
             _zoomX = x;
             _zoomY = y;
@@ -233,14 +233,14 @@ namespace UniRmmz
             _zoomDuration = duration;
         }
 
-        public void SetZoom(float x, float y, float scale)
+        public virtual void SetZoom(float x, float y, float scale)
         {
             _zoomX = x;
             _zoomY = y;
             _zoomScale = scale;
         }
 
-        public void ChangeWeather(Weather.WeatherTypes type, float power, int duration)
+        public virtual void ChangeWeather(Weather.WeatherTypes type, float power, int duration)
         {
             if (type != Weather.WeatherTypes.None || duration == 0)
             {
@@ -254,7 +254,7 @@ namespace UniRmmz
             }
         }
 
-        public void Update()
+        public virtual void Update()
         {
             UpdateFadeOut();
             UpdateFadeIn();
@@ -266,7 +266,7 @@ namespace UniRmmz
             UpdatePictures();
         }
 
-        public void UpdateFadeOut()
+        public virtual void UpdateFadeOut()
         {
             if (_fadeOutDuration > 0)
             {
@@ -276,7 +276,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateFadeIn()
+        public virtual void UpdateFadeIn()
         {
             if (_fadeInDuration > 0)
             {
@@ -286,7 +286,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateTone()
+        public virtual void UpdateTone()
         {
             if (_toneDuration > 0)
             {
@@ -299,7 +299,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateFlash()
+        public virtual void UpdateFlash()
         {
             if (_flashDuration > 0)
             {
@@ -309,7 +309,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateShake()
+        public virtual void UpdateShake()
         {
             if (_shakeDuration > 0 || _shake != 0)
             {
@@ -334,7 +334,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateZoom()
+        public virtual void UpdateZoom()
         {
             if (_zoomDuration > 0)
             {
@@ -345,7 +345,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateWeather()
+        public virtual void UpdateWeather()
         {
             if (_weatherDuration > 0)
             {
@@ -360,7 +360,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdatePictures()
+        public virtual void UpdatePictures()
         {
             for (int i = 0; i < _pictures.Count; i++)
             {
@@ -371,12 +371,12 @@ namespace UniRmmz
             }
         }
 
-        public void StartFlashForDamage()
+        public virtual void StartFlashForDamage()
         {
             StartFlash(new Color32(255, 0, 0, 128 ), 8);
         }
 
-        public void ShowPicture(
+        public virtual void ShowPicture(
             int pictureId, string name, int origin, float x, float y, 
             float scaleX, float scaleY, int opacity, int blendMode)
         {
@@ -392,7 +392,7 @@ namespace UniRmmz
             _pictures[realPictureId] = picture;
         }
 
-        public void MovePicture(
+        public virtual void MovePicture(
             int pictureId, int origin, float x, float y, float scaleX, float scaleY,
             float opacity, int blendMode, int duration, int easingType)
         {
@@ -404,7 +404,7 @@ namespace UniRmmz
             }
         }
 
-        public void RotatePicture(int pictureId, float speed)
+        public virtual void RotatePicture(int pictureId, float speed)
         {
             var picture = Picture(pictureId);
             if (picture != null)
@@ -413,7 +413,7 @@ namespace UniRmmz
             }
         }
 
-        public void TintPicture(int pictureId, Vector4 tone, int duration)
+        public virtual void TintPicture(int pictureId, Vector4 tone, int duration)
         {
             var picture = Picture(pictureId);
             if (picture != null)
@@ -422,7 +422,7 @@ namespace UniRmmz
             }
         }
 
-        public void ErasePicture(int pictureId)
+        public virtual void ErasePicture(int pictureId)
         {
             int realPictureId = RealPictureId(pictureId);
             if (realPictureId < _pictures.Count)

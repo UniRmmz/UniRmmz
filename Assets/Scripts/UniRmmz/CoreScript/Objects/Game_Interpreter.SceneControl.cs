@@ -7,7 +7,7 @@ namespace UniRmmz
     public partial class Game_Interpreter
     {
         // 戦闘の処理
-        private bool Command301(object[] parameters)
+        protected virtual bool Command301(object[] parameters)
         {
             if (!Rmmz.gameParty.InBattle())
             {

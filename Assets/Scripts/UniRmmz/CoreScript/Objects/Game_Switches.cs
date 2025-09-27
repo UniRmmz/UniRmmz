@@ -10,21 +10,21 @@ namespace UniRmmz
     [Serializable]
     public partial class Game_Switches
     {
-        private List<bool> _data = new();
+        protected List<bool> _data = new();
         
         protected Game_Switches() {}
 
-        public void Clear()
+        public virtual void Clear()
         {
             _data.Clear();
         }
 
-        public bool Value(int switchId)
+        public virtual bool Value(int switchId)
         {
             return _data.ElementAtOrDefault(switchId);
         }
 
-        public void SetValue(int switchId, bool value)
+        public virtual void SetValue(int switchId, bool value)
         {
             if (switchId > 0 && switchId < Rmmz.dataSystem.Switches.Length)
             {
@@ -33,7 +33,7 @@ namespace UniRmmz
             }
         }
 
-        public void OnChange()
+        public virtual void OnChange()
         {
             Rmmz.gameMap.RequestRefresh();
         }

@@ -30,7 +30,7 @@ namespace UniRmmz
             SetTransparent(Rmmz.dataSystem.OptTransparent);
         }
 
-        public void ClearTransferInfo()
+        public virtual void ClearTransferInfo()
         {
             _transferring = false;
             _newMapId = 0;
@@ -39,9 +39,9 @@ namespace UniRmmz
             _newDirection = 0;
         }
 
-        public Game_Followers Followers() => _followers;
+        public virtual Game_Followers Followers() => _followers;
 
-        public void Refresh()
+        public virtual void Refresh()
         {
             var actor = Rmmz.gameParty.Leader();
             var characterName = actor?.CharacterName() ?? string.Empty;
@@ -152,7 +152,7 @@ namespace UniRmmz
             return Input.IsPressed("control") && Rmmz.gameTemp.IsPlaytest();
         }
 
-        public bool IsCollided(int x, int y)
+        public virtual bool IsCollided(int x, int y)
         {
             if (IsThrough())
             {
@@ -161,12 +161,12 @@ namespace UniRmmz
             return Pos(x, y) || _followers.IsSomeoneCollided(x, y);
         }
 
-        public float CenterX()
+        public virtual float CenterX()
         {
             return (Rmmz.gameMap.ScreenTileX() - 1) / 2;
         }
 
-        public float CenterY()
+        public virtual float CenterY()
         {
             return (Rmmz.gameMap.ScreenTileY() - 1) / 2f;
         }
@@ -203,7 +203,7 @@ namespace UniRmmz
             _encounterCount = RmmzMath.RandomInt(n) + RmmzMath.RandomInt(n) + 1;
         }
 
-        public int MakeEncounterTroopId()
+        public virtual int MakeEncounterTroopId()
         {
             var encounterList = new List<Encounter>();
             int weightSum = 0;
@@ -233,7 +233,7 @@ namespace UniRmmz
             return 0;
         }
 
-        public bool MeetsEncounterConditions(Encounter encounter)
+        public virtual bool MeetsEncounterConditions(Encounter encounter)
         {
             if (encounter.RegionSet.Count == 0)
             {

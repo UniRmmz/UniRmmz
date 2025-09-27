@@ -42,24 +42,24 @@ namespace UniRmmz
             InitAllItems();
         }
 
-        public void InitAllItems()
+        public virtual void InitAllItems()
         {
             _items = new Dictionary<int, int>();
             _weapons = new Dictionary<int, int>();
             _armors = new Dictionary<int, int>();
         }
 
-        public bool Exists()
+        public virtual bool Exists()
         {
             return _actors.Count > 0;
         }
 
-        public int Size()
+        public virtual int Size()
         {
             return Members().Count();
         }
 
-        public bool IsEmpty()
+        public virtual bool IsEmpty()
         {
             return Size() == 0;
         }
@@ -82,22 +82,22 @@ namespace UniRmmz
             }
         }
         
-        public IEnumerable<Game_Actor> AllMembers()
+        public virtual IEnumerable<Game_Actor> AllMembers()
         {
             return _actors.Select(id => Rmmz.gameActors.Actor(id)).Where(actor => actor != null);
         }
 
-        public IEnumerable<Game_Actor> BattleMembers()
+        public virtual IEnumerable<Game_Actor> BattleMembers()
         {
             return AllBattleMembers().Where(actor => actor.IsAppeared());
         }
 
-        public IEnumerable<Game_Actor> HiddenBattleMembers()
+        public virtual IEnumerable<Game_Actor> HiddenBattleMembers()
         {
             return AllBattleMembers().Where(actor => actor.IsHidden());
         }
 
-        public IEnumerable<Game_Actor> AllBattleMembers()
+        public virtual IEnumerable<Game_Actor> AllBattleMembers()
         {
             var members = AllMembers();
             return members.Take(MaxBattleMembers());
@@ -108,17 +108,17 @@ namespace UniRmmz
             return 4;
         }
 
-        public Game_Actor Leader()
+        public virtual Game_Actor Leader()
         {
             return BattleMembers().ElementAtOrDefault(0);
         }
 
-        public void RemoveInvalidMembers()
+        public virtual void RemoveInvalidMembers()
         {
             _actors.RemoveAll(actorId => Rmmz.dataActors.ElementAtOrDefault(actorId) == null);
         }
 
-        public void ReviveBattleMembers()
+        public virtual void ReviveBattleMembers()
         {
             foreach (var actor in BattleMembers())
             {
@@ -129,22 +129,22 @@ namespace UniRmmz
             }
         }
 
-        public List<DataItem> Items()
+        public virtual List<DataItem> Items()
         {
             return _items.Keys.Select(id => Rmmz.dataItems[id]).Where(item => item != null).ToList();
         }
 
-        public List<DataWeapon> Weapons()
+        public virtual List<DataWeapon> Weapons()
         {
             return _weapons.Keys.Select(id => Rmmz.dataWeapons[id]).Where(weapon => weapon != null).ToList();
         }
 
-        public List<DataArmor> Armors()
+        public virtual List<DataArmor> Armors()
         {
             return _armors.Keys.Select(id => Rmmz.dataArmors[id]).Where(armor => armor != null).ToList();
         }
 
-        public List<EquipableItem> EquipItems()
+        public virtual List<EquipableItem> EquipItems()
         {
             var items = new List<EquipableItem>();
             items.AddRange(Weapons());
@@ -165,7 +165,7 @@ namespace UniRmmz
             }
         }
 
-        public Dictionary<int, int> ItemContainer(DataCommonItem item)
+        public virtual Dictionary<int, int> ItemContainer(DataCommonItem item)
         {
             if (item == null)
             {
@@ -189,7 +189,7 @@ namespace UniRmmz
             }
         }
         
-        public void SetupStartingMembers()
+        public virtual void SetupStartingMembers()
         {
             _actors.Clear();
             foreach (var actorId in Rmmz.dataSystem.PartyMembers)
@@ -201,7 +201,7 @@ namespace UniRmmz
             }
         }
         
-        public string Name()
+        public virtual string Name()
         {
             var numBattleMembers = BattleMembers().Count();
             if (numBattleMembers == 0)
@@ -218,13 +218,13 @@ namespace UniRmmz
             }
         }
         
-        public int HighestLevel()
+        public virtual int HighestLevel()
         {
             var levels = Members().Cast<Game_Actor>().Select(actor => actor.Level);
             return levels.Any() ? levels.Max() : 1;
         }
         
-        public void AddActor(int actorId)
+        public virtual void AddActor(int actorId)
         {
             if (!_actors.Contains(actorId))
             {
@@ -245,7 +245,7 @@ namespace UniRmmz
             }
         }
 
-        public void RemoveActor(int actorId)
+        public virtual void RemoveActor(int actorId)
         {
             if (_actors.Contains(actorId))
             {
@@ -331,8 +331,7 @@ namespace UniRmmz
 
         public virtual bool IsAnyMemberEquipped<T>(T item) where T : DataCommonItem
         {
-            //return Members().Any(actor => actor.Equips().Contains(item));
-            return false;
+            return Members().Cast<Game_Actor>().Any(actor => actor.Equips().Any(e => e == item));
         }
 
         public virtual void GainItem(DataCommonItem item, int amount, bool includeEquip = false) 
@@ -383,7 +382,7 @@ namespace UniRmmz
             }
         }
         
-        public bool CanUse(DataCommonItem item)
+        public virtual bool CanUse(DataCommonItem item)
         {
             return Members().Any(actor => actor.CanUse(item));
         }
@@ -410,7 +409,7 @@ namespace UniRmmz
             }
         }
 
-        public Game_Actor MenuActor()
+        public virtual Game_Actor MenuActor()
         {
             var actor = Rmmz.gameActors.Actor(_menuActorId);
             if (!Members().Contains(actor))
@@ -420,12 +419,12 @@ namespace UniRmmz
             return actor;
         }
 
-        public void SetMenuActor(Game_Actor actor)
+        public virtual void SetMenuActor(Game_Actor actor)
         {
             _menuActorId = actor.ActorId();
         }
 
-        public void MakeMenuActorNext()
+        public virtual void MakeMenuActorNext()
         {
             var members = Members().ToList();
             var index = members.IndexOf(MenuActor());
@@ -440,7 +439,7 @@ namespace UniRmmz
             }
         }
 
-        public void MakeMenuActorPrevious()
+        public virtual void MakeMenuActorPrevious()
         {
             var members = Members().ToList();
             var index = members.IndexOf(MenuActor());
@@ -455,7 +454,7 @@ namespace UniRmmz
             }
         }
 
-        public Game_Actor TargetActor()
+        public virtual Game_Actor TargetActor()
         {
             var actor = Rmmz.gameActors.Actor(_targetActorId);
             if (!Members().Contains(actor))
@@ -465,17 +464,17 @@ namespace UniRmmz
             return actor;
         }
 
-        public void SetTargetActor(Game_Actor actor)
+        public virtual void SetTargetActor(Game_Actor actor)
         {
             _targetActorId = actor.ActorId();
         }
 
-        public DataItem LastItem()
+        public virtual DataItem LastItem()
         {
             return _lastItem.Object<DataItem>();
         }
 
-        public void SetLastItem(DataItem dataItem)
+        public virtual void SetLastItem(DataItem dataItem)
         {
             _lastItem.SetObject(dataItem);
         }

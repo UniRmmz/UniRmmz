@@ -8,16 +8,16 @@ namespace UniRmmz
     /// </summary>
     public partial class Game_Temp
     {
-        private bool _isPlaytest;
-        private int? _destinationX;
-        private int? _destinationY;
-        private object _touchTarget;
-        private string _touchState;
-        private bool _needsBattleRefresh;
-        private List<int> _commonEventQueue;
-        private List<AnimationRequest> _animationQueue;
-        private List<BalloonRequest> _balloonQueue;
-        private int[] _lastActionData;
+        protected bool _isPlaytest;
+        protected int? _destinationX;
+        protected int? _destinationY;
+        protected object _touchTarget;
+        protected string _touchState;
+        protected bool _needsBattleRefresh;
+        protected List<int> _commonEventQueue;
+        protected List<AnimationRequest> _animationQueue;
+        protected List<BalloonRequest> _balloonQueue;
+        protected int[] _lastActionData;
 
         public class BalloonRequest
         {
@@ -46,7 +46,7 @@ namespace UniRmmz
             _lastActionData = new int[6] { 0, 0, 0, 0, 0, 0 };
         }
         
-        public bool IsPlaytest()
+         public virtual bool IsPlaytest()
         {
 #if UNITY_EDITOR
             return true;
@@ -55,56 +55,56 @@ namespace UniRmmz
 #endif
         }
         
-        public void SetDestination(int x, int y)
+        public virtual void SetDestination(int x, int y)
         {
             _destinationX = x;
             _destinationY = y;
         }
 
-        public void ClearDestination()
+        public virtual void ClearDestination()
         {
             _destinationX = null;
             _destinationY = null;
         }
 
-        public bool IsDestinationValid()
+        public virtual bool IsDestinationValid()
         {
             return _destinationX != null;
         }
 
-        public int DestinationX()
+        public virtual int DestinationX()
         {
             return _destinationX ?? 0;
         }
 
-        public int DestinationY()
+        public virtual int DestinationY()
         {
             return _destinationY ?? 0;
         }
 
-        public void SetTouchState(object target, string state)
+        public virtual void SetTouchState(object target, string state)
         {
             _touchTarget = target;
             _touchState = state;
         }
 
-        public void ClearTouchState()
+        public virtual void ClearTouchState()
         {
             _touchTarget = null;
             _touchState = "";
         }
 
-        public object TouchTarget()
+        public virtual object TouchTarget()
         {
             return _touchTarget;
         }
 
-        public string TouchState()
+        public virtual string TouchState()
         {
             return _touchState;
         }
 
-        public void RequestBattleRefresh()
+        public virtual void RequestBattleRefresh()
         {
             if (Rmmz.gameParty.InBattle())
             {
@@ -112,22 +112,22 @@ namespace UniRmmz
             }
         }
 
-        public void ClearBattleRefreshRequest()
+        public virtual void ClearBattleRefreshRequest()
         {
             _needsBattleRefresh = false;
         }
 
-        public bool IsBattleRefreshRequested()
+        public virtual bool IsBattleRefreshRequested()
         {
             return _needsBattleRefresh;
         }
 
-        public void ReserveCommonEvent(int commonEventId)
+        public virtual void ReserveCommonEvent(int commonEventId)
         {
             _commonEventQueue.Add(commonEventId);
         }
 
-        public DataCommonEvent RetrieveCommonEvent()
+        public virtual DataCommonEvent RetrieveCommonEvent()
         {
             if (_commonEventQueue.Count > 0)
             {
@@ -138,17 +138,17 @@ namespace UniRmmz
             return null;
         }
 
-        public void ClearCommonEventReservation()
+        public virtual void ClearCommonEventReservation()
         {
             _commonEventQueue.Clear();
         }
 
-        public bool IsCommonEventReserved()
+        public virtual bool IsCommonEventReserved()
         {
             return _commonEventQueue.Count > 0;
         }
 
-        public void RequestAnimation(List<object> targets, int animationId, bool mirror = false)
+        public virtual void RequestAnimation(List<object> targets, int animationId, bool mirror = false)
         {
             if (Rmmz.dataAnimations[animationId] != null)
             {
@@ -171,7 +171,7 @@ namespace UniRmmz
             }
         }
 
-        public AnimationRequest RetrieveAnimation()
+        public virtual AnimationRequest RetrieveAnimation()
         {
             if (_animationQueue.Count > 0)
             {
@@ -182,7 +182,7 @@ namespace UniRmmz
             return null;
         }
 
-        public void RequestBalloon(Game_CharacterBase target, int balloonId)
+        public virtual void RequestBalloon(Game_CharacterBase target, int balloonId)
         {
             var request = new BalloonRequest
             {
@@ -194,7 +194,7 @@ namespace UniRmmz
             target.StartBalloon();
         }
 
-        public BalloonRequest RetrieveBalloon()
+        public virtual BalloonRequest RetrieveBalloon()
         {
             if (_balloonQueue.Count > 0)
             {
@@ -205,12 +205,12 @@ namespace UniRmmz
             return null;
         }
 
-        public int LastActionData(int type)
+        public virtual int LastActionData(int type)
         {
             return type < _lastActionData.Length ? _lastActionData[type] : 0;
         }
 
-        public void SetLastActionData(int type, int value)
+        public virtual void SetLastActionData(int type, int value)
         {
             if (type < _lastActionData.Length)
             {
@@ -218,32 +218,32 @@ namespace UniRmmz
             }
         }
 
-        public void SetLastUsedSkillId(int skillID)
+        public virtual void SetLastUsedSkillId(int skillID)
         {
             SetLastActionData(0, skillID);
         }
 
-        public void SetLastUsedItemId(int itemID)
+        public virtual void SetLastUsedItemId(int itemID)
         {
             SetLastActionData(1, itemID);
         }
 
-        public void SetLastSubjectActorId(int actorID)
+        public virtual void SetLastSubjectActorId(int actorID)
         {
             SetLastActionData(2, actorID);
         }
 
-        public void SetLastSubjectEnemyIndex(int enemyIndex)
+        public virtual void SetLastSubjectEnemyIndex(int enemyIndex)
         {
             SetLastActionData(3, enemyIndex);
         }
 
-        public void SetLastTargetActorId(int actorID)
+        public virtual void SetLastTargetActorId(int actorID)
         {
             SetLastActionData(4, actorID);
         }
 
-        public void SetLastTargetEnemyIndex(int enemyIndex)
+        public virtual void SetLastTargetEnemyIndex(int enemyIndex)
         {
             SetLastActionData(5, enemyIndex);
         }
