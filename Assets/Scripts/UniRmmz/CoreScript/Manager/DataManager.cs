@@ -204,11 +204,11 @@ namespace UniRmmz
         public virtual void MakeEmptyMap()
         {
             Rmmz.dataMap = new DataMap();
-            Rmmz.dataMap.data = new int[0];
-            Rmmz.dataMap.events.Clear();
-            Rmmz.dataMap.width = 100;
-            Rmmz.dataMap.height = 100;
-            Rmmz.dataMap.scrollType = 3;
+            Rmmz.dataMap.Data = new int[0];
+            Rmmz.dataMap.Events.Clear();
+            Rmmz.dataMap.Width = 100;
+            Rmmz.dataMap.Height = 100;
+            Rmmz.dataMap.ScrollType = 3;
         }
 
         public virtual bool IsMapLoaded()
@@ -223,7 +223,7 @@ namespace UniRmmz
             {
                 var map = obj as DataMap;
                 ExtractMetadata(map);
-                ExtractArrayMetadata(map.events);
+                ExtractArrayMetadata(map.Events);
             }
             else
             {

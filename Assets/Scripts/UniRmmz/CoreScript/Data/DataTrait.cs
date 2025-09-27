@@ -10,8 +10,8 @@ namespace UniRmmz
         public int DataId => dataId;
         public float Value => value;
         
-        public int code;
-        public int dataId;
-        public float value;
+        private int code;
+        private int dataId;
+        private float value;
     }
 }

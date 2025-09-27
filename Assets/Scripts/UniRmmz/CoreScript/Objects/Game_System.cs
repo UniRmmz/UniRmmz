@@ -143,7 +143,7 @@ namespace UniRmmz
         
         public string MainFontFace()
         {
-            return $"rmmz-mainfont, {Rmmz.dataSystem.advanced.FallbackFonts}";
+            return $"rmmz-mainfont, {Rmmz.dataSystem.Advanced.FallbackFonts}";
         }
 
         public string NumberFontFace()
@@ -153,14 +153,14 @@ namespace UniRmmz
 
         public int MainFontSize()
         {
-            return Rmmz.dataSystem.advanced.FontSize;
+            return Rmmz.dataSystem.Advanced.FontSize;
         }
 
         public int WindowPadding() => 12;
 
         public int WindowOpacity()
         {
-            return Rmmz.dataSystem.advanced.WindowOpacity;
+            return Rmmz.dataSystem.Advanced.WindowOpacity;
         }
 
     }

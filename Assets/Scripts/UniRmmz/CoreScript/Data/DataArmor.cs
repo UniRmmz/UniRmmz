@@ -10,7 +10,7 @@ namespace UniRmmz
         public int AtypeId => atypeId;
         public override int Price => price;
         
-        public int atypeId;
-        public int price;
+        private int atypeId;
+        private int price;
     }
 }

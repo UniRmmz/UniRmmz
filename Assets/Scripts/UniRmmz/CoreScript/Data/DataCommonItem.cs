@@ -15,11 +15,11 @@ namespace UniRmmz
         public string Note => note;
         public RmmzMetadata Meta { get; set; }
 
-        public int id;
-        public string description;
-        public int iconIndex;
-        public string name;
-        public string note;
+        private int id;
+        private string description;
+        private int iconIndex;
+        private string name;
+        private string note;
     }
     
     public class UsableItem : DataCommonItem 
@@ -35,16 +35,16 @@ namespace UniRmmz
         public int SuccessRate => successRate;
         public int TpGain => tpGain;
         
-        public int animationId;
-        public int occasion;
-        public DataDamage damage;
-        public List<DataEffect> effects;
-        public int hitType;
-        public int repeats;
-        public int scope;
-        public int speed;
-        public int successRate;
-        public int tpGain;
+        private int animationId;
+        private int occasion;
+        private DataDamage damage;
+        private List<DataEffect> effects;
+        private int hitType;
+        private int repeats;
+        private int scope;
+        private int speed;
+        private int successRate;
+        private int tpGain;
     }
     
     public class EquipableItem : DataCommonItem, ITraitsObject
@@ -53,8 +53,8 @@ namespace UniRmmz
         public int[] Params => @params;
         public DataTrait[] Traits => traits;
         
-        public int etypeId;
-        public int[] @params;
-        public DataTrait[] traits;
+        private int etypeId;
+        private int[] @params;
+        private DataTrait[] traits;
     }
 }

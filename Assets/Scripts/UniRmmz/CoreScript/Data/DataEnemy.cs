@@ -20,17 +20,17 @@ namespace UniRmmz
         public RmmzMetadata Meta { get; set; }
         public int[] Params => @params;
         
-        public int id;
-        public List<DataEnemyAction> actions;
-        public int battlerHue;
-        public string battlerName;
-        public List<DataDropItem> dropItems;
-        public int exp;
-        public DataTrait[] traits;
-        public int gold;
-        public string name;
-        public string note;
-        public int[] @params;
+        private int id;
+        private List<DataEnemyAction> actions;
+        private int battlerHue;
+        private string battlerName;
+        private List<DataDropItem> dropItems;
+        private int exp;
+        private DataTrait[] traits;
+        private int gold;
+        private string name;
+        private string note;
+        private int[] @params;
     }
 
     [Serializable]
@@ -42,11 +42,11 @@ namespace UniRmmz
         public float ConditionParam2 => conditionParam2;
         public int Rating => rating;
         
-        public int skillId;
-        public int conditionType;
-        public float conditionParam1;
-        public float conditionParam2;
-        public int rating;
+        private int skillId;
+        private int conditionType;
+        private float conditionParam1;
+        private float conditionParam2;
+        private int rating;
     }
 
     [Serializable]
@@ -56,8 +56,8 @@ namespace UniRmmz
         public int DataId => dataId;
         public int Denominator => denominator;
         
-        public int kind;
-        public int dataId;
-        public int denominator;
+        private int kind;
+        private int dataId;
+        private int denominator;
     }
 }

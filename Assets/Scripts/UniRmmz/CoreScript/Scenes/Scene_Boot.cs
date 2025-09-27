@@ -68,7 +68,7 @@ namespace UniRmmz
 
         private void LoadGameFonts()
         {
-            var advanced = Rmmz.dataSystem.advanced;
+            var advanced = Rmmz.dataSystem.Advanced;
             Rmmz.FontManager.Load("rmmz-mainfont", advanced.MainFontFilename);
             Rmmz.FontManager.Load("rmmz-numberfont", advanced.NumberFontFilename);
         }
@@ -117,8 +117,8 @@ namespace UniRmmz
 
         private void ResizeScreen()
         {
-            int screenWidth = Rmmz.dataSystem.advanced.ScreenWidth;
-            int screenHeight = Rmmz.dataSystem.advanced.ScreenHeight;
+            int screenWidth = Rmmz.dataSystem.Advanced.ScreenWidth;
+            int screenHeight = Rmmz.dataSystem.Advanced.ScreenHeight;
             Graphics.Resize(screenWidth, screenHeight);
             Graphics.DefaultScale = ScreenScale();
             AdjustBoxSize();
@@ -127,8 +127,8 @@ namespace UniRmmz
 
         private void AdjustBoxSize()
         {
-            int uiAreaWidth = Rmmz.dataSystem.advanced.UiAreaWidth;
-            int uiAreaHeight = Rmmz.dataSystem.advanced.UiAreaHeight;
+            int uiAreaWidth = Rmmz.dataSystem.Advanced.UiAreaWidth;
+            int uiAreaHeight = Rmmz.dataSystem.Advanced.UiAreaHeight;
             int boxMargin = 4;
             Graphics.BoxWidth = uiAreaWidth - boxMargin * 2;
             Graphics.BoxHeight = uiAreaHeight - boxMargin * 2;
@@ -147,9 +147,9 @@ namespace UniRmmz
 
         private float ScreenScale()
         {
-            if (Rmmz.dataSystem.advanced.ScreenScale > 0)
+            if (Rmmz.dataSystem.Advanced.ScreenScale > 0)
             {
-                return Rmmz.dataSystem.advanced.ScreenScale;
+                return Rmmz.dataSystem.Advanced.ScreenScale;
             }
             else
             {

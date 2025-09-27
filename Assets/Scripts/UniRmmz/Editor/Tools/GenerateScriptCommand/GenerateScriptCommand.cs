@@ -148,7 +148,7 @@ namespace UniRmmz.Editor
         
         private static int CollectFromCharacterMoveRouteCommand(List<DataEventCommand> list, int currentIndex, RmmzCollectJavascriptResult result)
         {
-            var parameters = list[currentIndex].parameters;
+            var parameters = list[currentIndex].Parameters;
             var moveRoute = ConvertEx.ToMoveRoute(parameters[1]);
             foreach (var command in moveRoute.List)
             {

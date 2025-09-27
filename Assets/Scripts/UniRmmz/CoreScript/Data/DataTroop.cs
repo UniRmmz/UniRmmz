@@ -13,10 +13,10 @@ namespace UniRmmz
         public string Name => name;
         public DataTroopPage[] Pages => pages;
         
-        public int id;
-        public DataTroopMember[] members;
-        public string name;
-        public DataTroopPage[] pages;
+        private int id;
+        private DataTroopMember[] members;
+        private string name;
+        private DataTroopPage[] pages;
     }
 
     [Serializable]
@@ -27,10 +27,10 @@ namespace UniRmmz
         public float Y => y;
         public bool Hidden => hidden;
         
-        public int enemyId;
-        public float x;
-        public float y;
-        public bool hidden;
+        private int enemyId;
+        private float x;
+        private float y;
+        private bool hidden;
     }
 
     [Serializable]
@@ -40,9 +40,9 @@ namespace UniRmmz
         public List<DataEventCommand> List => list;
         public int Span => span;
         
-        public DataTroopConditions conditions;
-        public List<DataEventCommand> list;
-        public int span;
+        private DataTroopConditions conditions;
+        private List<DataEventCommand> list;
+        private int span;
     }
 
     [Serializable]
@@ -61,17 +61,17 @@ namespace UniRmmz
         public bool TurnEnding => turnEnding;
         public bool TurnValid => turnValid;
         
-        public int actorHp;
-        public int actorId;
-        public bool actorValid;
-        public int enemyHp;
-        public int enemyIndex;
-        public bool enemyValid;
-        public int switchId;
-        public bool switchValid;
-        public int turnA;
-        public int turnB;
-        public bool turnEnding;
-        public bool turnValid;
+        private int actorHp;
+        private int actorId;
+        private bool actorValid;
+        private int enemyHp;
+        private int enemyIndex;
+        private bool enemyValid;
+        private int switchId;
+        private bool switchValid;
+        private int turnA;
+        private int turnB;
+        private bool turnEnding;
+        private bool turnValid;
     }
 }

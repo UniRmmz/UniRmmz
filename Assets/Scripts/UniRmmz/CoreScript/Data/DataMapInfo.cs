@@ -13,12 +13,12 @@ namespace UniRmmz
         public float ScrollX => scrollX;
         public float ScrollY => scrollY;
         
-        public int id;
-        public bool expanded;
-        public string name;
-        public int order;
-        public int parentId;
-        public float scrollX;
-        public float scrollY;
+        private int id;
+        private bool expanded;
+        private string name;
+        private int order;
+        private int parentId;
+        private float scrollX;
+        private float scrollY;
     }
 }

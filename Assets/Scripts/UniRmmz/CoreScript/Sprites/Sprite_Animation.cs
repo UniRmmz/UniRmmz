@@ -67,7 +67,7 @@ namespace UniRmmz
             _effect = Rmmz.EffectManager.Load(animation.EffectName);
             _playing = true;
 
-            var timings = animation.soundTimings.Select(timing => timing.frame).Concat(animation.FlashTimings.Select(timings => timings.frame));
+            var timings = animation.SoundTimings.Select(timing => timing.Frame).Concat(animation.FlashTimings.Select(timings => timings.Frame));
             foreach (var timing in timings)
             {
                 if (timing > _maxTimingFrames)
@@ -136,9 +136,9 @@ namespace UniRmmz
         {
             float scale = _animation.Scale / 100f;
             float r = Mathf.PI / 180f;
-            float rx = _animation.Rotation.x * r;
-            float ry = _animation.Rotation.y * r;
-            float rz = _animation.Rotation.z * r;
+            float rx = _animation.Rotation.X * r;
+            float ry = _animation.Rotation.Y * r;
+            float rz = _animation.Rotation.Z * r;
 
             if (_handle.enabled)
             {
@@ -161,9 +161,9 @@ namespace UniRmmz
         {
             foreach (var timing in _animation.SoundTimings)
             {
-                if (timing.frame == _frameIndex)
+                if (timing.Frame == _frameIndex)
                 {
-                    Rmmz.AudioManager.PlaySe(timing.se);
+                    Rmmz.AudioManager.PlaySe(timing.Se);
                 }
             }
         }
@@ -172,7 +172,7 @@ namespace UniRmmz
         {
             foreach (var timing in _animation.FlashTimings)
             {
-                if (timing.frame == _frameIndex)
+                if (timing.Frame == _frameIndex)
                 {
                     _flashColor = new Color(timing.Color[0], timing.Color[1], timing.Color[2], timing.Color[3]);
                     _flashDuration = timing.Duration;

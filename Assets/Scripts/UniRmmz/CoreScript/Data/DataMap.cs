@@ -16,7 +16,7 @@ namespace UniRmmz
         public string DisplayName => displayName;
         public List<Encounter> EncounterList => encounterList;
         public int EncounterStep => encounterStep;
-        public int Height => height;
+        public int Height { get => height; set => height = value; }
         public string Note => note;
         public RmmzMetadata Meta { get; set; }
         public bool ParallaxLoopX => parallaxLoopX;
@@ -25,37 +25,37 @@ namespace UniRmmz
         public bool ParallaxShow => parallaxShow;
         public int ParallaxSx => parallaxSx;
         public int ParallaxSy => parallaxSy;
-        public int ScrollType => scrollType;
+        public int ScrollType { get => scrollType; set => scrollType = value; }
         public bool SpecifyBattleback => specifyBattleback;
         public int TilesetId => tilesetId;
-        public int Width => width;
-        public int[] Data => data;
-        public List<DataEvent> Events => events;
+        public int Width { get => width; set => width = value; }
+        public int[] Data { get => data; set => data = value; }
+        public List<DataEvent> Events { get => events; set => events = value; }
         
-        public bool autoplayBgm;
-        public bool autoplayBgs;
-        public string battleback1Name;
-        public string battleback2Name;
-        public DataSystem.DataSound bgm;
-        public DataSystem.DataSound bgs;
-        public bool disableDashing;
-        public string displayName;
-        public List<Encounter> encounterList;
-        public int encounterStep;
-        public int height;
-        public string note;
-        public bool parallaxLoopX;
-        public bool parallaxLoopY;
-        public string parallaxName;
-        public bool parallaxShow;
-        public int parallaxSx;
-        public int parallaxSy;
-        public int scrollType;
-        public bool specifyBattleback;
-        public int tilesetId;
-        public int width;
-        public int[] data;
-        public List<DataEvent> events;
+        private bool autoplayBgm;
+        private bool autoplayBgs;
+        private string battleback1Name;
+        private string battleback2Name;
+        private DataSystem.DataSound bgm;
+        private DataSystem.DataSound bgs;
+        private bool disableDashing;
+        private string displayName;
+        private List<Encounter> encounterList;
+        private int encounterStep;
+        private int height;
+        private string note;
+        private bool parallaxLoopX;
+        private bool parallaxLoopY;
+        private string parallaxName;
+        private bool parallaxShow;
+        private int parallaxSx;
+        private int parallaxSy;
+        private int scrollType;
+        private bool specifyBattleback;
+        private int tilesetId;
+        private int width;
+        private int[] data;
+        private List<DataEvent> events;
     }
 
     [Serializable]
@@ -65,9 +65,9 @@ namespace UniRmmz
         public int Weight => weight;
         public List<int> RegionSet => regionSet;
         
-        public int troopId;
-        public int weight;
-        public List<int> regionSet;
+        private int troopId;
+        private int weight;
+        private List<int> regionSet;
     }
 
     [Serializable]
@@ -81,12 +81,12 @@ namespace UniRmmz
         public int Y => y;
         public RmmzMetadata Meta { get; set; }
         
-        public int id;
-        public string name;
-        public string note;
-        public List<EventPage> pages;
-        public int x;
-        public int y;
+        private int id;
+        private string name;
+        private string note;
+        private List<EventPage> pages;
+        private int x;
+        private int y;
     }
 
     [Serializable]
@@ -106,19 +106,19 @@ namespace UniRmmz
         public int Trigger => trigger;
         public bool WalkAnime => walkAnime;
         
-        public EventConditions conditions;
-        public bool directionFix;
-        public EventImage image;
-        public List<DataEventCommand> list;
-        public int moveFrequency;
-        public MoveRoute moveRoute;
-        public int moveSpeed;
-        public int moveType;
-        public int priorityType;
-        public bool stepAnime;
-        public bool through;
-        public int trigger;
-        public bool walkAnime;
+        private EventConditions conditions;
+        private bool directionFix;
+        private EventImage image;
+        private List<DataEventCommand> list;
+        private int moveFrequency;
+        private MoveRoute moveRoute;
+        private int moveSpeed;
+        private int moveType;
+        private int priorityType;
+        private bool stepAnime;
+        private bool through;
+        private int trigger;
+        private bool walkAnime;
     }
 
     [Serializable]
@@ -138,19 +138,19 @@ namespace UniRmmz
         public bool VariableValid => variableValid;
         public int VariableValue => variableValue;
         
-        public int actorId;
-        public bool actorValid;
-        public int itemId;
-        public bool itemValid;
-        public string selfSwitchCh;
-        public bool selfSwitchValid;
-        public int switch1Id;
-        public bool switch1Valid;
-        public int switch2Id;
-        public bool switch2Valid;
-        public int variableId;
-        public bool variableValid;
-        public int variableValue;
+        private int actorId;
+        private bool actorValid;
+        private int itemId;
+        private bool itemValid;
+        private string selfSwitchCh;
+        private bool selfSwitchValid;
+        private int switch1Id;
+        private bool switch1Valid;
+        private int switch2Id;
+        private bool switch2Valid;
+        private int variableId;
+        private bool variableValid;
+        private int variableValue;
     }
 
     [Serializable]
@@ -162,34 +162,34 @@ namespace UniRmmz
         public int Pattern => pattern;
         public int CharacterIndex => characterIndex;
         
-        public int tileId;
-        public string characterName;
-        public int direction;
-        public int pattern;
-        public int characterIndex;
+        private int tileId;
+        private string characterName;
+        private int direction;
+        private int pattern;
+        private int characterIndex;
     }
 
     [Serializable]
     public class MoveRoute
     {
-        public List<MoveCommand> List => list;
-        public bool Repeat => repeat;
-        public bool Skippable => skippable;
-        public bool Wait => wait;
+        public List<MoveCommand> List { get => list; set => list = value; }
+        public bool Repeat { get => repeat; set => repeat = value; }
+        public bool Skippable { get => skippable; set => skippable = value; }
+        public bool Wait { get => wait; set => wait = value; }
         
-        public List<MoveCommand> list;
-        public bool repeat;
-        public bool skippable;
-        public bool wait;
+        private List<MoveCommand> list;
+        private bool repeat;
+        private bool skippable;
+        private bool wait;
     }
 
     [Serializable]
     public class MoveCommand
     {
-        public int Code => code;
-        public List<object> Parameters => parameters;
+        public int Code { get => code; set => code = value; }
+        public List<object> Parameters { get => parameters; set => parameters = value; }
         
-        public int code;
-        public List<object> parameters;
+        private int code;
+        private List<object> parameters;
     }
 }

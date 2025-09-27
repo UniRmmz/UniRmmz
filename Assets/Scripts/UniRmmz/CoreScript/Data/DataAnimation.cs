@@ -18,18 +18,18 @@ namespace UniRmmz
         public int Speed => speed;
         public bool AlignBottom => alignBottom;
    
-        public int id;
-        public int displayType;
-        public string effectName;
-        public DataFlashTiming[] flashTimings;
-        public string name;
-        public int offsetX;
-        public int offsetY;
-        public DataRotation rotation;
-        public int scale;
-        public DataSoundTiming[] soundTimings;
-        public int speed;
-        public bool alignBottom;
+        private int id;
+        private int displayType;
+        private string effectName;
+        private DataFlashTiming[] flashTimings;
+        private string name;
+        private int offsetX;
+        private int offsetY;
+        private DataRotation rotation;
+        private int scale;
+        private DataSoundTiming[] soundTimings;
+        private int speed;
+        private bool alignBottom;
         
         // 以下、MV版で必要な情報
         public int Animation1Hue => animation1Hue;
@@ -40,13 +40,13 @@ namespace UniRmmz
         public int Position => position;
         public DataAnimationTimingMV[] Timings => timings;
         
-        public int animation1Hue;
-        public string animation1Name;
-        public int animation2Hue;
-        public string animation2Name;
-        public float[][][] frames;
-        public int position;
-        public DataAnimationTimingMV[] timings;
+        private int animation1Hue;
+        private string animation1Name;
+        private int animation2Hue;
+        private string animation2Name;
+        private float[][][] frames;
+        private int position;
+        private DataAnimationTimingMV[] timings;
     }
 
     [Serializable]
@@ -56,9 +56,9 @@ namespace UniRmmz
         public int Duration => duration;
         public int[] Color => color;
    
-        public int frame;
-        public int duration;
-        public int[] color;
+        private int frame;
+        private int duration;
+        private int[] color;
     }
 
     [Serializable]
@@ -67,8 +67,8 @@ namespace UniRmmz
         public int Frame => frame;
         public DataSystem.DataSound Se => se;
    
-        public int frame;
-        public DataSystem.DataSound se;
+        private int frame;
+        private DataSystem.DataSound se;
     }
 
     [System.Serializable]
@@ -78,9 +78,9 @@ namespace UniRmmz
         public float Y => y;
         public float Z => z;
    
-        public float x;
-        public float y;
-        public float z;
+        private float x;
+        private float y;
+        private float z;
     }
     
     [Serializable]
@@ -92,10 +92,10 @@ namespace UniRmmz
         public int Frame => frame;
         public DataSystem.DataSound Se => se;
         
-        public int[] flashColor;
-        public int flashDuration;
-        public int flashScope;
-        public int frame;
-        public DataSystem.DataSound se;
+        private int[] flashColor;
+        private int flashDuration;
+        private int flashScope;
+        private int frame;
+        private DataSystem.DataSound se;
     }
 }

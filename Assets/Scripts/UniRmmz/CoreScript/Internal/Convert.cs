@@ -117,10 +117,10 @@ namespace UniRmmz
             var moveRoute = new MoveRoute();
 
             // 基本プロパティの解析
-            moveRoute.repeat = jObject.Value<bool>("repeat");
-            moveRoute.skippable = jObject.Value<bool>("skippable");
-            moveRoute.wait = jObject.Value<bool>("wait");
-            moveRoute.list = new List<MoveCommand>();
+            moveRoute.Repeat = jObject.Value<bool>("repeat");
+            moveRoute.Skippable = jObject.Value<bool>("skippable");
+            moveRoute.Wait = jObject.Value<bool>("wait");
+            moveRoute.List = new List<MoveCommand>();
 
             // listプロパティの解析
             var listToken = jObject["list"];
@@ -147,7 +147,7 @@ namespace UniRmmz
                 return null;
 
             var moveCommand = new MoveCommand();
-            moveCommand.code = jObject.Value<int>("code");
+            moveCommand.Code = jObject.Value<int>("code");
 
             // parametersの解析
             var parametersToken = jObject["parameters"];
@@ -180,7 +180,7 @@ namespace UniRmmz
                     
                 }
             
-                moveCommand.parameters = parameters;
+                moveCommand.Parameters = parameters;
             }
 
             return moveCommand;
@@ -194,10 +194,10 @@ namespace UniRmmz
 
             var soundData = new DataSystem.DataSound();
 
-            soundData.name = jObject.Value<string>("name");
-            soundData.pan = jObject.Value<int>("pan");
-            soundData.pitch = jObject.Value<int>("pitch");
-            soundData.volume = jObject.Value<int>("volume");
+            soundData.Name = jObject.Value<string>("name");
+            soundData.Pan = jObject.Value<int>("pan");
+            soundData.Pitch = jObject.Value<int>("pitch");
+            soundData.Volume = jObject.Value<int>("volume");
 
             return soundData;
         }

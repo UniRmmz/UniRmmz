@@ -23,20 +23,20 @@ namespace UniRmmz
         public RmmzMetadata Meta { get; set; }
         public string Profile => profile;
 
-        public int id;
-        public string battlerName;
-        public int characterIndex;
-        public string characterName;
-        public int classId;
-        public List<int> equips;
-        public int faceIndex;
-        public string faceName;
-        public DataTrait[] traits;
-        public int initialLevel;
-        public int maxLevel;
-        public string name;
-        public string nickname;
-        public string note;
-        public string profile;
+        private int id;
+        private string battlerName;
+        private int characterIndex;
+        private string characterName;
+        private int classId;
+        private List<int> equips;
+        private int faceIndex;
+        private string faceName;
+        private DataTrait[] traits;
+        private int initialLevel;
+        private int maxLevel;
+        private string name;
+        private string nickname;
+        private string note;
+        private string profile;
     }
 }
