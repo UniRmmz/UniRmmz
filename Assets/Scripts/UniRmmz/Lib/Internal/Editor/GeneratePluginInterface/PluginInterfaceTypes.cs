@@ -9,12 +9,9 @@ namespace UniRmmz.Editor
     public class PluginParameter
     {
         public string name;
-        public string text;
         public string desc;
         public string type;
-        public string defaultValue;
         public List<PluginOption> options = new List<PluginOption>();
-        public List<string> tags = new List<string>();
     }
 
     /// <summary>
@@ -53,8 +50,6 @@ namespace UniRmmz.Editor
     {
         public string plugindesc;
         public string author;
-        public string version;
-        
         public List<PluginParameter> parameters = new List<PluginParameter>();
         public List<PluginCommand> commands = new List<PluginCommand>();
         public List<PluginStruct> structs = new List<PluginStruct>();

@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System.Text;
 
 namespace UniRmmz.Editor
 {
@@ -40,12 +41,12 @@ namespace UniRmmz.Editor
         /// <summary>
         /// 解析結果をC#コードとして生成
         /// </summary>
-        public static string GenerateCSharpCode(string className, PluginInfo pluginInfo)
+        public static string GenerateCSharpCode(string pluginName, PluginInfo pluginInfo)
         {
             var code = new System.Text.StringBuilder();
             
             // ヘッダーコメント
-            code.AppendLine($"/*:");
+            code.AppendLine($"/*");
             code.AppendLine($" * {pluginInfo.plugindesc}");
             code.AppendLine($" * @author {pluginInfo.author}");
             code.AppendLine($" */");
@@ -56,7 +57,7 @@ namespace UniRmmz.Editor
             code.AppendLine();
             
             // 名前空間とクラス定義
-            code.AppendLine($"namespace UniRmmz.Plugin.{className}");
+            code.AppendLine($"namespace UniRmmz.Plugin.{pluginName}");
             code.AppendLine("{");
             
             // 構造体を生成
@@ -69,12 +70,12 @@ namespace UniRmmz.Editor
             // パラメータクラスを生成
             if (pluginInfo.parameters.Count > 0)
             {
-                GenerateParametersClass(code, pluginInfo.parameters, className, 1);
+                GeneratePluginParameter(code, pluginInfo.parameters, pluginName, 1);
                 code.AppendLine();
             }
             
             // メインプラグインクラス
-            code.AppendLine($"    public static class {className}Plugin");
+            code.AppendLine($"    public static class {pluginName}Plugin");
             code.AppendLine("    {");
             
             // 初期化メソッド
@@ -85,7 +86,7 @@ namespace UniRmmz.Editor
             // コマンド登録
             foreach (var command in pluginInfo.commands)
             {
-                code.AppendLine($"            PluginManager.RegisterCommand(\"{className}\", \"{command.name}\", {command.name.ToCamelCase()});");
+                code.AppendLine($"            PluginManager.RegisterCommand(\"{pluginName}\", \"{command.name}\", {ToCamelCase(command.name)});");
             }
             
             code.AppendLine("        }");
@@ -94,7 +95,7 @@ namespace UniRmmz.Editor
             foreach (var command in pluginInfo.commands)
             {
                 code.AppendLine();
-                code.AppendLine($"        private static void {command.name.ToCamelCase()}(Dictionary<string, object> args)");
+                code.AppendLine($"        private static void {ToCamelCase(command.name)}(Dictionary<string, object> args)");
                 code.AppendLine("        {");
                 code.AppendLine("            // TODO: Implement command logic");
                 code.AppendLine("        }");
@@ -116,34 +117,45 @@ namespace UniRmmz.Editor
             code.AppendLine($"{indentStr}[Serializable]");
             code.AppendLine($"{indentStr}public class {structInfo.name}");
             code.AppendLine($"{indentStr}{{");
-            
-            foreach (var param in structInfo.parameters)
-            {
-                var csharpType = ConvertParamType(param.type);
-                code.AppendLine($"{indentStr}    public {csharpType} {param.name};");
-            }
-            
+            GenerateParameterItem(code, structInfo.parameters, indentStr);
             code.AppendLine($"{indentStr}}}");
         }
 
         /// <summary>
-        /// パラメータクラスを生成
+        /// プラグインパラメータクラスを生成
         /// </summary>
-        private static void GenerateParametersClass(System.Text.StringBuilder code, List<PluginParameter> parameters, string className, int indent)
+        private static void GeneratePluginParameter(System.Text.StringBuilder code, List<PluginParameter> parameters, string className, int indent)
         {
             var indentStr = new string(' ', indent * 4);
             
             code.AppendLine($"{indentStr}[Serializable]");
             code.AppendLine($"{indentStr}public class {className}Parameters");
             code.AppendLine($"{indentStr}{{");
-            
+            GenerateParameterItem(code, parameters, indentStr);
+            code.AppendLine($"{indentStr}}}");
+        }
+
+        private static void GenerateParameterItem(StringBuilder code, List<PluginParameter> parameters, string indentStr)
+        {
             foreach (var param in parameters)
             {
                 var csharpType = ConvertParamType(param.type);
+                if (!string.IsNullOrEmpty(param.desc))
+                {
+                    code.AppendLine($"{indentStr}    /// <summary>{param.desc}</summary>");    
+                }
+                if (param.options != null && param.options.Count > 0)
+                {
+                    code.AppendLine($"{indentStr}    /// <remarks>");
+                    foreach (var item in param.options)
+                    {
+                        code.AppendLine($"{indentStr}    /// {item.value} --- {item.text}");    
+                    }
+                    code.AppendLine($"{indentStr}    /// </remarks>");
+                }
                 code.AppendLine($"{indentStr}    public {csharpType} {param.name};");
+                code.AppendLine();
             }
-            
-            code.AppendLine($"{indentStr}}}");
         }
 
         /// <summary>
@@ -188,16 +200,13 @@ namespace UniRmmz.Editor
         private static string ExtractStructTypeName(string structType)
         {
             var match = Regex.Match(structType, @"struct<(\w+)>");
-            var typeName = match.Success ? match.Groups[1].Value : "object";
-            /*
-            if (structType.EndsWith("[]"))
-            {
-                typeName = $"{typeName}[]";
-            }
-            */
-
-            return typeName;
+            return match.Success ? match.Groups[1].Value : "object";
         }
  
+        public static string ToCamelCase(string str)
+        {
+            if (string.IsNullOrEmpty(str)) return str;
+            return char.ToUpper(str[0]) + str.Substring(1);
+        }
     }
 }

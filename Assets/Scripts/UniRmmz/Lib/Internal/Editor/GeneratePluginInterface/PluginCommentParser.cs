@@ -151,10 +151,6 @@ namespace UniRmmz.Editor
                 {
                     pluginInfo.author = ExtractValue(line);
                 }
-                else if (line.StartsWith("@version"))
-                {
-                    pluginInfo.version = ExtractValue(line);
-                }
                 else if (line.StartsWith("@param"))
                 {
                     var param = ParseParameter(lines, ref i);
@@ -227,21 +223,13 @@ namespace UniRmmz.Editor
             {
                 line = lines[index];
                 
-                if (line.StartsWith("@text"))
-                {
-                    param.text = ExtractValue(line);
-                }
-                else if (line.StartsWith("@desc"))
+                if (line.StartsWith("@desc"))
                 {
                     param.desc = ExtractValue(line);
                 }
                 else if (line.StartsWith("@type"))
                 {
                     param.type = ExtractValue(line);
-                }
-                else if (line.StartsWith("@default"))
-                {
-                    param.defaultValue = ExtractValue(line);
                 }
                 else if (line.StartsWith("@option"))
                 {
@@ -257,7 +245,7 @@ namespace UniRmmz.Editor
                     
                     param.options.Add(option);
                 }
-                else if (line.StartsWith("@") && !line.StartsWith("@value"))
+                else if (line.StartsWith("@") && line.StartsWith("@param"))
                 {
                     // 別のパラメータの開始
                     index--;
@@ -334,18 +322,6 @@ namespace UniRmmz.Editor
             return line.StartsWith("@text") || 
                    line.StartsWith("@desc") || 
                    line.StartsWith("@arg");
-        }
-    }
-
-    /// <summary>
-    /// 文字列拡張メソッド
-    /// </summary>
-    public static class StringExtensions
-    {
-        public static string ToCamelCase(this string str)
-        {
-            if (string.IsNullOrEmpty(str)) return str;
-            return char.ToUpper(str[0]) + str.Substring(1);
         }
     }
 }
