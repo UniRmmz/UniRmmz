@@ -11,18 +11,18 @@ namespace UniRmmz
     /// </summary>
     public partial class FontManager
     {
-        private enum FontStates
+        protected enum FontStates
         {
             Loading,
             Loaded,
             Error,
         }
         
-        private Dictionary<string, string> _urls = new();
-        private Dictionary<string, FontStates> _states = new();
-        private Dictionary<string, TMPro.TMP_FontAsset> _fontAssets = new();
+        protected Dictionary<string, string> _urls = new();
+        protected Dictionary<string, FontStates> _states = new();
+        protected Dictionary<string, TMPro.TMP_FontAsset> _fontAssets = new();
         
-        public void Load(string family, string filename)
+        public virtual void Load(string family, string filename)
         {
             if (_states.GetValueOrDefault(family) != FontStates.Loaded)
             {
@@ -36,7 +36,7 @@ namespace UniRmmz
             }
         }
 
-        public bool IsReady()
+        public virtual bool IsReady()
         {
             foreach (var pair in _states)
             {
@@ -53,7 +53,7 @@ namespace UniRmmz
             return true;
         }
 
-        public TMPro.TMP_FontAsset Font(string fontFace)
+        public virtual TMPro.TMP_FontAsset Font(string fontFace)
         {
             foreach (var family in fontFace.Split(","))
             {
@@ -67,7 +67,7 @@ namespace UniRmmz
             return null;
         }
 
-        private void StartLoading(string family, string url)
+        protected void StartLoading(string family, string url)
         {
             System.Collections.IEnumerator LoadCoroutine(string family, string url)
             {
@@ -96,7 +96,7 @@ namespace UniRmmz
             RmmzRoot.RunCoroutine(LoadCoroutine(family, url));
         }
 
-        private void ThrowLoadError(string family)
+        protected void ThrowLoadError(string family)
         {
             /*
             const url = this._urls[family];
@@ -106,7 +106,7 @@ namespace UniRmmz
             throw new RmmzError("Failed to load font: " + family);
         }
 
-        private string MakeUrl(string filename)
+        protected string MakeUrl(string filename)
         {
             var tmp = Path.GetFileNameWithoutExtension(Utils.EncodeUri(filename));
             return $"Fonts/{tmp} SDF";
@@ -115,7 +115,7 @@ namespace UniRmmz
         /// <summary>
         /// 読み込まれたフォントのクリーンアップ
         /// </summary>
-        public void Cleanup()
+        public virtual void Cleanup()
         {
             foreach (var fontAsset in _fontAssets.Values)
             {

@@ -4,14 +4,14 @@ namespace UniRmmz
 {
     public partial class ColorManager
     {
-        private Bitmap _windowskin;
+        protected Bitmap _windowskin;
 
-        public void LoadWindowskin()
+        public virtual void LoadWindowskin()
         {
             _windowskin = Rmmz.ImageManager.LoadSystem("Window");
         }
 
-        public Color TextColor(int n)
+        public virtual Color TextColor(int n)
         {
             int px = 96 + (n % 8) * 12 + 6;
             int py = 144 + (n / 8) * 12 + 6;
@@ -19,30 +19,30 @@ namespace UniRmmz
             return _windowskin.GetPixel(px, py);
         }
 
-        public Color NormalColor() => TextColor(0);
-        public Color SystemColor() => TextColor(16);
-        public Color CrisisColor() => TextColor(17);
-        public Color DeathColor() => TextColor(18);
-        public Color GaugeBackColor() => TextColor(19);
-        public Color HpGaugeColor1() => TextColor(20);
-        public Color HpGaugeColor2() => TextColor(21);
-        public Color MpGaugeColor1() => TextColor(22);
-        public Color MpGaugeColor2() => TextColor(23);
-        public Color MpCostColor() => TextColor(23);
-        public Color PowerUpColor() => TextColor(24);
-        public Color PowerDownColor() => TextColor(25);
-        public Color CtGaugeColor1() => TextColor(26);
-        public Color CtGaugeColor2() => TextColor(27);
-        public Color TpGaugeColor1() => TextColor(28);
-        public Color TpGaugeColor2() => TextColor(29);
-        public Color TpCostColor() => TextColor(29);
+        public virtual Color NormalColor() => TextColor(0);
+        public virtual Color SystemColor() => TextColor(16);
+        public virtual Color CrisisColor() => TextColor(17);
+        public virtual Color DeathColor() => TextColor(18);
+        public virtual Color GaugeBackColor() => TextColor(19);
+        public virtual Color HpGaugeColor1() => TextColor(20);
+        public virtual Color HpGaugeColor2() => TextColor(21);
+        public virtual Color MpGaugeColor1() => TextColor(22);
+        public virtual Color MpGaugeColor2() => TextColor(23);
+        public virtual Color MpCostColor() => TextColor(23);
+        public virtual Color PowerUpColor() => TextColor(24);
+        public virtual Color PowerDownColor() => TextColor(25);
+        public virtual Color CtGaugeColor1() => TextColor(26);
+        public virtual Color CtGaugeColor2() => TextColor(27);
+        public virtual Color TpGaugeColor1() => TextColor(28);
+        public virtual Color TpGaugeColor2() => TextColor(29);
+        public virtual Color TpCostColor() => TextColor(29);
 
-        public Color PendingColor()
+        public virtual Color PendingColor()
         {
             return _windowskin.GetPixel(120, 120);
         }
 
-        public Color HpColor(Game_Actor actor)
+        public virtual Color HpColor(Game_Actor actor)
         {
             if (actor == null) return NormalColor();
             if (actor.IsDead()) return DeathColor();
@@ -50,17 +50,17 @@ namespace UniRmmz
             return NormalColor();
         }
 
-        public Color MpColor(Game_Actor _) => NormalColor();
-        public Color TpColor(Game_Actor _) => NormalColor();
+        public virtual Color MpColor(Game_Actor _) => NormalColor();
+        public virtual Color TpColor(Game_Actor _) => NormalColor();
 
-        public Color ParamChangeTextColor(int change)
+        public virtual Color ParamChangeTextColor(int change)
         {
             if (change > 0) return PowerUpColor();
             if (change < 0) return PowerDownColor();
             return NormalColor();
         }
 
-        public Color DamageColor(int colorType)
+        public virtual Color DamageColor(int colorType)
         {
             return colorType switch
             {
@@ -72,10 +72,10 @@ namespace UniRmmz
             };
         }
 
-        public Color OutlineColor() => new Color(0f, 0f, 0f, 0.6f);
-        public Color DimColor1() => new Color(0f, 0f, 0f, 0.6f);
-        public Color DimColor2() => new Color(0f, 0f, 0f, 0f);
-        public Color ItemBackColor1() => new Color(32f / 255f, 32f / 255f, 32f / 255f, 0.5f);
-        public Color ItemBackColor2() => new Color(0f, 0f, 0f, 0.5f);
+        public virtual Color OutlineColor() => new Color(0f, 0f, 0f, 0.6f);
+        public virtual Color DimColor1() => new Color(0f, 0f, 0f, 0.6f);
+        public virtual Color DimColor2() => new Color(0f, 0f, 0f, 0f);
+        public virtual Color ItemBackColor1() => new Color(32f / 255f, 32f / 255f, 32f / 255f, 0.5f);
+        public virtual Color ItemBackColor2() => new Color(0f, 0f, 0f, 0.5f);
     }
 }

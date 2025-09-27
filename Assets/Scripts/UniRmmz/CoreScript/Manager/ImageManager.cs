@@ -10,26 +10,26 @@ namespace UniRmmz
         public readonly int FaceWidth = 144;
         public readonly int FaceHeight = 144;
 
-        private Dictionary<string, Bitmap> _cache = new();
-        private Dictionary<string, Bitmap> _system = new();
-        private Bitmap _emptyTexture;
+        protected Dictionary<string, Bitmap> _cache = new();
+        protected Dictionary<string, Bitmap> _system = new();
+        protected Bitmap _emptyTexture;
 
-        public Bitmap LoadAnimation(string filename) => LoadBitmap("img/animations", filename);
-        public Bitmap LoadBattleback1(string filename) => LoadBitmap("img/battlebacks1", filename);
-        public Bitmap LoadBattleback2(string filename) => LoadBitmap("img/battlebacks2", filename);
-        public Bitmap LoadEnemy(string filename) => LoadBitmap("img/enemies", filename);
-        public Bitmap LoadCharacter(string filename) => LoadBitmap("img/characters", filename);
-        public Bitmap LoadFace(string filename) => LoadBitmap("img/faces", filename);
-        public Bitmap LoadParallax(string filename) => LoadBitmap("img/parallaxes", filename);
-        public Bitmap LoadPicture(string filename) => LoadBitmap("img/pictures", filename);
-        public Bitmap LoadSvActor(string filename) => LoadBitmap("img/sv_actors", filename);
-        public Bitmap LoadSvEnemy(string filename) => LoadBitmap("img/sv_enemies", filename);
-        public Bitmap LoadSystem(string filename) => LoadBitmap("img/system", filename);
-        public Bitmap LoadTileset(string filename) => LoadBitmap("img/tilesets", filename);
-        public Bitmap LoadTitle1(string filename) => LoadBitmap("img/titles1", filename);
-        public Bitmap LoadTitle2(string filename) => LoadBitmap("img/titles2", filename);
+        public virtual Bitmap LoadAnimation(string filename) => LoadBitmap("img/animations", filename);
+        public virtual Bitmap LoadBattleback1(string filename) => LoadBitmap("img/battlebacks1", filename);
+        public virtual Bitmap LoadBattleback2(string filename) => LoadBitmap("img/battlebacks2", filename);
+        public virtual Bitmap LoadEnemy(string filename) => LoadBitmap("img/enemies", filename);
+        public virtual Bitmap LoadCharacter(string filename) => LoadBitmap("img/characters", filename);
+        public virtual Bitmap LoadFace(string filename) => LoadBitmap("img/faces", filename);
+        public virtual Bitmap LoadParallax(string filename) => LoadBitmap("img/parallaxes", filename);
+        public virtual Bitmap LoadPicture(string filename) => LoadBitmap("img/pictures", filename);
+        public virtual Bitmap LoadSvActor(string filename) => LoadBitmap("img/sv_actors", filename);
+        public virtual Bitmap LoadSvEnemy(string filename) => LoadBitmap("img/sv_enemies", filename);
+        public virtual Bitmap LoadSystem(string filename) => LoadBitmap("img/system", filename);
+        public virtual Bitmap LoadTileset(string filename) => LoadBitmap("img/tilesets", filename);
+        public virtual Bitmap LoadTitle1(string filename) => LoadBitmap("img/titles1", filename);
+        public virtual Bitmap LoadTitle2(string filename) => LoadBitmap("img/titles2", filename);
 
-        private Bitmap LoadBitmap(string folder, string filename)
+        protected virtual Bitmap LoadBitmap(string folder, string filename)
         {
             if (!string.IsNullOrEmpty(filename))
             {
@@ -43,7 +43,7 @@ namespace UniRmmz
             }
         }
 
-        private Bitmap LoadBitmapFromUrl(string url)
+        protected virtual Bitmap LoadBitmapFromUrl(string url)
         {
             var cache = url.Contains("/system/") ? _system : _cache;
             if (!cache.ContainsKey(url))
@@ -54,7 +54,7 @@ namespace UniRmmz
             return cache[url];
         }
 
-        public void Clear()
+        public virtual void Clear()
         {
             foreach (var pair in _cache)
             {
@@ -64,7 +64,7 @@ namespace UniRmmz
             _cache.Clear();
         }
 
-        public bool IsReady()
+        public virtual bool IsReady()
         {
             foreach (var dict in new[] { _cache, _system })
             {
@@ -86,25 +86,25 @@ namespace UniRmmz
             return true;
         }
 
-        private void ThrowLoadError(Bitmap bitmap)
+        protected virtual void ThrowLoadError(Bitmap bitmap)
         {
             throw new RmmzError("LoadError", bitmap.Url, () => bitmap.Retry());
         }
 
-        public bool IsObjectCharacter(string filename)
+        public virtual bool IsObjectCharacter(string filename)
         {
             var name = Utils.ExtractFileName(filename);
             return name.StartsWith("!");
         }
 
-        public bool IsBigCharacter(string filename)
+        public virtual bool IsBigCharacter(string filename)
         {
             var name = Utils.ExtractFileName(filename);
             var match = System.Text.RegularExpressions.Regex.Match(name, @"^[!$]+");
             return match.Success && match.Value.Contains("$");
         }
 
-        public bool IsZeroParallax(string filename)
+        public virtual bool IsZeroParallax(string filename)
         {
             var name = Utils.ExtractFileName(filename);
             return name.StartsWith("!");

@@ -10,39 +10,50 @@ namespace UniRmmz
     /// </summary>
     public partial class BattleManager
     {
+        /// <summary>
+        /// Battle rewards data structure
+        /// </summary>
+        public partial class BattleRewards
+        {
+            public int Gold { get; set; } = 0;
+            public int Exp { get; set; } = 0;
+        
+            public List<DataCommonItem> Items { get; set; } = new();
+        }
+        
         // Battle state
-        private string _phase;
-        private bool _inputting;
-        private bool _canEscape;
-        private bool _canLose;
-        private bool _battleTest;
-        private Action<int> _eventCallback;
-        private bool _preemptive;
-        private bool _surprise;
-        private Game_Actor _currentActor;
-        private Game_Battler _actionForcedBattler;
+        protected string _phase;
+        protected bool _inputting;
+        protected bool _canEscape;
+        protected bool _canLose;
+        protected bool _battleTest;
+        protected Action<int> _eventCallback;
+        protected bool _preemptive;
+        protected bool _surprise;
+        protected Game_Actor _currentActor;
+        protected Game_Battler _actionForcedBattler;
 
         // Audio state
-        private AudioManager.Sound _mapBgm;
-        private AudioManager.Sound _mapBgs;
+        protected AudioManager.Sound _mapBgm;
+        protected AudioManager.Sound _mapBgs;
 
         // Battle progress
-        private List<Game_Battler> _actionBattlers;
-        private Game_Battler _subject;
-        private Game_Action _action;
-        private List<Game_Battler> _targets;
+        protected List<Game_Battler> _actionBattlers;
+        protected Game_Battler _subject;
+        protected Game_Action _action;
+        protected List<Game_Battler> _targets;
 
         // UI references
-        private Window_BattleLog _logWindow;
-        private Spriteset_Battle _spriteset;
+        protected Window_BattleLog _logWindow;
+        protected Spriteset_Battle _spriteset;
 
         // Battle results
-        private float _escapeRatio;
-        private bool _escaped;
-        private BattleRewards _rewards;
-        private bool _tpbNeedsPartyCommand;
+        protected float _escapeRatio;
+        protected bool _escaped;
+        protected BattleRewards _rewards;
+        protected bool _tpbNeedsPartyCommand;
 
-        public void Setup(int troopId, bool canEscape, bool canLose)
+        public virtual void Setup(int troopId, bool canEscape, bool canLose)
         {
             InitMembers();
             _canEscape = canEscape;
@@ -52,7 +63,7 @@ namespace UniRmmz
             MakeEscapeRatio();
         }
 
-        public void InitMembers()
+        public virtual void InitMembers()
         {
             _phase = "";
             _inputting = false;
@@ -78,80 +89,80 @@ namespace UniRmmz
             _tpbNeedsPartyCommand = true;
         }
 
-        public bool IsTpb()
+        public virtual bool IsTpb()
         {
             return Rmmz.dataSystem.BattleSystem >= 1;
         }
 
-        public bool IsActiveTpb()
+        public virtual bool IsActiveTpb()
         {
             return Rmmz.dataSystem.BattleSystem == 1;
         }
 
-        public bool IsBattleTest()
+        public virtual bool IsBattleTest()
         {
             return _battleTest;
         }
 
-        public void SetBattleTest(bool battleTest)
+        public virtual void SetBattleTest(bool battleTest)
         {
             _battleTest = battleTest;
         }
 
-        public void SetEventCallback(Action<int> callback)
+        public virtual void SetEventCallback(Action<int> callback)
         {
             _eventCallback = callback;
         }
 
-        public void SetLogWindow(Window_BattleLog logWindow)
+        public virtual void SetLogWindow(Window_BattleLog logWindow)
         {
             _logWindow = logWindow;
         }
 
-        public void SetSpriteset(Spriteset_Battle spriteset)
+        public virtual void SetSpriteset(Spriteset_Battle spriteset)
         {
             _spriteset = spriteset;
         }
 
-        public void OnEncounter()
+        public virtual void OnEncounter()
         {
             _preemptive = UnityEngine.Random.value < RatePreemptive();
             _surprise = UnityEngine.Random.value < RateSurprise() && !_preemptive;
         }
 
-        public float RatePreemptive()
+        public virtual float RatePreemptive()
         {
             return Rmmz.gameParty.RatePreemptive(Rmmz.gameTroop.Agility());
         }
 
-        public float RateSurprise()
+        public virtual float RateSurprise()
         {
             return Rmmz.gameParty.RateSurprise(Rmmz.gameTroop.Agility());
         }
 
-        public void SaveBgmAndBgs()
+        public virtual void SaveBgmAndBgs()
         {
             _mapBgm = Rmmz.AudioManager.SaveBgm();
             _mapBgs = Rmmz.AudioManager.SaveBgs();
         }
 
-        public void PlayBattleBgm()
+        public virtual void PlayBattleBgm()
         {
             Rmmz.AudioManager.PlayBgm(Rmmz.gameSystem.BattleBgm());
             Rmmz.AudioManager.StopBgs();
         }
 
-        public void PlayVictoryMe()
+        public virtual void PlayVictoryMe()
         {
             Rmmz.AudioManager.PlayMe(Rmmz.gameSystem.VictoryMe());
         }
 
-        public void PlayDefeatMe()
+        public virtual void PlayDefeatMe()
         {
             Rmmz.AudioManager.PlayMe(Rmmz.gameSystem.DefeatMe());
         }
 
-        public void ReplayBgmAndBgs()
+        public virtual void ReplayBgmAndBgs()
         {
             if (_mapBgm != null)
             {
@@ -168,12 +179,12 @@ namespace UniRmmz
             }
         }
 
-        public void MakeEscapeRatio()
+        public virtual void MakeEscapeRatio()
         {
             _escapeRatio = (0.5f * Rmmz.gameParty.Agility()) / Rmmz.gameTroop.Agility();
         }
 
-        public void Update(bool timeActive)
+        public virtual void Update(bool timeActive)
         {
             if (!IsBusy() && !UpdateEvent())
             {
@@ -186,7 +197,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdatePhase(bool timeActive)
+        public virtual void UpdatePhase(bool timeActive)
         {
             switch (_phase)
             {
@@ -208,7 +219,7 @@ namespace UniRmmz
             }
         }
 
-        public bool UpdateEvent()
+        public virtual bool UpdateEvent()
         {
             switch (_phase)
             {
@@ -229,7 +240,7 @@ namespace UniRmmz
             return CheckAbort();
         }
 
-        public bool UpdateEventMain()
+        public virtual bool UpdateEventMain()
         {
             Rmmz.gameTroop.UpdateInterpreter();
             Rmmz.gameParty.RequestMotionRefresh();
@@ -247,14 +258,14 @@ namespace UniRmmz
             return false;
         }
 
-        public bool IsBusy()
+        public virtual bool IsBusy()
         {
             return Rmmz.gameMessage.IsBusy() ||
                    _spriteset.IsBusy() ||
                    _logWindow.IsBusy();
         }
 
-        public void UpdateTpbInput()
+        public virtual void UpdateTpbInput()
         {
             if (_inputting)
             {
@@ -266,7 +277,7 @@ namespace UniRmmz
             }
         }
 
-        public void CheckTpbInputClose()
+        public virtual void CheckTpbInputClose()
         {
             if (!IsPartyTpbInputtable() || NeedsActorInputCancel())
             {
@@ -276,7 +287,7 @@ namespace UniRmmz
             }
         }
 
-        public void CheckTpbInputOpen()
+        public virtual void CheckTpbInputOpen()
         {
             if (IsPartyTpbInputtable())
             {
@@ -292,67 +303,67 @@ namespace UniRmmz
             }
         }
 
-        public bool IsPartyTpbInputtable()
+        public virtual bool IsPartyTpbInputtable()
         {
             return Rmmz.gameParty.CanInput() && IsTpbMainPhase();
         }
 
-        public bool NeedsActorInputCancel()
+        public virtual bool NeedsActorInputCancel()
         {
             return _currentActor != null && !_currentActor.CanInput();
         }
 
-        public bool IsTpbMainPhase()
+        public virtual bool IsTpbMainPhase()
         {
             return new[] { "turn", "turnEnd", "action" }.Contains(_phase);
         }
 
-        public bool IsInputting()
+        public virtual bool IsInputting()
         {
             return _inputting;
         }
 
-        public bool IsInTurn()
+        public virtual bool IsInTurn()
         {
             return _phase == "turn";
         }
 
-        public bool IsTurnEnd()
+        public virtual bool IsTurnEnd()
         {
             return _phase == "turnEnd";
         }
 
-        public bool IsAborting()
+        public virtual bool IsAborting()
         {
             return _phase == "aborting";
         }
 
-        public bool IsBattleEnd()
+        public virtual bool IsBattleEnd()
         {
             return _phase == "battleEnd";
         }
 
-        public bool CanEscape()
+        public virtual bool CanEscape()
         {
             return _canEscape;
         }
 
-        public bool CanLose()
+        public virtual bool CanLose()
         {
             return _canLose;
         }
 
-        public bool IsEscaped()
+        public virtual bool IsEscaped()
         {
             return _escaped;
         }
 
-        public Game_Actor Actor()
+        public virtual Game_Actor Actor()
         {
             return _currentActor;
         }
 
-        public void StartBattle()
+        public virtual void StartBattle()
         {
             _phase = "start";
             Rmmz.gameSystem.OnBattleStart();
@@ -361,7 +372,7 @@ namespace UniRmmz
             DisplayStartMessages();
         }
 
-        public void DisplayStartMessages()
+        public virtual void DisplayStartMessages()
         {
             foreach (string name in Rmmz.gameTroop.EnemyNames())
             {
@@ -378,7 +389,7 @@ namespace UniRmmz
             }
         }
 
-        public void StartInput()
+        public virtual void StartInput()
         {
             _phase = "input";
             _inputting = true;
@@ -391,12 +402,12 @@ namespace UniRmmz
             }
         }
 
-        public Game_Action InputtingAction()
+        public virtual Game_Action InputtingAction()
         {
             return _currentActor?.InputtingAction();
         }
 
-        public void SelectNextCommand()
+        public virtual void SelectNextCommand()
         {
             if (_currentActor != null)
             {
@@ -411,7 +422,7 @@ namespace UniRmmz
             SelectNextActor();
         }
 
-        public void SelectNextActor()
+        public virtual void SelectNextActor()
         {
             ChangeCurrentActor(true);
             if (_currentActor == null)
@@ -427,7 +438,7 @@ namespace UniRmmz
             }
         }
 
-        public void SelectPreviousCommand()
+        public virtual void SelectPreviousCommand()
         {
             if (_currentActor != null)
             {
@@ -442,7 +453,7 @@ namespace UniRmmz
             SelectPreviousActor();
         }
 
-        public void SelectPreviousActor()
+        public virtual void SelectPreviousActor()
         {
             if (IsTpb())
             {
@@ -458,7 +469,7 @@ namespace UniRmmz
             }
         }
 
-        public void ChangeCurrentActor(bool forward)
+        public virtual void ChangeCurrentActor(bool forward)
         {
             var members = Rmmz.gameParty.BattleMembers().ToList();
             Game_Actor actor = _currentActor;
@@ -479,7 +490,7 @@ namespace UniRmmz
             StartActorInput();
         }
 
-        public void StartActorInput()
+        public virtual void StartActorInput()
         {
             if (_currentActor != null)
             {
@@ -488,7 +499,7 @@ namespace UniRmmz
             }
         }
 
-        public void FinishActorInput()
+        public virtual void FinishActorInput()
         {
             if (_currentActor != null)
             {
@@ -501,7 +512,7 @@ namespace UniRmmz
             }
         }
 
-        public void CancelActorInput()
+        public virtual void CancelActorInput()
         {
             if (_currentActor != null)
             {
@@ -509,7 +520,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateStart()
+        public virtual void UpdateStart()
         {
             if (IsTpb())
             {
@@ -521,7 +532,7 @@ namespace UniRmmz
             }
         }
 
-        public void StartTurn()
+        public virtual void StartTurn()
         {
             _phase = "turn";
             Rmmz.gameTroop.IncreaseTurn();
@@ -534,7 +545,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateTurn(bool timeActive)
+        public virtual void UpdateTurn(bool timeActive)
         {
             Rmmz.gameParty.RequestMotionRefresh();
             if (IsTpb() && timeActive)
@@ -557,7 +568,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateTpb()
+        public virtual void UpdateTpb()
         {
             Rmmz.gameParty.UpdateTpb();
             Rmmz.gameTroop.UpdateTpb();
@@ -565,7 +576,7 @@ namespace UniRmmz
             CheckTpbTurnEnd();
         }
 
-        public void UpdateAllTpbBattlers()
+        public virtual void UpdateAllTpbBattlers()
         {
             foreach (var battler in AllBattleMembers())
             {
@@ -573,7 +584,7 @@ namespace UniRmmz
             }
         }
 
-        public void UpdateTpbBattler(Game_Battler battler)
+        public virtual void UpdateTpbBattler(Game_Battler battler)
         {
             if (battler.IsTpbTurnEnd())
             {
@@ -593,7 +604,7 @@ namespace UniRmmz
             }
         }
 
-        public void CheckTpbTurnEnd()
+        public virtual void CheckTpbTurnEnd()
         {
             if (Rmmz.gameTroop.IsTpbTurnEnd())
             {
@@ -601,7 +612,7 @@ namespace UniRmmz
             }
         }
 
-        public void ProcessTurn()
+        public virtual void ProcessTurn()
         {
             var subject = _subject;
             var action = subject.CurrentAction();
@@ -622,7 +633,7 @@ namespace UniRmmz
             }
         }
 
-        public void EndBattlerActions(Game_Battler battler)
+        public virtual void EndBattlerActions(Game_Battler battler)
         {
             battler.SetActionState(IsTpb() ? "undecided" : "done");
             battler.OnAllActionsEnd();
@@ -630,14 +641,14 @@ namespace UniRmmz
             DisplayBattlerStatus(battler, true);
         }
 
-        public void EndTurn()
+        public virtual void EndTurn()
         {
             _phase = "turnEnd";
             _preemptive = false;
             _surprise = false;
         }
 
-        public void UpdateTurnEnd()
+        public virtual void UpdateTurnEnd()
         {
             if (IsTpb())
             {
@@ -650,7 +661,7 @@ namespace UniRmmz
             }
         }
 
-        public void EndAllBattlersTurn()
+        public virtual void EndAllBattlersTurn()
         {
             foreach (var battler in AllBattleMembers())
             {
@@ -659,7 +670,7 @@ namespace UniRmmz
             }
         }
 
-        public void DisplayBattlerStatus(Game_Battler battler, bool current)
+        public virtual void DisplayBattlerStatus(Game_Battler battler, bool current)
         {
             _logWindow.DisplayAutoAffectedStatus(battler);
             if (current)
@@ -670,7 +681,7 @@ namespace UniRmmz
             _logWindow.DisplayRegeneration(battler);
         }
 
-        public Game_Battler GetNextSubject()
+        public virtual Game_Battler GetNextSubject()
         {
             while (_actionBattlers.Count > 0)
             {
@@ -686,7 +697,7 @@ namespace UniRmmz
             return null;
         }
 
-        public List<Game_Battler> AllBattleMembers()
+        public virtual List<Game_Battler> AllBattleMembers()
         {
             var result = new List<Game_Battler>();
             result.AddRange(Rmmz.gameParty.BattleMembers().Cast<Game_Battler>());
@@ -694,7 +705,7 @@ namespace UniRmmz
             return result;
         }
 
-        public void MakeActionOrders()
+        public virtual void MakeActionOrders()
         {
             var battlers = new List<Game_Battler>();
             if (!_surprise)
@@ -716,7 +727,7 @@ namespace UniRmmz
             _actionBattlers = battlers;
         }
 
-        public void StartAction()
+        public virtual void StartAction()
         {
             var subject = _subject;
             var action = subject.CurrentAction();
@@ -730,7 +741,7 @@ namespace UniRmmz
             _logWindow.StartAction(subject, action, targets);
         }
 
-        public void UpdateAction()
+        public virtual void UpdateAction()
         {
             if (_targets.Count > 0)
             {
@@ -744,7 +755,7 @@ namespace UniRmmz
             }
         }
 
-        public void EndAction()
+        public virtual void EndAction()
         {
             _logWindow.EndAction(_subject);
             _phase = "turn";
@@ -755,7 +766,7 @@ namespace UniRmmz
             }
         }
 
-        public void InvokeAction(Game_Battler subject, Game_Battler target)
+        public virtual void InvokeAction(Game_Battler subject, Game_Battler target)
         {
             _logWindow.Push("pushBaseLine");
             if (UnityEngine.Random.value < _action.ItemCnt(target))
@@ -775,14 +786,14 @@ namespace UniRmmz
             _logWindow.Push("popBaseLine");
         }
 
-        public void InvokeNormalAction(Game_Battler subject, Game_Battler target)
+        public virtual void InvokeNormalAction(Game_Battler subject, Game_Battler target)
         {
             var realTarget = ApplySubstitute(target);
             _action.Apply(realTarget);
             _logWindow.DisplayActionResults(subject, realTarget);
         }
 
-        public void InvokeCounterAttack(Game_Battler subject, Game_Battler target)
+        public virtual void InvokeCounterAttack(Game_Battler subject, Game_Battler target)
         {
             var action = Game_Action.Create(target);
             action.SetAttack();
@@ -791,7 +802,7 @@ namespace UniRmmz
             _logWindow.DisplayActionResults(target, subject);
         }
 
-        public void InvokeMagicReflection(Game_Battler subject, Game_Battler target)
+        public virtual void InvokeMagicReflection(Game_Battler subject, Game_Battler target)
         {
             _action.SetReflectionTarget(target);
             _logWindow.DisplayReflection(target);
@@ -799,7 +810,7 @@ namespace UniRmmz
             _logWindow.DisplayActionResults(target, subject);
         }
 
-        public Game_Battler ApplySubstitute(Game_Battler target)
+        public virtual Game_Battler ApplySubstitute(Game_Battler target)
         {
             if (CheckSubstitute(target))
             {
@@ -814,17 +825,17 @@ namespace UniRmmz
             return target;
         }
 
-        public bool CheckSubstitute(Game_Battler target)
+        public virtual bool CheckSubstitute(Game_Battler target)
         {
             return target.IsDying() && !_action.IsCertainHit();
         }
 
-        public bool IsActionForced()
+        public virtual bool IsActionForced()
         {
             return _actionForcedBattler != null;
         }
 
-        public void ForceAction(Game_Battler battler)
+        public virtual void ForceAction(Game_Battler battler)
         {
             if (battler.NumActions() > 0)
             {
@@ -833,7 +844,7 @@ namespace UniRmmz
             }
         }
 
-        public void ProcessForcedAction()
+        public virtual void ProcessForcedAction()
         {
             if (_actionForcedBattler != null)
             {
@@ -849,12 +860,12 @@ namespace UniRmmz
             }
         }
 
-        public void Abort()
+        public virtual void Abort()
         {
             _phase = "aborting";
         }
 
-        public bool CheckBattleEnd()
+        public virtual bool CheckBattleEnd()
         {
             if (!string.IsNullOrEmpty(_phase))
             {
@@ -878,7 +889,7 @@ namespace UniRmmz
             return false;
         }
 
-        public bool CheckAbort()
+        public virtual bool CheckAbort()
         {
             if (IsAborting())
             {
@@ -889,7 +900,7 @@ namespace UniRmmz
             return false;
         }
 
-        public void ProcessVictory()
+        public virtual void ProcessVictory()
         {
             Rmmz.gameParty.RemoveBattleStates();
             Rmmz.gameParty.PerformVictory();
@@ -902,7 +913,7 @@ namespace UniRmmz
             EndBattle(0);
         }
 
-        public bool ProcessEscape()
+        public virtual bool ProcessEscape()
         {
             Rmmz.gameParty.PerformEscape();
             Rmmz.SoundManager.PlayEscape();
@@ -919,14 +930,14 @@ namespace UniRmmz
             return success;
         }
 
-        public void OnEscapeSuccess()
+        public virtual void OnEscapeSuccess()
         {
             DisplayEscapeSuccessMessage();
             _escaped = true;
             ProcessAbort();
         }
 
-        public void OnEscapeFailure()
+        public virtual void OnEscapeFailure()
         {
             Rmmz.gameParty.OnEscapeFailure();
             DisplayEscapeFailureMessage();
@@ -937,13 +948,13 @@ namespace UniRmmz
             }
         }
 
-        public void ProcessPartyEscape()
+        public virtual void ProcessPartyEscape()
         {
             _escaped = true;
             ProcessAbort();
         }
 
-        public void ProcessAbort()
+        public virtual void ProcessAbort()
         {
             Rmmz.gameParty.RemoveBattleStates();
             _logWindow.Clear();
@@ -951,7 +962,7 @@ namespace UniRmmz
             EndBattle(1);
         }
 
-        public void ProcessDefeat()
+        public virtual void ProcessDefeat()
         {
             DisplayDefeatMessage();
             PlayDefeatMe();
@@ -967,7 +978,7 @@ namespace UniRmmz
             EndBattle(2);
         }
 
-        public void EndBattle(int result)
+        public virtual void EndBattle(int result)
         {
             _phase = "battleEnd";
             CancelActorInput();
@@ -989,7 +1000,7 @@ namespace UniRmmz
             Rmmz.gameTemp.ClearCommonEventReservation();
         }
 
-        public void UpdateBattleEnd()
+        public virtual void UpdateBattleEnd()
         {
             if (IsBattleTest())
             {
@@ -1016,7 +1027,7 @@ namespace UniRmmz
             _phase = "";
         }
 
-        public void MakeRewards()
+        public virtual void MakeRewards()
         {
             _rewards = new BattleRewards
             {
@@ -1026,35 +1037,35 @@ namespace UniRmmz
             };
         }
 
-        public void DisplayVictoryMessage()
+        public virtual void DisplayVictoryMessage()
         {
             Rmmz.gameMessage.Add(Rmmz.TextManager.Victory.RmmzFormat(Rmmz.gameParty.Name()));
         }
 
-        public void DisplayDefeatMessage()
+        public virtual void DisplayDefeatMessage()
         {
             Rmmz.gameMessage.Add(Rmmz.TextManager.Defeat.RmmzFormat(Rmmz.gameParty.Name()));
         }
 
-        public void DisplayEscapeSuccessMessage()
+        public virtual void DisplayEscapeSuccessMessage()
         {
             Rmmz.gameMessage.Add(Rmmz.TextManager.EscapeStart.RmmzFormat(Rmmz.gameParty.Name()));
         }
 
-        public void DisplayEscapeFailureMessage()
+        public virtual void DisplayEscapeFailureMessage()
         {
             Rmmz.gameMessage.Add(Rmmz.TextManager.EscapeStart.RmmzFormat(Rmmz.gameParty.Name()));
             Rmmz.gameMessage.Add("\\." + Rmmz.TextManager.EscapeFailure);
         }
 
-        public void DisplayRewards()
+        public virtual void DisplayRewards()
         {
             DisplayExp();
             DisplayGold();
             DisplayDropItems();
         }
 
-        public void DisplayExp()
+        public virtual void DisplayExp()
         {
             int exp = _rewards.Exp;
             if (exp > 0)
@@ -1064,7 +1075,7 @@ namespace UniRmmz
             }
         }
 
-        public void DisplayGold()
+        public virtual void DisplayGold()
         {
             int gold = _rewards.Gold;
             if (gold > 0)
@@ -1073,7 +1084,7 @@ namespace UniRmmz
             }
         }
 
-        public void DisplayDropItems()
+        public virtual void DisplayDropItems()
         {
             var items = _rewards.Items;
             if (items.Count > 0)
@@ -1086,14 +1097,14 @@ namespace UniRmmz
             }
         }
 
-        public void GainRewards()
+        public virtual void GainRewards()
         {
             GainExp();
             GainGold();
             GainDropItems();
         }
 
-        public void GainExp()
+        public virtual void GainExp()
         {
             int exp = _rewards.Exp;
             foreach (var actor in Rmmz.gameParty.AllMembers())
@@ -1102,29 +1113,17 @@ namespace UniRmmz
             }
         }
 
-        public void GainGold()
+        public virtual void GainGold()
         {
             Rmmz.gameParty.GainGold(_rewards.Gold);
         }
 
-        public void GainDropItems()
+        public virtual void GainDropItems()
         {
             foreach (var item in _rewards.Items)
             {
                 Rmmz.gameParty.GainItem(item, 1);
             }
         }
-    }
-
-    /// <summary>
-    /// Battle rewards data structure
-    /// </summary>
-    [Serializable]
-    public class BattleRewards
-    {
-        public int Gold { get; set; } = 0;
-        public int Exp { get; set; } = 0;
-        
-        public List<DataCommonItem> Items { get; set; } = new();
     }
 }

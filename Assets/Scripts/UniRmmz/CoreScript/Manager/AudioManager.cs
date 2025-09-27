@@ -9,21 +9,21 @@ namespace UniRmmz
     /// </summary>
     public partial class AudioManager
     {
-        private int _bgmVolume = 100;
-        private int _bgsVolume = 100;
-        private int _meVolume = 100;
-        private int _seVolume = 100;
-        private RmmzWebAudio _bgmBuffer;
-        private RmmzWebAudio _bgsBuffer;
-        private RmmzWebAudio _meBuffer;
-        private List<RmmzWebAudio> _seBuffers = new();
-        private List<RmmzWebAudio> _staticBuffers = new();
-        private float _replayFadeTime = 0.5f;
-        private string _path = "audio/";
+        protected int _bgmVolume = 100;
+        protected int _bgsVolume = 100;
+        protected int _meVolume = 100;
+        protected int _seVolume = 100;
+        protected RmmzWebAudio _bgmBuffer;
+        protected RmmzWebAudio _bgsBuffer;
+        protected RmmzWebAudio _meBuffer;
+        protected List<RmmzWebAudio> _seBuffers = new();
+        protected List<RmmzWebAudio> _staticBuffers = new();
+        protected float _replayFadeTime = 0.5f;
+        protected string _path = "audio/";
 
-        private Sound _currentBgm; 
-        private Sound _currentBgs;
-        private Sound _currentMe;
+        protected Sound _currentBgm; 
+        protected Sound _currentBgs;
+        protected Sound _currentMe;
         
         public class Sound
         {
@@ -38,7 +38,7 @@ namespace UniRmmz
             }
         }
 
-        public int BgmVolume
+        public virtual int BgmVolume
         {
             get => _bgmVolume;
             set
@@ -48,7 +48,7 @@ namespace UniRmmz
             }
         }
         
-        public int BgsVolume
+        public virtual int BgsVolume
         {
             get => _bgsVolume;
             set
@@ -58,7 +58,7 @@ namespace UniRmmz
             }
         }
         
-        public int MeVolume
+        public virtual int MeVolume
         {
             get => _meVolume;
             set
@@ -68,7 +68,7 @@ namespace UniRmmz
             }
         }
         
-        public int SeVolume
+        public virtual int SeVolume
         {
             get => _seVolume;
             set
@@ -77,7 +77,7 @@ namespace UniRmmz
             }
         }
 
-        public void PlayBgm(Sound bgm, int pos = 0)
+        public virtual void PlayBgm(Sound bgm, int pos = 0)
         {
             if (IsCurrentBgm(bgm))
             {
@@ -99,7 +99,7 @@ namespace UniRmmz
             UpdateCurrentBgm(bgm, pos);
         }
         
-        public void ReplayBgm(Sound bgm)
+        public virtual void ReplayBgm(Sound bgm)
         {
             if (IsCurrentBgm(bgm))
             {
@@ -115,19 +115,19 @@ namespace UniRmmz
             }
         }
         
-        public bool IsCurrentBgm(Sound bgm)
+        public virtual bool IsCurrentBgm(Sound bgm)
         {
             return _currentBgm != null &&
                    _bgmBuffer != null &&
                    _currentBgm.Name == bgm.Name;
         }
         
-        public void UpdateBgmParameters(Sound bgm)
+        public virtual void UpdateBgmParameters(Sound bgm)
         {
             UpdateBufferParameters(_bgmBuffer, _bgmVolume, bgm);
         }
         
-        public void UpdateCurrentBgm(Sound bgm, int pos)
+        public virtual void UpdateCurrentBgm(Sound bgm, int pos)
         {
             _currentBgm = new Sound()
             {
@@ -139,7 +139,7 @@ namespace UniRmmz
             };
         }
         
-        public void StopBgm()
+        public virtual void StopBgm()
         {
             if (_bgmBuffer != null)
             {
@@ -149,7 +149,7 @@ namespace UniRmmz
             }
         }
 
-        public void FadeOutBgm(float duration)
+        public virtual void FadeOutBgm(float duration)
         {
             if (_bgmBuffer != null && _currentBgm != null)
             {
@@ -158,7 +158,7 @@ namespace UniRmmz
             }
         }
         
-        public void FadeInBgm(float duration)
+        public virtual void FadeInBgm(float duration)
         {
             if (_bgmBuffer != null && _currentBgm != null)
             {
@@ -166,7 +166,7 @@ namespace UniRmmz
             }
         }
         
-        public void PlayBgs(Sound bgs, int pos = 0)
+        public virtual void PlayBgs(Sound bgs, int pos = 0)
         {
             if (IsCurrentBgs(bgs))
             {
@@ -185,7 +185,7 @@ namespace UniRmmz
             UpdateCurrentBgs(bgs, pos);
         }
         
-        public void ReplayBgs(Sound bgs)
+        public virtual void ReplayBgs(Sound bgs)
         {
             if (IsCurrentBgs(bgs))
             {
@@ -201,19 +201,19 @@ namespace UniRmmz
             }
         }
         
-        public bool IsCurrentBgs(Sound bgs)
+        public virtual bool IsCurrentBgs(Sound bgs)
         {
             return _currentBgs != null &&
                    _bgsBuffer != null &&
                    _currentBgs.Name == bgs.Name;
         }
         
-        public void UpdateBgsParameters(Sound bgs)
+        public virtual void UpdateBgsParameters(Sound bgs)
         {
             UpdateBufferParameters(_bgsBuffer, _bgsVolume, bgs);
         }
         
-        public void UpdateCurrentBgs(Sound bgs, int pos)
+        public virtual void UpdateCurrentBgs(Sound bgs, int pos)
         {
             _currentBgs = new Sound()
             {
@@ -225,7 +225,7 @@ namespace UniRmmz
             };
         }
         
-        public void StopBgs()
+        public virtual  void StopBgs()
         {
             if (_bgsBuffer != null)
             {
@@ -235,7 +235,7 @@ namespace UniRmmz
             }
         }
 
-        public void FadeOutBgs(float duration)
+        public virtual void FadeOutBgs(float duration)
         {
             if (_bgsBuffer != null && _currentBgs != null)
             {
@@ -244,7 +244,7 @@ namespace UniRmmz
             }
         }
         
-        public void FadeInBgs(float duration)
+        public virtual void FadeInBgs(float duration)
         {
             if (_bgsBuffer != null && _currentBgs != null)
             {
@@ -252,7 +252,7 @@ namespace UniRmmz
             }
         }
         
-        public void PlayMe(Sound me, int pos = 0)
+        public virtual void PlayMe(Sound me, int pos = 0)
         {
             StopMe();
             if (!string.IsNullOrEmpty(me.Name)) 
@@ -269,12 +269,12 @@ namespace UniRmmz
             }
         }
         
-        public void UpdateMeParameters(Sound me)
+        public virtual void UpdateMeParameters(Sound me)
         {
             UpdateBufferParameters(_meBuffer, _meVolume, me);
         }
         
-        public void FadeOutMe(float duration)
+        public virtual void FadeOutMe(float duration)
         {
             if (_meBuffer != null)
             {
@@ -282,7 +282,7 @@ namespace UniRmmz
             }
         }
         
-        public void StopMe()
+        public virtual void StopMe()
         {
             if (_meBuffer != null)
             {
@@ -298,7 +298,7 @@ namespace UniRmmz
             }
         }
         
-        public void PlaySe(Sound se)
+        public virtual void PlaySe(Sound se)
         {
             if (!string.IsNullOrEmpty(se.Name)) 
             {
@@ -318,12 +318,12 @@ namespace UniRmmz
             }
         }
         
-        private void UpdateSeParameters(RmmzWebAudio buffer, Sound se)
+        protected virtual  void UpdateSeParameters(RmmzWebAudio buffer, Sound se)
         {
             UpdateBufferParameters(buffer, _seVolume, se);
         }
         
-        public void CleanupSe()
+        public virtual void CleanupSe()
         {
             foreach (var buffer in _seBuffers)
             {
@@ -336,7 +336,7 @@ namespace UniRmmz
             _seBuffers = _seBuffers.Where(buffer => buffer.IsPlaying()).ToList();
         }
         
-        public void StopSe()
+        public virtual void StopSe()
         {
             foreach (var buffer in _seBuffers)
             {
@@ -345,7 +345,7 @@ namespace UniRmmz
             _seBuffers.Clear();
         }
         
-        public void PlayStaticSe(Sound se)
+        public virtual void PlayStaticSe(Sound se)
         {
             if (!string.IsNullOrEmpty(se.Name))
             {
@@ -363,7 +363,7 @@ namespace UniRmmz
             }
         }
 
-        public void LoadStaticSe(Sound se)
+        public virtual void LoadStaticSe(Sound se)
         {
             if (!string.IsNullOrEmpty(se.Name) && !IsStaticSe(se))
             {
@@ -372,7 +372,7 @@ namespace UniRmmz
             }
         }
 
-        public bool IsStaticSe(Sound se)
+        public virtual bool IsStaticSe(Sound se)
         {
             foreach (var buffer in _staticBuffers)
             {
@@ -385,7 +385,7 @@ namespace UniRmmz
             return false;
         }
         
-        public void StopAll()
+        public virtual void StopAll()
         {
             StopMe();
             StopBgm();
@@ -393,7 +393,7 @@ namespace UniRmmz
             StopSe();
         }
         
-        public Sound SaveBgm()
+        public virtual Sound SaveBgm()
         {
             if (_currentBgm != null)
             {
@@ -413,7 +413,7 @@ namespace UniRmmz
             }
         }
         
-        public Sound SaveBgs()
+        public virtual Sound SaveBgs()
         {
             if (_currentBgs != null)
             {
@@ -433,7 +433,7 @@ namespace UniRmmz
             }
         }
 
-        private Sound MakeEmptyAudioObject()
+        protected virtual Sound MakeEmptyAudioObject()
         {
             return new Sound
             {
@@ -443,7 +443,7 @@ namespace UniRmmz
             };
         }
 
-        private RmmzWebAudio CreateBuffer(string folder, string name)
+        protected virtual  RmmzWebAudio CreateBuffer(string folder, string name)
         {
             var ext = AudioFileExt();
             var url = _path + folder + Utils.EncodeUri(name) + ext;
@@ -453,7 +453,7 @@ namespace UniRmmz
             return buffer;
         }
 
-        private void UpdateBufferParameters(RmmzWebAudio buffer, int configVolume, Sound audio)
+        protected virtual void UpdateBufferParameters(RmmzWebAudio buffer, int configVolume, Sound audio)
         {
             if (buffer != null && audio != null) 
             {
@@ -462,7 +462,7 @@ namespace UniRmmz
                 buffer.Pan = (float)audio.Pan / 100;
             }
         }
-        private string AudioFileExt()
+        protected virtual string AudioFileExt()
         {
             return ".ogg";
         }

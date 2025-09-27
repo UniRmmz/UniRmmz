@@ -14,12 +14,12 @@ namespace UniRmmz
     /// </summary>
     public partial class StorageManager
     {
-        private string _basePath = Application.persistentDataPath;
+        protected string _basePath = Application.persistentDataPath;
         
-        private SynchronizationContext _mainThreadContext = SynchronizationContext.Current;
-        public bool IsLocalMode() => true;
+        protected SynchronizationContext _mainThreadContext = SynchronizationContext.Current;
+        public virtual bool IsLocalMode() => true;
         
-        public void SaveObject<T>(string saveName, T data, Action resolve = null, Action reject = null) where T : class
+        public virtual void SaveObject<T>(string saveName, T data, Action resolve = null, Action reject = null) where T : class
         {
             Task.Run(() =>
             {
@@ -37,7 +37,7 @@ namespace UniRmmz
             });
         }
         
-        public void LoadObject<T>(string saveName, Action<T> resolve = null, Action reject = null) where T : class
+        public virtual void LoadObject<T>(string saveName, Action<T> resolve = null, Action reject = null) where T : class
         {
             Task.Run(() =>
             {
@@ -56,17 +56,17 @@ namespace UniRmmz
             });
         }
 
-        private string ObjectToJson<T>(T data) where T : class
+        protected virtual string ObjectToJson<T>(T data) where T : class
         {
             return JsonEx.Stringify(data);
         }
         
-        private T JsonToObject<T>(string json) where T : class
+        protected virtual T JsonToObject<T>(string json) where T : class
         {
             return JsonEx.Parse<T>(json);
         }
         
-        private byte[] JsonToZip(string json)
+        protected virtual byte[] JsonToZip(string json)
         {
             using var memoryStream = new MemoryStream();
             using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Compress, true))
@@ -79,7 +79,7 @@ namespace UniRmmz
             return memoryStream.ToArray();
         }
 
-        private string ZipToJson(byte[] compressedData)
+        protected virtual string ZipToJson(byte[] compressedData)
         {
             using (var memoryStream = new MemoryStream(compressedData))
             using (var gzipStream = new GZipStream(memoryStream, CompressionMode.Decompress))
@@ -88,7 +88,7 @@ namespace UniRmmz
                 return reader.ReadToEnd();
             }
         }
-        private void SaveZip(string fileName, byte[] data)
+        protected virtual void SaveZip(string fileName, byte[] data)
         {
             string dirPath = FileDirectoryPath();
             string filePath = FilePath(fileName);
@@ -117,19 +117,19 @@ namespace UniRmmz
             }
         }
         
-        private byte[] LoadZip(string fileName)
+        protected virtual byte[] LoadZip(string fileName)
         {
             string filePath = FilePath(fileName);
             return File.ReadAllBytes(filePath);
         }
 
-        public bool Exists(string saveName)
+        public virtual bool Exists(string saveName)
         {
             string filePath = FilePath(saveName);
             return File.Exists(filePath);
         }
 
-        public void Remove(string saveName)
+        public virtual void Remove(string saveName)
         {
             string filePath = FilePath(saveName);
             if (File.Exists(filePath))
@@ -138,23 +138,23 @@ namespace UniRmmz
             }
         }
 
-        private string FileDirectoryPath()
+        protected virtual string FileDirectoryPath()
         {
             return Path.Combine(_basePath, "save");
         }
         
-        private string FilePath(string saveName)
+        protected virtual string FilePath(string saveName)
         {
             var dir = FileDirectoryPath();
             return Path.GetFullPath(Path.Combine(dir, saveName) + ".rmmzsave");
         }
 
-        public void UpdateForageKeys()
+        public virtual void UpdateForageKeys()
         {
             // not implemented
         }
 
-        public bool ForageKeysUpdated()
+        public virtual bool ForageKeysUpdated()
         {
             return true;// not implemented
         }

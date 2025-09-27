@@ -7,22 +7,22 @@ namespace UniRmmz
 {
     public partial class SceneManager
     {
-        private Scene_Base _scene;
-        private Scene_Base _nextScene;
-        private Stack<Type> _stack = new();
-        private bool _exiting = false;
-        private Scene_Base _previousScene;
-        private Type _previousClass;
-        private Bitmap _backgroundBitmap;
-        private float _smoothDeltaTime = 1f;
-        private float _elapsedTime = 0f;
+        protected Scene_Base _scene;
+        protected Scene_Base _nextScene;
+        protected Stack<Type> _stack = new();
+        protected bool _exiting = false;
+        protected Scene_Base _previousScene;
+        protected Type _previousClass;
+        protected Bitmap _backgroundBitmap;
+        protected float _smoothDeltaTime = 1f;
+        protected float _elapsedTime = 0f;
 
         SceneManager()
         {
             var s = Rmmz.RootPath;// init
         }
         
-        public void _Run(Type sceneClass)
+        public virtual void _Run(Type sceneClass)
         {
             try
             {
@@ -37,7 +37,7 @@ namespace UniRmmz
             }
         }
 
-        private void Initialize()
+        protected virtual void Initialize()
         {   
             CheckPluginErrors();
             InitGraphics();
@@ -47,12 +47,12 @@ namespace UniRmmz
             SetupEventHandlers();
         }
 
-        private void CheckPluginErrors()
+        protected virtual void CheckPluginErrors()
         {
             // TODO
         }
 
-        private void InitGraphics()
+        protected virtual void InitGraphics()
         {
             if (!Graphics.Initialize())
             {
@@ -61,29 +61,29 @@ namespace UniRmmz
             Graphics.SetTickHandler(() => Update());
         }
 
-        private void InitAudio()
+        protected virtual void InitAudio()
         {
             RmmzWebAudio.Initialize();
         }
         
-        private void InitVideo()
+        protected virtual void InitVideo()
         {
             Video.Initialize(Graphics.Width, Graphics.Height);
         }
 
-        private void InitInput()
+        protected virtual void InitInput()
         {
             Input.Initialize();
             TouchInput.Initialize();
         }
 
-        private void SetupEventHandlers()
+        protected virtual void SetupEventHandlers()
         {
             Application.logMessageReceived += OnError;
             RmmzRoot.Instance.OnUnload += OnUnload;
         }
 
-        public void Update()
+        public virtual void Update()
         {
             try
             {
@@ -102,7 +102,7 @@ namespace UniRmmz
             }
         }
 
-        private int DetermineRepeatNumber(float deltaTime)
+        protected virtual int DetermineRepeatNumber(float deltaTime)
         {
             _smoothDeltaTime = 0.8f * _smoothDeltaTime + Mathf.Min(deltaTime, 2f) * 0.2f;
             if (_smoothDeltaTime >= 0.9f)
@@ -122,7 +122,7 @@ namespace UniRmmz
             }
         }
         
-        private void Terminate() 
+        protected virtual void Terminate() 
         {
             Application.Quit(0);
         }
@@ -142,24 +142,24 @@ namespace UniRmmz
             Rmmz.AudioManager.StopAll();
         }
 
-        public void Stop()
+        public virtual void Stop()
         {
             Graphics.StopGameLoop();
         }
 
-        private void CatchException(Exception e)
+        protected virtual void CatchException(Exception e)
         {
             CatchNormalError(e);
             Stop();
         }
 
-        private void CatchNormalError(Exception error)
+        protected virtual void CatchNormalError(Exception error)
         {
             Graphics.PrintError(error.GetType().Name, error.Message);
             Rmmz.AudioManager.StopAll();
         }
 
-        private void UpdateMain()
+        protected virtual void UpdateMain()
         {
             UpdateFrameCount();
             UpdateInput();
@@ -167,18 +167,18 @@ namespace UniRmmz
             UpdateScene();
         }
 
-        private void UpdateFrameCount()
+        protected virtual void UpdateFrameCount()
         {
             UniRmmz.Graphics.FrameCount++;
         }
 
-        private void UpdateInput()
+        protected virtual void UpdateInput()
         {
             Input.Update();
             TouchInput.Update();
         }
 
-        private void ChangeScene()
+        protected virtual void ChangeScene()
         {
             if (IsSceneChanging() && !IsCurrentSceneBusy())
             {
@@ -202,7 +202,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateScene()
+        protected virtual void UpdateScene()
         {
             if (_scene != null)
             {
@@ -222,12 +222,12 @@ namespace UniRmmz
             }
         }
 
-        private bool IsGameActive()
+        protected virtual bool IsGameActive()
         {
             return true;
         }
 
-        private void OnSceneTerminate()
+        protected virtual void OnSceneTerminate()
         {
             _scene.gameObject.SetActive(false);
             _previousScene = _scene;
@@ -235,12 +235,12 @@ namespace UniRmmz
             Graphics.SetStage(null);
         }
 
-        private void OnSceneCreate()
+        protected virtual void OnSceneCreate()
         {
             Graphics.StartLoading();
         }
         
-        private void OnBeforeSceneStart()
+        protected virtual void OnBeforeSceneStart()
         {
             if (_previousScene != null)
             {
@@ -252,22 +252,22 @@ namespace UniRmmz
             // TODO effekseer
         }
 
-        private void OnSceneStart()
+        protected virtual void OnSceneStart()
         {
             UniRmmz.Graphics.EndLoading();
             UniRmmz.Graphics.SetStage(_scene);
         }
 
-        public bool IsSceneChanging() => _exiting || _nextScene != null;
+        public virtual bool IsSceneChanging() => _exiting || _nextScene != null;
 
-        private bool IsCurrentSceneBusy() => _scene?.IsBusy() ?? false;
+        protected virtual bool IsCurrentSceneBusy() => _scene?.IsBusy() ?? false;
 
-        public bool IsNextScene(Type sceneClass) => _nextScene != null && sceneClass.IsAssignableFrom(_nextScene.GetType());
+        public virtual bool IsNextScene(Type sceneClass) => _nextScene != null && sceneClass.IsAssignableFrom(_nextScene.GetType());
         
-        public bool IsPreviousScene(Type sceneClass) => sceneClass.IsAssignableFrom(_previousClass);
+        public virtual bool IsPreviousScene(Type sceneClass) => sceneClass.IsAssignableFrom(_previousClass);
 
         // このメソッドは直接呼ばずに、代わりにFactory.csに定義されているメソッドを使用してください
-        public void _Goto(Type sceneClass)
+        public virtual void _Goto(Type sceneClass)
         {
             if (sceneClass != null)
             {
@@ -284,7 +284,7 @@ namespace UniRmmz
         }
 
         // このメソッドは直接呼ばずに、代わりにFactory.csに定義されているメソッドを使用してください
-        public void _Push(Type sceneClass)
+        public virtual void _Push(Type sceneClass)
         {
             if (_scene != null)
             {
@@ -293,7 +293,7 @@ namespace UniRmmz
             _Goto(sceneClass);
         }
 
-        public void Pop()
+        public virtual void Pop()
         {
             if (_stack.Count > 0)
             {
@@ -304,28 +304,28 @@ namespace UniRmmz
                 Exit();
             }
         }
-        public void Exit()
+        public virtual void Exit()
         {
             _Goto(null);
             _exiting = true;
         }
 
-        public void ClearStack()
+        public virtual void ClearStack()
         {
             _stack.Clear();
         }
         
-        public void PrepareNextScene(params object[] objects)
+        public virtual void PrepareNextScene(params object[] objects)
         {
             _nextScene.Prepare(objects);
         }
         
-        public Bitmap Snap()
+        public virtual Bitmap Snap()
         {
             return Bitmap.Snap(_scene);
         }
 
-        public void SnapForBackground()
+        public virtual void SnapForBackground()
         {
             if (_backgroundBitmap != null)
             {
@@ -334,9 +334,9 @@ namespace UniRmmz
             _backgroundBitmap = Snap();
         }
 
-        public Bitmap BackgroundBitmap() => _backgroundBitmap;
+        public virtual Bitmap BackgroundBitmap() => _backgroundBitmap;
 
-        public void Resume()
+        public virtual void Resume()
         {
             TouchInput.Update();
             UniRmmz.Graphics.StartGameLoop();
@@ -344,7 +344,7 @@ namespace UniRmmz
         }
 
 #region UniRmmz
-        public bool CanRenderScene() => _previousScene == null;
+        public virtual bool CanRenderScene() => _previousScene == null;
 #endregion
 
     }

@@ -9,7 +9,7 @@ namespace UniRmmz
     public partial class ConfigManager
     {
         [Serializable]
-        private class ConfigData
+        protected class ConfigData
         {
             public bool alwaysDash = false;
             public bool commandRemember = false;
@@ -20,36 +20,36 @@ namespace UniRmmz
             public int seVolume = 100;
         }
         
-        private bool _isLoaded;
+        protected bool _isLoaded;
 
-        public bool AlwaysDash { get; set; }
-        public bool CommandRemember { get; set; }
-        public bool TouchUI { get; set; }
-        public int BgmVolume
+        public virtual bool AlwaysDash { get; set; }
+        public virtual bool CommandRemember { get; set; }
+        public virtual bool TouchUI { get; set; }
+        public virtual int BgmVolume
         {
             get => Rmmz.AudioManager.BgmVolume;
             set => Rmmz.AudioManager.BgmVolume = value;
         }
         
-        public int BgsVolume
+        public virtual int BgsVolume
         {
             get => Rmmz.AudioManager.BgsVolume;
             set => Rmmz.AudioManager.BgsVolume = value;
         }
         
-        public int MeVolume
+        public virtual int MeVolume
         {
             get => Rmmz.AudioManager.MeVolume;
             set => Rmmz.AudioManager.MeVolume = value;
         }
         
-        public int SeVolume
+        public virtual int SeVolume
         {
             get => Rmmz.AudioManager.SeVolume;
             set => Rmmz.AudioManager.SeVolume = value;
         }
 
-        public void Load()
+        public virtual void Load()
         {
             Rmmz.StorageManager.LoadObject<ConfigData>("config",
                 (config) =>
@@ -70,17 +70,17 @@ namespace UniRmmz
                 });
         }
 
-        public void Save()
+        public virtual void Save()
         {
             Rmmz.StorageManager.SaveObject("config", MakeData());        
         }
 
-        public bool IsLoaded()
+        public virtual bool IsLoaded()
         {
             return _isLoaded;
         }
 
-        private ConfigData MakeData()
+        protected ConfigData MakeData()
         {
             var config = new ConfigData
             {
@@ -95,7 +95,7 @@ namespace UniRmmz
             return config;
         }
 
-        private void ApplyData(ConfigData configData)
+        protected void ApplyData(ConfigData configData)
         {
             AlwaysDash = configData.alwaysDash;
             CommandRemember = configData.commandRemember;
