@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace UniRmmz
 {
@@ -15,9 +16,17 @@ namespace UniRmmz
         
         public void Add(string key, object value)
         {
-            _metadata.Add(key, value);
+            try
+            {
+                _metadata.Add(key, value);
+            }
+            catch (ArgumentException e)
+            {
+                // キーの重複？
+                Debug.LogError(e.ToString());
+            }
         }
-
+        
         public string Value(string key)
         {
             return Convert.ToString(_metadata.GetValueOrDefault(key));

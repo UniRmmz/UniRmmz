@@ -186,7 +186,7 @@ namespace UniRmmz.Editor
             var structMatch = Regex.Match(firstLine, @"~struct~(\w+):");
             if (structMatch.Success)
             {
-                structInfo.name = structMatch.Groups[1].Value;
+                structInfo.name = GeneratePluginInterface.ToPropertyName(structMatch.Groups[1].Value);
             }
             
             // パラメータを解析
@@ -253,6 +253,12 @@ namespace UniRmmz.Editor
                 }
                 
                 index++;
+            }
+            
+            if (string.IsNullOrEmpty(param.name) || param.name.StartsWith("-"))
+            {
+                // コメント用っぽい名前のパラメータを無視する
+                return null;
             }
             
             return param;
