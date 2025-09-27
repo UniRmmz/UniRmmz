@@ -8,9 +8,9 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Balloon : Sprite
     {
-        private Sprite _target;
-        private int _balloonId;
-        private int _duration;
+        protected Sprite _target;
+        protected int _balloonId;
+        protected int _duration;
 
         public IBalloonTarget TargetObject { get; set; }
 
@@ -21,7 +21,7 @@ namespace UniRmmz
             LoadBitmap();
         }
 
-        private void InitMembers()
+        protected virtual void InitMembers()
         {
             _target = null;
             _balloonId = 0;
@@ -30,13 +30,13 @@ namespace UniRmmz
             Z = 7;
         }
 
-        private void LoadBitmap()
+        protected virtual void LoadBitmap()
         {
             Bitmap = Rmmz.ImageManager.LoadSystem("Balloon");
             SetFrame(0, 0, 0, 0);
         }
 
-        public void Setup(Sprite targetSprite, int balloonId)
+        public virtual void Setup(Sprite targetSprite, int balloonId)
         {
             _target = targetSprite;
             _balloonId = balloonId;
@@ -57,13 +57,13 @@ namespace UniRmmz
             }
         }
 
-        private void UpdatePosition()
+        protected virtual void UpdatePosition()
         {
             X = _target.X;
             Y = _target.Y - _target.Height;
         }
 
-        private void UpdateFrame()
+        protected virtual void UpdateFrame()
         {
             const int w = 48;
             const int h = 48;
@@ -82,13 +82,13 @@ namespace UniRmmz
             return 12;
         }
 
-        private int FrameIndex()
+        protected virtual int FrameIndex()
         {
             int index = (_duration - WaitTime()) / Speed();
             return 7 - Math.Max(index, 0);
         }
 
-        public bool IsPlaying()
+        public virtual bool IsPlaying()
         {
             return _duration > 0;
         }

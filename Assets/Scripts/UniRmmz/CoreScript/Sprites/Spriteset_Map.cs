@@ -8,17 +8,17 @@ namespace UniRmmz
     /// </summary>
     public partial class Spriteset_Map : Spriteset_Base
     {
-        private List<Sprite_Balloon> _balloonSprites = new();
-        private List<Sprite_Character> _characterSprites;
-        private Tilemap _tilemap;
-        private TilingSprite _parallax;
+        protected List<Sprite_Balloon> _balloonSprites = new();
+        protected List<Sprite_Character> _characterSprites;
+        protected Tilemap _tilemap;
+        protected TilingSprite _parallax;
 
-        private Sprite _shadowSprite;
+        protected Sprite _shadowSprite;
 
-        private Sprite_Destination _destinationSprite;
-        private Weather _weather;
-        private DataTileset _dataTileset;
-        private string _parallaxName;
+        protected Sprite_Destination _destinationSprite;
+        protected Weather _weather;
+        protected DataTileset _dataTileset;
+        protected string _parallaxName;
 
         public override void Initialize()
         {
@@ -73,14 +73,14 @@ namespace UniRmmz
             }
         }
 
-        private void CreateParallax()
+        protected virtual void CreateParallax()
         {
             _parallax = TilingSprite.Create("parallax");
             _parallax.Move(0, 0, Graphics.Width, Graphics.Height);
             _baseSprite.AddChild(_parallax);
         }
 
-        private void CreateTilemap()
+        protected virtual void CreateTilemap()
         {
             _tilemap = Tilemap.Create("tilemap");
             _tilemap.TileWidth = Rmmz.gameMap.TileWidth(); 
@@ -93,7 +93,7 @@ namespace UniRmmz
             LoadTileset();
         }
 
-        private void LoadTileset()
+        protected virtual void LoadTileset()
         {
             _dataTileset = Rmmz.gameMap.Tileset();
             if (_dataTileset != null)
@@ -108,7 +108,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateCharacters()
+        protected virtual void CreateCharacters()
         {
             _characterSprites = new List<Sprite_Character>();
             foreach (var ev in Rmmz.gameMap.Events())
@@ -139,7 +139,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateShadow()
+        protected virtual void CreateShadow()
         {
             _shadowSprite = Sprite.Create("Airship Shadow");
             _shadowSprite.Bitmap = Rmmz.ImageManager.LoadSystem("Shadow1");
@@ -148,20 +148,20 @@ namespace UniRmmz
             _tilemap.AddChild(_shadowSprite);
         }
 
-        private void CreateDestination()
+        protected virtual void CreateDestination()
         {
             _destinationSprite = Sprite_Destination.Create("destination");
             _destinationSprite.Z = 9;
             _tilemap.AddChild(_destinationSprite);
         }
 
-        private void CreateWeather()
+        protected virtual void CreateWeather()
         {
             _weather = Weather.Create("weather");
             this.AddChild(_weather);
         }
 
-        private void UpdateTileset()
+        protected virtual void UpdateTileset()
         {
             if (_dataTileset != Rmmz.gameMap.Tileset())
             {
@@ -169,7 +169,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateParallax()
+        protected virtual void UpdateParallax()
         {
             if (_parallaxName != Rmmz.gameMap.ParallaxName())
             {
@@ -187,7 +187,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateTilemap()
+        protected virtual void UpdateTilemap()
         {
             _tilemap.Origin = new Vector2(
                 Rmmz.gameMap.DisplayX() * Rmmz.gameMap.TileWidth(),
@@ -195,7 +195,7 @@ namespace UniRmmz
             );
         }
 
-        private void UpdateShadow()
+        protected virtual void UpdateShadow()
         {
             var airship = Rmmz.gameMap.Airship();
             _shadowSprite.X = airship.ShadowX();
@@ -203,7 +203,7 @@ namespace UniRmmz
             _shadowSprite.Opacity = airship.ShadowOpacity();
         }
 
-        private void UpdateWeather()
+        protected virtual void UpdateWeather()
         {
             _weather.Type = Rmmz.gameScreen.WeatherType();
             _weather.Power = Rmmz.gameScreen.WeatherPower();
@@ -213,7 +213,7 @@ namespace UniRmmz
             );
         }
 
-        private void UpdateBalloons()
+        protected virtual void UpdateBalloons()
         {
             for (int i = 0; i <_balloonSprites.Count; )
             {
@@ -229,7 +229,7 @@ namespace UniRmmz
             ProcessBalloonRequests();
         }
 
-        private void ProcessBalloonRequests()
+        protected virtual void ProcessBalloonRequests()
         {
             while (true)
             {
@@ -245,7 +245,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateBalloon(Game_Temp.BalloonRequest request)
+        protected virtual void CreateBalloon(Game_Temp.BalloonRequest request)
         {
             var targetSprite = FindTargetSprite(request.Target);
             if (targetSprite != null)
@@ -258,7 +258,7 @@ namespace UniRmmz
             }
         }
 
-        private void RemoveBalloon(Sprite_Balloon sprite)
+        protected virtual void RemoveBalloon(Sprite_Balloon sprite)
         {
             _balloonSprites.Remove(sprite);
             _effectsContainer.RemoveChild(sprite);
@@ -266,7 +266,7 @@ namespace UniRmmz
             GameObject.Destroy(sprite.gameObject);
         }
 
-        private void RemoveAllBalloons()
+        protected virtual void RemoveAllBalloons()
         {
             foreach (var sprite in new List<Sprite_Balloon>(_balloonSprites))
             {

@@ -115,7 +115,7 @@ namespace UniRmmz
             }
         }
 
-        private bool CanStart()
+        protected virtual bool CanStart()
         {
             if (_previous != null && ShouldWaitForPrevious())
             {
@@ -127,12 +127,12 @@ namespace UniRmmz
             }
         }
 
-        private bool ShouldWaitForPrevious()
+        protected virtual bool ShouldWaitForPrevious()
         {
             return false;
         }
 
-        private void UpdateEffectGeometry()
+        protected virtual void UpdateEffectGeometry()
         {
             float scale = _animation.Scale / 100f;
             float r = Mathf.PI / 180f;
@@ -149,7 +149,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateMain()
+        protected virtual void UpdateMain()
         {
             ProcessSoundTimings();
             ProcessFlashTimings();
@@ -157,7 +157,7 @@ namespace UniRmmz
             CheckEnd();
         }
 
-        private void ProcessSoundTimings()
+        protected virtual void ProcessSoundTimings()
         {
             foreach (var timing in _animation.SoundTimings)
             {
@@ -168,7 +168,7 @@ namespace UniRmmz
             }
         }
 
-        private void ProcessFlashTimings()
+        protected virtual void ProcessFlashTimings()
         {
             foreach (var timing in _animation.FlashTimings)
             {
@@ -180,7 +180,7 @@ namespace UniRmmz
             }
         }
 
-        private void CheckEnd()
+        protected virtual void CheckEnd()
         {
             if (_frameIndex > _maxTimingFrames &&
                 _flashDuration == 0 &&
@@ -190,7 +190,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateFlash()
+        protected virtual void UpdateFlash()
         {
             if (_flashDuration > 0)
             {
@@ -216,7 +216,7 @@ namespace UniRmmz
             }
         }
         
-        private Vector2 TargetSpritePosition(Sprite sprite)
+        protected virtual Vector2 TargetSpritePosition(Sprite sprite)
         {
             Vector2 point = new Vector2(0, -sprite.Height / 2);
             if (_animation.AlignBottom)

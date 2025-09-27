@@ -8,11 +8,11 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Button : Sprite_Clickable
     {
-        private Input.ButtonTypes _buttonType;
-        private Rect _coldFrame;
-        private Rect _hotFrame;
-        private bool _isPressed = false;
-        private System.Action _clickHandler;
+        protected Input.ButtonTypes _buttonType;
+        protected Rect _coldFrame;
+        protected Rect _hotFrame;
+        protected bool _isPressed = false;
+        protected System.Action _clickHandler;
 
         public virtual void Initialize(Input.ButtonTypes buttonType)
         {
@@ -20,7 +20,7 @@ namespace UniRmmz
             SetupFrames();
         }
 
-        private void SetupFrames()
+        protected virtual void SetupFrames()
         {
             var data = ButtonData();
             float x = data.x * BlockWidth();
@@ -40,7 +40,7 @@ namespace UniRmmz
         {
             Bitmap = Rmmz.ImageManager.LoadSystem("ButtonSet");
         }
-        protected Vector2 ButtonData()
+        protected virtual Vector2 ButtonData()
         {
             return _buttonType switch
             {
@@ -66,7 +66,7 @@ namespace UniRmmz
             ProcessTouch();
         }
 
-        public void CheckBitmap()
+        public virtual void CheckBitmap()
         {
             if (Bitmap.IsReady() && Bitmap.Width < BlockWidth() * 11)
             {
@@ -89,17 +89,17 @@ namespace UniRmmz
             Opacity = _isPressed ? 255 : 192;
         }
 
-        protected void SetColdFrame(float x, float y, float width, float height)
+        protected virtual void SetColdFrame(float x, float y, float width, float height)
         {
             _coldFrame = new Rect(x, y, width, height);
         }
         
-        protected void SetHotFrame(float x, float y, float width, float height)
+        protected virtual void SetHotFrame(float x, float y, float width, float height)
         {
             _hotFrame = new Rect(x, y, width, height);
         }
 
-        public void SetClickHandler(System.Action method)
+        public virtual void SetClickHandler(System.Action method)
         {
             _clickHandler = method;
         }

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Timer : Sprite
     {
-        private int _seconds;
+        protected int _seconds;
 
         protected override void Awake()
         {

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Battleback : TilingSprite
     {
-        private int _type;
+        protected int _type;
 
         public virtual void Initialize(int type)
         {

@@ -62,7 +62,7 @@ namespace UniRmmz
             UpdateAnimations();
         }
 
-        private void CreateBaseSprite()
+        protected virtual void CreateBaseSprite()
         {
             _baseSprite = Sprite.Create("baseSprite");
             _blackScreen = ScreenSprite.Create("blackScreen");
@@ -71,13 +71,13 @@ namespace UniRmmz
             this.AddChild(_baseSprite);
         }
 
-        private void CreateBaseFilters()
+        protected virtual void CreateBaseFilters()
         {
             _baseColorFilter = new ColorFilter();
             _baseSprite.AddFilter(_baseColorFilter);
         }
 
-        private void CreatePictures()
+        protected virtual void CreatePictures()
         {
             var rect = PictureContainerRect();
             _pictureContainer = Sprite.Create("pictureContainer");
@@ -91,35 +91,35 @@ namespace UniRmmz
             this.AddChild(_pictureContainer);
         }
 
-        private Rect PictureContainerRect()
+        protected virtual Rect PictureContainerRect()
         {
             return new Rect(0, 0, Graphics.Width, Graphics.Height);
         }
 
-        private void CreateTimer()
+        protected virtual void CreateTimer()
         {
             _timerSprite = Sprite_Timer.Create("timer");
             this.AddChild(_timerSprite);
         }
 
-        private void CreateOverallFilters()
+        protected virtual void CreateOverallFilters()
         {
             _overallColorFilter = new ColorFilter();
             AddFilter(_overallColorFilter);
         }
 
-        private void UpdateBaseFilters()
+        protected virtual void UpdateBaseFilters()
         {
             _baseColorFilter.SetColorTone(Rmmz.gameScreen.Tone());
         }
 
-        private void UpdateOverallFilters()
+        protected virtual void UpdateOverallFilters()
         {
             _overallColorFilter.SetBlendColor(Rmmz.gameScreen.FlashColor());
             _overallColorFilter.SetBrightness(Rmmz.gameScreen.Brightness());
         }
 
-        private void UpdatePosition()
+        protected virtual void UpdatePosition()
         {
             float scale = Rmmz.gameScreen.ZoomScale();
             Scale = new Vector3(scale, scale, 1);
@@ -146,7 +146,7 @@ namespace UniRmmz
             ProcessAnimationRequests();
         }
 
-        private void ProcessAnimationRequests()
+        protected virtual void ProcessAnimationRequests()
         {
             while (true)
             {
@@ -162,7 +162,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateAnimation(Game_Temp.AnimationRequest request)
+        protected virtual void CreateAnimation(Game_Temp.AnimationRequest request)
         {
             var animation = Rmmz.dataAnimations[request.AnimationId];
             var targets = request.Targets;
@@ -184,7 +184,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateAnimationSprite(List<object> targets, DataAnimation dataAnimation, bool mirror, int delay)
+        protected virtual void CreateAnimationSprite(List<object> targets, DataAnimation dataAnimation, bool mirror, int delay)
         {
             bool isMV = IsMVAnimation(dataAnimation);
             Sprite_AnimationBase sprite = isMV ? Sprite_AnimationMV.Create("animation") : Sprite_Animation.Create("animation");
@@ -202,12 +202,12 @@ namespace UniRmmz
             _animationSprites.Add(sprite);
         }
 
-        private bool IsMVAnimation(DataAnimation dataAnimation)
+        protected virtual bool IsMVAnimation(DataAnimation dataAnimation)
         {
             return dataAnimation.Frames != null;
         }
 
-        private List<Sprite> MakeTargetSprites(List<object> targets)
+        protected virtual List<Sprite> MakeTargetSprites(List<object> targets)
         {
             var result = new List<Sprite>();
             foreach (var target in targets)
@@ -221,26 +221,26 @@ namespace UniRmmz
             return result;
         }
 
-        private Sprite_AnimationBase LastAnimationSprite()
+        protected virtual Sprite_AnimationBase LastAnimationSprite()
         {
             return _animationSprites.Count > 0 ? _animationSprites[_animationSprites.Count - 1] : null;
         }
 
-        private bool IsAnimationForEach(DataAnimation dataAnimation)
+        protected virtual bool IsAnimationForEach(DataAnimation dataAnimation)
         {
             return IsMVAnimation(dataAnimation) ? dataAnimation.Position != 3 : dataAnimation.DisplayType == 0;
         }
 
-        private int AnimationBaseDelay() => 8;
+        protected virtual int AnimationBaseDelay() => 8;
 
-        private int AnimationNextDelay() => 12;
+        protected virtual int AnimationNextDelay() => 12;
 
-        private bool AnimationShouldMirror(object target)
+        protected virtual bool AnimationShouldMirror(object target)
         {
             return target is Game_Actor;
         }
 
-        private void RemoveAnimation(Sprite_AnimationBase sprite)
+        protected virtual void RemoveAnimation(Sprite_AnimationBase sprite)
         {
             _animationSprites.Remove(sprite);
             _effectsContainer.RemoveChild(sprite);
@@ -254,7 +254,7 @@ namespace UniRmmz
             GameObject.Destroy(sprite.gameObject);
         }
 
-        private void RemoveAllAnimations()
+        protected virtual void RemoveAllAnimations()
         {
             var tmp = new List<Sprite_AnimationBase>(_animationSprites);
             foreach (var sprite in tmp)

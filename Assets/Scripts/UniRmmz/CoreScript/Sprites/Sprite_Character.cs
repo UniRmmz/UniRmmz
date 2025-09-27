@@ -7,17 +7,17 @@ namespace UniRmmz
     /// </summary>
     public partial class Sprite_Character : Sprite
     {
-        private Game_Character _character;
-        private int _balloonDuration;
-        private int _tilesetId;
-        private Sprite _upperBody;
-        private Sprite _lowerBody;
+        protected Game_Character _character;
+        protected int _balloonDuration;
+        protected int _tilesetId;
+        protected Sprite _upperBody;
+        protected Sprite _lowerBody;
 
-        private int _tileId;
-        private string _characterName;
-        private int _characterIndex;
-        private bool _isBigCharacter;
-        private int _bushDepth;
+        protected int _tileId;
+        protected string _characterName;
+        protected int _characterIndex;
+        protected bool _isBigCharacter;
+        protected int _bushDepth;
 
         protected override void Awake()
         {
@@ -35,12 +35,12 @@ namespace UniRmmz
             _lowerBody = null;
         }
 
-        public void SetCharacter(Game_Character character)
+        public  virtual void SetCharacter(Game_Character character)
         {
             _character = character;
         }
 
-        public bool CheckCharacter(object character)
+        public  virtual bool CheckCharacter(object character)
         {
             return _character == character;
         }
@@ -64,29 +64,29 @@ namespace UniRmmz
             }
         }
 
-        public bool IsTile()
+        public virtual bool IsTile()
         {
             return _character.IsTile();
         }
 
-        public bool IsObjectCharacter()
+        public virtual bool IsObjectCharacter()
         {
             return _character.IsObjectCharacter();
         }
 
-        public bool IsEmptyCharacter()
+        public virtual bool IsEmptyCharacter()
         {
             return _tileId == 0 && string.IsNullOrEmpty(_characterName);
         }
 
-        public Bitmap TilesetBitmap(int tileId)
+        public virtual Bitmap TilesetBitmap(int tileId)
         {
             var tileset = Rmmz.gameMap.Tileset();
             int setNumber = 5 + (tileId / 256);
             return Rmmz.ImageManager.LoadTileset(tileset.TilesetNames[setNumber]);
         }
 
-        private void UpdateBitmap()
+        protected  virtual void UpdateBitmap()
         {
             if (IsImageChanged())
             {
@@ -105,7 +105,7 @@ namespace UniRmmz
             }
         }
 
-        private bool IsImageChanged()
+        protected  virtual bool IsImageChanged()
         {
             return _tilesetId != Rmmz.gameMap.TilesetId() ||
                    _tileId != _character.TileId() ||
@@ -113,18 +113,18 @@ namespace UniRmmz
                    _characterIndex != _character.CharacterIndex();
         }
 
-        private void SetTileBitmap()
+        protected  virtual void SetTileBitmap()
         {
             Bitmap = TilesetBitmap(_tileId);
         }
 
-        private void SetCharacterBitmap()
+        protected  virtual void SetCharacterBitmap()
         {
             Bitmap = Rmmz.ImageManager.LoadCharacter(_characterName);
             _isBigCharacter = Rmmz.ImageManager.IsBigCharacter(_characterName);
         }
 
-        private void UpdateFrame()
+        protected  virtual void UpdateFrame()
         {
             if (_tileId > 0)
             {
@@ -136,7 +136,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateTileFrame()
+        protected  virtual void UpdateTileFrame()
         {
             int tileId = _tileId;
             int pw = PatternWidth();
@@ -146,7 +146,7 @@ namespace UniRmmz
             SetFrame(sx, sy, pw, ph);
         }
 
-        private void UpdateCharacterFrame()
+        protected  virtual void UpdateCharacterFrame()
         {
             int pw = PatternWidth();
             int ph = PatternHeight();
@@ -166,7 +166,7 @@ namespace UniRmmz
             }
         }
 
-        private int CharacterBlockX()
+        protected  virtual int CharacterBlockX()
         {
             if (_isBigCharacter)
             {
@@ -179,7 +179,7 @@ namespace UniRmmz
             }
         }
 
-        private int CharacterBlockY()
+        protected  virtual int CharacterBlockY()
         {
             if (_isBigCharacter)
             {
@@ -192,17 +192,17 @@ namespace UniRmmz
             }
         }
 
-        private int CharacterPatternX()
+        protected  virtual int CharacterPatternX()
         {
             return _character.Pattern();
         }
 
-        private int CharacterPatternY()
+        protected  virtual int CharacterPatternY()
         {
             return (_character.Direction() - 2) / 2;
         }
 
-        private int PatternWidth()
+        protected  virtual int PatternWidth()
         {
             if (_tileId > 0)
             {
@@ -218,7 +218,7 @@ namespace UniRmmz
             }
         }
 
-        private int PatternHeight()
+        protected  virtual int PatternHeight()
         {
             if (_tileId > 0)
             {
@@ -234,7 +234,7 @@ namespace UniRmmz
             }
         }
 
-        private void UpdateHalfBodySprites()
+        protected  virtual void UpdateHalfBodySprites()
         {
             if (_bushDepth > 0)
             {
@@ -260,7 +260,7 @@ namespace UniRmmz
             }
         }
 
-        private void CreateHalfBodySprites()
+        protected  virtual void CreateHalfBodySprites()
         {
             if (_upperBody == null)
             {
@@ -277,14 +277,14 @@ namespace UniRmmz
             }
         }
 
-        private void UpdatePosition()
+        protected  virtual void UpdatePosition()
         {
             X = _character.ScreenX();
             Y = _character.ScreenY();
             Z = _character.ScreenZ();
         }
 
-        private void UpdateOther()
+        protected  virtual void UpdateOther()
         {
             Opacity = _character.Opacity();
             //BlendMode = _character.BlendMode();

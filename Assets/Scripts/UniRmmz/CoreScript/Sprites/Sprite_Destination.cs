@@ -43,7 +43,7 @@ namespace UniRmmz
             }
         }
 
-        protected void CreateBitmap()
+        protected virtual void CreateBitmap()
         {
             int tileWidth = Rmmz.gameMap.TileWidth();
             int tileHeight = Rmmz.gameMap.TileHeight();
@@ -53,7 +53,7 @@ namespace UniRmmz
             BlendMode = BlendModes.Add;
         }
 
-        protected void UpdatePosition()
+        protected virtual void UpdatePosition()
         {
             int tileWidth = Rmmz.gameMap.TileWidth();
             int tileHeight = Rmmz.gameMap.TileHeight();
@@ -63,7 +63,7 @@ namespace UniRmmz
             Y = (Rmmz.gameMap.AdjustY(y) + 0.5f) * tileHeight;
         }
 
-        protected void UpdateAnimation()
+        protected virtual void UpdateAnimation()
         {
             _frameCount++;
             _frameCount %= 20;
