@@ -12,8 +12,7 @@ using System.Collections.Specialized;
 
 namespace UniRmmz.Editor
 {
-    
-    public class GenerateScriptCommand
+    public static class GenerateScriptCommand
     {
         [MenuItem("UniRmmz/Tools/GenerateScriptCommand")]
         public static void Generate()
@@ -23,12 +22,14 @@ namespace UniRmmz.Editor
                 EditorApplication.isPlaying = false;
             }
 
-            EditorCoroutineUtility.StartCoroutineOwnerless(GenerateCoroutine());
+            Rmmz.InitializeUniRmmz(() =>
+            {
+                EditorCoroutineUtility.StartCoroutineOwnerless(GenerateCoroutine());    
+            });
         }
         
         private static IEnumerator GenerateCoroutine()
         {
-            Rmmz.InitializeManager();
             Rmmz.DataManager.LoadDatabase();
             yield return new WaitUntil(() => Rmmz.DataManager.IsDatabaseLoaded());
 

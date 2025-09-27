@@ -2,9 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
 using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UniRmmz.Plugin.RegionBase;
 using UnityEngine.Networking;
 
 namespace UniRmmz
@@ -14,18 +18,10 @@ namespace UniRmmz
     /// </summary>
     public partial class PluginManager
     {
-        private static readonly Dictionary<string, Dictionary<string, object>> _parameters = new (); 
-        private static readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
+        private readonly Dictionary<string, Dictionary<string, string>> _parameters = new (); 
+        private readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
 
-        public void LoadAndSetup(Action onCompleted)
-        {
-            LoadConfig((data) =>
-            {
-                Setup(data.ToList());
-                onCompleted?.Invoke();
-            });
-        }
-        public void Setup(List<DataPlugin> plugins)
+        public virtual void Setup(List<DataPlugin> plugins)
         {
             foreach (var plugin in plugins)
             {
@@ -36,19 +32,39 @@ namespace UniRmmz
             }
         }
 
-        public static Dictionary<string, object> Parameters(string name)
+        public  Dictionary<string, string> Parameters(string name)
         {
             var key = name.ToLowerInvariant();
-            return _parameters.ContainsKey(key) ? _parameters[key] : new Dictionary<string, object>();
+            return _parameters.ContainsKey(key) ? _parameters[key] : new Dictionary<string, string>();
+        }
+        
+        public T Parameters<T>(string name) where T : class
+        {
+            var pluginKey = name.ToLowerInvariant();
+            if (_parameters.TryGetValue(pluginKey, out var param))
+            {
+                var sb = new StringBuilder();
+                sb.AppendLine("{");
+                foreach ((var key, var value) in param)
+                {
+                    var tmp = Regex.Unescape(value);
+                    tmp = tmp.Replace(@"""{", "{").Replace(@"""[", "[").Replace(@"}""", "}").Replace(@"]""", "]");
+                    sb.AppendLine($"{key} : {tmp},");
+                }
+                sb.AppendLine("}");
+                var json = sb.ToString();
+                return JsonEx.Parse<T>(json);
+            }
+            return null;
         }
 
-        public static void SetParameters(string name, Dictionary<string, object> parameters)
+        public void SetParameters(string name, Dictionary<string, string> parameters)
         {
             var key = name.ToLowerInvariant();
-            _parameters[key] = parameters ?? new Dictionary<string, object>();
+            _parameters[key] = parameters ?? new Dictionary<string, string>();
         }
 
-        public static void RegisterCommand(string pluginName, string commandName, 
+        public void RegisterCommand(string pluginName, string commandName, 
             Action<Game_Interpreter, JObject> func)
         {
             var key = $"{pluginName}:{commandName}";
@@ -57,7 +73,7 @@ namespace UniRmmz
             Debug.Log($"Registered plugin command: {key}");
         }
 
-        public static void CallCommand(Game_Interpreter self, string pluginName, string commandName, 
+        public void CallCommand(Game_Interpreter self, string pluginName, string commandName, 
             JObject args)
         {
             var key = $"{pluginName}:{commandName}";
@@ -80,7 +96,7 @@ namespace UniRmmz
             }
         }
         
-        private void LoadConfig(Action<DataPlugin[]> onLoaded) 
+        public static void LoadConfig(Action<DataPlugin[]> onLoaded) 
         {
             string fileName = "plugins.js";
             Debug.Log($"loading {fileName}");

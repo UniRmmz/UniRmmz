@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 namespace UniRmmz
 {
@@ -62,22 +64,33 @@ namespace UniRmmz
         public static TextManager TextManager;
         public static PluginManager PluginManager;
 
-        public static void InitializeManager()
+        public static void InitializeUniRmmz(Action onCompleted)
         {
-            RmmzRoot.Initialize();
-            AudioManager.Create();
-            BattleManager.Create();
-            ColorManager.Create();
-            ConfigManager.Create();
-            DataManager.Create();
-            FontManager.Create();
-            ImageManager.Create();
-            EffectManager.Create();
-            SceneManager.Create();
-            SoundManager.Create();
-            StorageManager.Create();
-            TextManager.Create();
+            if (Application.isPlaying)
+            {
+                RmmzRoot.Initialize();
+            }
+            
             PluginManager.Create();
+            PluginManager.LoadConfig((config) =>
+            {
+                Rmmz.PluginManager.Setup(config.ToList());
+            
+                AudioManager.Create();
+                BattleManager.Create();
+                ColorManager.Create();
+                ConfigManager.Create();
+                DataManager.Create();
+                FontManager.Create();
+                ImageManager.Create();
+                EffectManager.Create();
+                SceneManager.Create();
+                SoundManager.Create();
+                StorageManager.Create();
+                TextManager.Create();
+
+                onCompleted();
+            });
         }
 
         public static void Clear()

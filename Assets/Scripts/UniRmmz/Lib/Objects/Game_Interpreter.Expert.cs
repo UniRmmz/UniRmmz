@@ -40,7 +40,7 @@ namespace UniRmmz
         public bool Command357(object[] parameters)
         {
             string pluginName = Utils.ExtractFileName(parameters[0].ToString());
-            PluginManager.CallCommand(this, pluginName, parameters[1].ToString(), parameters[3] as JObject);
+            Rmmz.PluginManager.CallCommand(this, pluginName, parameters[1].ToString(), parameters[3] as JObject);
             return true;
         }
     }

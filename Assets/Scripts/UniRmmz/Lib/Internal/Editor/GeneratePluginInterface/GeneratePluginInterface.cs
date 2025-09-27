@@ -13,27 +13,28 @@ namespace UniRmmz.Editor
         [MenuItem("UniRmmz/Tools/GeneratePluginInterface")]
         public static void Execute()
         {
-            Rmmz.InitializeManager();
-            //PluginManager.Create().LoadAndSetup();
-            string content = File.ReadAllText(Rmmz.RootPath + "/js/plugins/RegionBase.js");
-            var result = PluginCommentParser.ParsePluginComments(content);
-            var generatedCode = GenerateCSharpCode("RegionBase", result);
-            
-            var pluginRootFolder = Application.streamingAssetsPath + "/../Scripts/UniRmmz/Plugin";
-            if (!Directory.Exists(pluginRootFolder))
+            Rmmz.InitializeUniRmmz(() =>
             {
-                Directory.CreateDirectory(pluginRootFolder);
-            }
+                string content = File.ReadAllText(Rmmz.RootPath + "/js/plugins/RegionBase.js");
+                var result = PluginCommentParser.ParsePluginComments(content);
+                var generatedCode = GenerateCSharpCode("RegionBase", result);
             
-            var pluginFolder = pluginRootFolder + "/RegionBase";
-            if (!Directory.Exists(pluginFolder))
-            {
-                Directory.CreateDirectory(pluginFolder);
-            }
+                var pluginRootFolder = Application.streamingAssetsPath + "/../Scripts/UniRmmz/Plugin";
+                if (!Directory.Exists(pluginRootFolder))
+                {
+                    Directory.CreateDirectory(pluginRootFolder);
+                }
+            
+                var pluginFolder = pluginRootFolder + "/RegionBase";
+                if (!Directory.Exists(pluginFolder))
+                {
+                    Directory.CreateDirectory(pluginFolder);
+                }
 
-            var outputPath = pluginFolder + "/RegionBase.Generated.cs";
-            File.WriteAllText(outputPath, generatedCode);
-            AssetDatabase.Refresh();
+                var outputPath = pluginFolder + "/RegionBase.Generated.cs";
+                File.WriteAllText(outputPath, generatedCode);
+                AssetDatabase.Refresh();    
+            });
         }
         
         /// <summary>
@@ -155,8 +156,15 @@ namespace UniRmmz.Editor
                 // 指定ない場合は文字列扱い
                 return "string";
             }
+
+            bool isArray = false;
+            if (pluginParamType.EndsWith("[]"))
+            {
+                pluginParamType = pluginParamType.Substring(0, pluginParamType.Length - 2);
+                isArray = true;
+            }
             
-            return pluginParamType switch
+            var result = pluginParamType switch
             {
                 "number" => "int",
                 "string" => "string",
@@ -168,9 +176,10 @@ namespace UniRmmz.Editor
                 "class" => "int",
                 "select" => "string",
                 var s when s.StartsWith("struct<") => ExtractStructTypeName(s),
-                var s when s.EndsWith("[]") => $"List<{ConvertParamType(s.Substring(0, s.Length - 2))}>",
                 _ => "object"
             };
+            
+            return isArray ? result + "[]" : result;
         }
 
         /// <summary>
@@ -179,7 +188,15 @@ namespace UniRmmz.Editor
         private static string ExtractStructTypeName(string structType)
         {
             var match = Regex.Match(structType, @"struct<(\w+)>");
-            return match.Success ? match.Groups[1].Value : "object";
+            var typeName = match.Success ? match.Groups[1].Value : "object";
+            /*
+            if (structType.EndsWith("[]"))
+            {
+                typeName = $"{typeName}[]";
+            }
+            */
+
+            return typeName;
         }
  
     }

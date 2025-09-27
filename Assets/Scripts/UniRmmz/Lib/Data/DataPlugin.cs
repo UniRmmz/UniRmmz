@@ -9,11 +9,11 @@ namespace UniRmmz
         public string Name => name;
         public bool Status => status;
         public string Description => description;
-        public Dictionary<string, object> Parameters => parameters;
+        public Dictionary<string, string> Parameters => parameters;
         
         private string name;
         private bool status;
         private string description;
-        private Dictionary<string, object> parameters;
+        private Dictionary<string, string> parameters;
     }
 }

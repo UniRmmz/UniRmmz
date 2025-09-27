@@ -7,8 +7,7 @@ namespace UniRmmz
     {
         public void Start()
         {
-            Rmmz.InitializeManager();
-            Rmmz.PluginManager.LoadAndSetup(() => Scene_Boot.Run());
+            Rmmz.InitializeUniRmmz(() => Scene_Boot.Run());
         }
     }
 }

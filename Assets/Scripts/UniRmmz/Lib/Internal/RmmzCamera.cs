@@ -46,7 +46,11 @@ namespace UniRmmz
 
         private void LateUpdate()
         {
-            if (!Rmmz.SceneManager.CanRenderScene() || !RmmzRoot.Instance.IsGameLoopRunning)
+            if (RmmzRoot.Instance == null)
+            {
+                return;
+            }
+            if (!RmmzRoot.Instance.IsGameLoopRunning || !Rmmz.SceneManager.CanRenderScene())
             {
                 return;
             }
