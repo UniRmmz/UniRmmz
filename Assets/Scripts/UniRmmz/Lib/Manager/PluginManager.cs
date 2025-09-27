@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
+using JetBrains.Annotations;
 using UnityEngine;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -20,6 +21,7 @@ namespace UniRmmz
     {
         public class PluginItem
         {
+            public int Order { get; set; }
             public string Name { get; set; }
             public Dictionary<string, string> RawParameter { get; set; }
             public object ParsedParameter { get; set; }
@@ -27,6 +29,8 @@ namespace UniRmmz
         
         protected readonly Dictionary<string, PluginItem> _plugins = new (); 
         protected readonly Dictionary<string, Action<Game_Interpreter, JObject>> _commands = new ();
+        
+        public IEnumerable<PluginItem> UsingPlugins => _plugins.Values.OrderBy(plugin => plugin.Order);
 
         public virtual void Setup(List<DataPlugin> plugins)
         {
@@ -67,8 +71,9 @@ namespace UniRmmz
             var key = name.ToLowerInvariant();
             var plugin = new PluginItem()
             {
+                Order = _plugins.Count,
                 Name = name,
-                RawParameter = new Dictionary<string, string>(),
+                RawParameter = parameters,
                 ParsedParameter = null
             };
             _plugins[key] = plugin;

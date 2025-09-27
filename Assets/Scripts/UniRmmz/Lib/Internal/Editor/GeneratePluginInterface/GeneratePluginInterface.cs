@@ -3,6 +3,7 @@ using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace UniRmmz.Editor
@@ -16,26 +17,38 @@ namespace UniRmmz.Editor
         {
             Rmmz.InitializeUniRmmz(() =>
             {
-                string content = File.ReadAllText(Rmmz.RootPath + "/js/plugins/RegionBase.js");
-                var result = PluginCommentParser.ParsePluginComments(content);
-                var generatedCode = GenerateCSharpCode("RegionBase", result);
-            
-                var pluginRootFolder = Application.streamingAssetsPath + "/../Scripts/UniRmmz/Plugin";
-                if (!Directory.Exists(pluginRootFolder))
+                foreach (var plugin in Rmmz.PluginManager.UsingPlugins)
                 {
-                    Directory.CreateDirectory(pluginRootFolder);
+                    Execute(plugin);
                 }
-            
-                var pluginFolder = pluginRootFolder + "/RegionBase";
-                if (!Directory.Exists(pluginFolder))
-                {
-                    Directory.CreateDirectory(pluginFolder);
-                }
-
-                var outputPath = pluginFolder + "/RegionBase.Generated.cs";
-                File.WriteAllText(outputPath, generatedCode);
                 AssetDatabase.Refresh();    
             });
+        }
+
+        private static void Execute(PluginManager.PluginItem plugin)
+        {
+            var pluginName = plugin.Name;
+            string content = File.ReadAllText(Rmmz.RootPath + $"/js/plugins/{pluginName}.js");
+            var result = PluginCommentParser.ParsePluginComments(content);
+            var generatedCode = GenerateCSharpCode(pluginName, result);
+            
+            var pluginRootFolder = Application.streamingAssetsPath + "/../Scripts/UniRmmz/Plugin";
+            if (!Directory.Exists(pluginRootFolder))
+            {
+                Directory.CreateDirectory(pluginRootFolder);
+            }
+            
+            var pluginFolder = pluginRootFolder + $"/{pluginName}";
+            if (!Directory.Exists(pluginFolder))
+            {
+                Directory.CreateDirectory(pluginFolder);
+            }
+
+            var outputPath = pluginFolder + $"/{pluginName}.Generated.cs";
+            File.WriteAllText(outputPath, generatedCode);
+            
+            EditorUtility.DisplayDialog("Success",
+                $"Code generated successfully!\nSaved to: {outputPath}", "OK");
         }
         
         /// <summary>
@@ -54,6 +67,7 @@ namespace UniRmmz.Editor
             code.AppendLine("using System;");
             code.AppendLine("using System.Collections.Generic;");
             code.AppendLine("using UnityEngine;");
+            code.AppendLine("using Newtonsoft.Json;");
             code.AppendLine();
             
             // 名前空間とクラス定義
@@ -153,7 +167,8 @@ namespace UniRmmz.Editor
                     }
                     code.AppendLine($"{indentStr}    /// </remarks>");
                 }
-                code.AppendLine($"{indentStr}    public {csharpType} {param.name};");
+                code.AppendLine($"{indentStr}    [JsonProperty(\"{param.name}\")]");
+                code.AppendLine($"{indentStr}    public {csharpType} {ToPropertyName(param.name)};");
                 code.AppendLine();
             }
         }
@@ -207,6 +222,18 @@ namespace UniRmmz.Editor
         {
             if (string.IsNullOrEmpty(str)) return str;
             return char.ToUpper(str[0]) + str.Substring(1);
+        }
+        
+        public static string ToPropertyName(string input)
+        {
+            // アンダースコア、ハイフン、スペースで分割
+            var parts = input.Split(new char[] { '_', '-', ' ' }).ToList();
+        
+            // 各部分の先頭を大文字にして結合
+            var result = string.Concat(parts.Select(part => 
+                char.ToUpper(part[0]) + part.Substring(1)));
+
+            return result;
         }
     }
 }
