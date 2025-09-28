@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataCommonItem : IMetadataContainer
+    public partial class DataCommonItem : IMetadataContainer
     {
         public int Id => id;
         public string Description => description;
@@ -22,7 +22,7 @@ namespace UniRmmz
         private string note;
     }
     
-    public class UsableItem : DataCommonItem 
+    public partial class UsableItem : DataCommonItem 
     {
         public int AnimationId => animationId;
         public int Occasion => occasion;
@@ -47,7 +47,7 @@ namespace UniRmmz
         private int tpGain;
     }
     
-    public class EquipableItem : DataCommonItem, ITraitsObject
+    public partial class EquipableItem : DataCommonItem, ITraitsObject
     {
         public int EtypeId => etypeId;
         public int[] Params => @params;

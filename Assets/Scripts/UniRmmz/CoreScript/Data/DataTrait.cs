@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataTrait
+    public partial class DataTrait
     {
         public int Code => code;
         public int DataId => dataId;

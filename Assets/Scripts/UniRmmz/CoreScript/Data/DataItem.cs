@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataItem : UsableItem
+    public partial class DataItem : UsableItem
     {
         public bool Consumable => consumable;
         public int ItypeId => itypeId;

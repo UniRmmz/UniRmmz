@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataPlugin
+    public partial class DataPlugin
     {
         public string Name => name;
         public bool Status => status;

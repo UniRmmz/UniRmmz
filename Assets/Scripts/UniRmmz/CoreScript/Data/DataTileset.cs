@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataTileset : IMetadataContainer
+    public partial class DataTileset : IMetadataContainer
     {
         public int Id => id;
         public int[] Flags => flags;

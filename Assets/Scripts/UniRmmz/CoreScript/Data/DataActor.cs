@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataActor : ITraitsObject, IMetadataContainer
+    public partial class DataActor : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public string BattlerName => battlerName;

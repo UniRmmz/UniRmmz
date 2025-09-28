@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataEffect
+    public partial class DataEffect
     {
         public int Code => code;
         public int DataId => dataId;

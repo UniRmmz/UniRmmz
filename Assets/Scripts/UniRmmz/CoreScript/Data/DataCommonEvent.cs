@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataCommonEvent
+    public partial class DataCommonEvent
     {
         public int Id => id;
         public List<DataEventCommand> List => list;
@@ -20,7 +20,7 @@ namespace UniRmmz
     }
     
     [Serializable]
-    public class DataEventCommand
+    public partial class DataEventCommand
     {
         public int Code => code;
         public int Indent => indent;

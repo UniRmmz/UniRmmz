@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataAnimation
+    public partial class DataAnimation
     {
         public int Id => id;
         public int DisplayType => displayType;
@@ -50,7 +50,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataFlashTiming
+    public partial class DataFlashTiming
     {
         public int Frame => frame;
         public int Duration => duration;
@@ -62,7 +62,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataSoundTiming
+    public partial class DataSoundTiming
     {
         public int Frame => frame;
         public DataSystem.DataSound Se => se;
@@ -72,7 +72,7 @@ namespace UniRmmz
     }
 
     [System.Serializable]
-    public class DataRotation
+    public partial class DataRotation
     {
         public float X => x;
         public float Y => y;
@@ -84,7 +84,7 @@ namespace UniRmmz
     }
     
     [Serializable]
-    public class DataAnimationTimingMV
+    public partial class DataAnimationTimingMV
     {
         public int[] FlashColor => flashColor;
         public int FlashDuration => flashDuration;

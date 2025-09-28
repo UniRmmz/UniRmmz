@@ -6,7 +6,7 @@ using Newtonsoft.Json.Linq;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataTroop
+    public partial class DataTroop
     {
         public int Id => id;
         public DataTroopMember[] Members => members;
@@ -20,7 +20,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataTroopMember
+    public partial class DataTroopMember
     {
         public int EnemyId => enemyId;
         public float X => x;
@@ -34,7 +34,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataTroopPage
+    public partial class DataTroopPage
     {
         public DataTroopConditions Conditions => conditions;
         public List<DataEventCommand> List => list;
@@ -46,7 +46,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataTroopConditions
+    public partial class DataTroopConditions
     {
         public int ActorHp => actorHp;
         public int ActorId => actorId;

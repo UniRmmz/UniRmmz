@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataClass : ITraitsObject
+    public partial class DataClass : ITraitsObject
     {
         public int Id => id;
         public int[] ExpParams => expParams;
@@ -23,7 +23,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataLearning
+    public partial class DataLearning
     {
         public int Level => level;
         public string Note => note;

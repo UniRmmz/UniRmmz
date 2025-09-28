@@ -4,7 +4,7 @@ using UnityEngine.Serialization;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataSystem
+    public partial class DataSystem
     {
         [Serializable]
         public class DataAdvanced

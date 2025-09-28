@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataState : ITraitsObject, IMetadataContainer
+    public partial class DataState : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public int AutoRemovalTiming => autoRemovalTiming;

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataWeapon : EquipableItem
+    public partial class DataWeapon : EquipableItem
     {
         public int AnimationId => animationId;
         public override int Price => price;

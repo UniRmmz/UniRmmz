@@ -137,7 +137,11 @@ namespace UniRmmz
         {
             var data = _databaseFiles[typeof(T)];
             data.setter(null);
-            LoadDataFile<T>((obj) => data.setter(OnLoad(obj)), data.src);
+            LoadDataFile<T>((obj) =>
+            {
+                OnLoad(obj);
+                data.setter(obj);
+            }, data.src);
         }
 
         /// <summary>
@@ -193,7 +197,11 @@ namespace UniRmmz
             {
                 var filename = string.Format("Map{0:D3}.json", mapId);
                 Rmmz.dataMap = null;
-                LoadDataFile<DataMap>((o) => Rmmz.dataMap = (DataMap)OnLoad(o), filename);
+                LoadDataFile<DataMap>((o) =>
+                {
+                    OnLoad(o);
+                    Rmmz.dataMap = (DataMap)o;
+                }, filename);
             } 
             else 
             {
@@ -217,7 +225,7 @@ namespace UniRmmz
             return Rmmz.dataMap != null;        
         }
 
-        protected virtual object OnLoad(object obj)
+        protected virtual void OnLoad(object obj)
         {
             if (IsMapObject(obj))
             {
@@ -227,10 +235,8 @@ namespace UniRmmz
             }
             else
             {
-                ExtractArrayMetadata(obj);
+                ExtractArrayMetadata(obj as object[]);
             }
-
-            return obj;
         }
 
         protected virtual bool IsMapObject(object obj)
@@ -238,16 +244,18 @@ namespace UniRmmz
             return obj is DataMap;
         }
 
-        protected virtual void ExtractArrayMetadata(object obj)
+        public virtual void ExtractArrayMetadata(IEnumerable<object> array)
         {
-            if (obj is object[] array)
+            if (array == null)
             {
-                foreach (var data in array)
+                return;
+            }
+            
+            foreach (var data in array)
+            {
+                if (data is IMetadataContainer metadataContainer)
                 {
-                    if (data is IMetadataContainer metadataContainer)
-                    {
-                        ExtractMetadata(data);
-                    }
+                    ExtractMetadata(data);
                 }
             }
         }

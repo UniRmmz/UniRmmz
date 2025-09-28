@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataEnemy : ITraitsObject, IMetadataContainer
+    public partial class DataEnemy : ITraitsObject, IMetadataContainer
     {
         public int Id => id;
         public List<DataEnemyAction> Actions => actions;
@@ -34,7 +34,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataEnemyAction
+    public partial class DataEnemyAction
     {
         public int SkillId => skillId;
         public int ConditionType => conditionType;
@@ -50,7 +50,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataDropItem
+    public partial class DataDropItem
     {
         public int Kind => kind;
         public int DataId => dataId;

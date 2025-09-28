@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataSkill : UsableItem
+    public partial class DataSkill : UsableItem
     {
         public string Message1 => message1;
         public string Message2 => message2;

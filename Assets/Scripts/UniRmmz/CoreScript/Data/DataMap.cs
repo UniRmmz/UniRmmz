@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataMap : IMetadataContainer
+    public partial class DataMap : IMetadataContainer
     {
         public bool AutoplayBgm => autoplayBgm;
         public bool AutoplayBgs => autoplayBgs;
@@ -59,7 +59,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class Encounter
+    public partial class Encounter
     {
         public int TroopId => troopId;
         public int Weight => weight;
@@ -71,7 +71,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class DataEvent : IMetadataContainer
+    public partial class DataEvent : IMetadataContainer
     {
         public int Id => id;
         public string Name => name;
@@ -90,7 +90,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class EventPage
+    public partial class EventPage
     {
         public EventConditions Conditions => conditions;
         public bool DirectionFix => directionFix;
@@ -122,7 +122,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class EventConditions
+    public partial class EventConditions
     {
         public int ActorId => actorId;
         public bool ActorValid => actorValid;
@@ -154,7 +154,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class EventImage
+    public partial class EventImage
     {
         public int TileId => tileId;
         public string CharacterName => characterName;
@@ -170,7 +170,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class MoveRoute
+    public partial class MoveRoute
     {
         public List<MoveCommand> List { get => list; set => list = value; }
         public bool Repeat { get => repeat; set => repeat = value; }
@@ -184,7 +184,7 @@ namespace UniRmmz
     }
 
     [Serializable]
-    public class MoveCommand
+    public partial class MoveCommand
     {
         public int Code { get => code; set => code = value; }
         public List<object> Parameters { get => parameters; set => parameters = value; }

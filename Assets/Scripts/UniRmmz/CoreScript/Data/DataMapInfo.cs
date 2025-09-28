@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataMapInfo
+    public partial class DataMapInfo
     {
         public int Id => id;
         public bool Expanded => expanded;

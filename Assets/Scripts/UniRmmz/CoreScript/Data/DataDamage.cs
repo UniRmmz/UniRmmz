@@ -3,7 +3,7 @@ using System;
 namespace UniRmmz
 {
     [Serializable]
-    public class DataDamage
+    public partial class DataDamage
     {
         public bool Critical => critical;
         public int ElementId => elementId;
