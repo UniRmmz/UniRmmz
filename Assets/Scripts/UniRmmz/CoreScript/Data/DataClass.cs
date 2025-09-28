@@ -13,13 +13,13 @@ namespace UniRmmz
         public string Note => note;
         public int[][] Params => @params;
         
-        private int id;
-        private int[] expParams;
-        private DataTrait[] traits;
-        private DataLearning[] learnings;
-        private string name;
-        private string note;
-        private int[][] @params;
+        protected int id;
+        protected int[] expParams;
+        protected DataTrait[] traits;
+        protected DataLearning[] learnings;
+        protected string name;
+        protected string note;
+        protected int[][] @params;
     }
 
     [Serializable]
@@ -29,8 +29,8 @@ namespace UniRmmz
         public string Note => note;
         public int SkillId => skillId;
         
-        private int level;
-        private string note;
-        private int skillId;
+        protected int level;
+        protected string note;
+        protected int skillId;
     }
 }

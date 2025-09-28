@@ -11,10 +11,10 @@ namespace UniRmmz
         public int Type => type;
         public int Variance => variance;
         
-        private bool critical;
-        private int elementId;
-        private string formula;
-        private int type;
-        private int variance;
+        protected bool critical;
+        protected int elementId;
+        protected string formula;
+        protected int type;
+        protected int variance;
     }
 }

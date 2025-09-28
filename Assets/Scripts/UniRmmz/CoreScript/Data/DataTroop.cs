@@ -13,10 +13,10 @@ namespace UniRmmz
         public string Name => name;
         public DataTroopPage[] Pages => pages;
         
-        private int id;
-        private DataTroopMember[] members;
-        private string name;
-        private DataTroopPage[] pages;
+        protected int id;
+        protected DataTroopMember[] members;
+        protected string name;
+        protected DataTroopPage[] pages;
     }
 
     [Serializable]
@@ -27,10 +27,10 @@ namespace UniRmmz
         public float Y => y;
         public bool Hidden => hidden;
         
-        private int enemyId;
-        private float x;
-        private float y;
-        private bool hidden;
+        protected int enemyId;
+        protected float x;
+        protected float y;
+        protected bool hidden;
     }
 
     [Serializable]
@@ -40,9 +40,9 @@ namespace UniRmmz
         public List<DataEventCommand> List => list;
         public int Span => span;
         
-        private DataTroopConditions conditions;
-        private List<DataEventCommand> list;
-        private int span;
+        protected DataTroopConditions conditions;
+        protected List<DataEventCommand> list;
+        protected int span;
     }
 
     [Serializable]
@@ -61,17 +61,17 @@ namespace UniRmmz
         public bool TurnEnding => turnEnding;
         public bool TurnValid => turnValid;
         
-        private int actorHp;
-        private int actorId;
-        private bool actorValid;
-        private int enemyHp;
-        private int enemyIndex;
-        private bool enemyValid;
-        private int switchId;
-        private bool switchValid;
-        private int turnA;
-        private int turnB;
-        private bool turnEnding;
-        private bool turnValid;
+        protected int actorHp;
+        protected int actorId;
+        protected bool actorValid;
+        protected int enemyHp;
+        protected int enemyIndex;
+        protected bool enemyValid;
+        protected int switchId;
+        protected bool switchValid;
+        protected int turnA;
+        protected int turnB;
+        protected bool turnEnding;
+        protected bool turnValid;
     }
 }

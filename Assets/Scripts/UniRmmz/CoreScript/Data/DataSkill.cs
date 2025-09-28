@@ -15,13 +15,13 @@ namespace UniRmmz
         public int TpCost => tpCost;
         public int MessageType => messageType;
         
-        private string message1;
-        private string message2;
-        private int mpCost;
-        private int requiredWtypeId1;
-        private int requiredWtypeId2;
-        private int stypeId;
-        private int tpCost;
-        private int messageType;
+        protected string message1;
+        protected string message2;
+        protected int mpCost;
+        protected int requiredWtypeId1;
+        protected int requiredWtypeId2;
+        protected int stypeId;
+        protected int tpCost;
+        protected int messageType;
     }
 }

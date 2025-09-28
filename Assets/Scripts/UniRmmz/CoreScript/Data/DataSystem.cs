@@ -21,17 +21,17 @@ namespace UniRmmz
             public int WindowOpacity => windowOpacity;
             public float ScreenScale => screenScale;
             
-            private int gameId;
-            private int screenWidth;
-            private int screenHeight;
-            private int uiAreaWidth;
-            private int uiAreaHeight;
-            private string numberFontFilename;
-            private string fallbackFonts;
-            private int fontSize;
-            private string mainFontFilename;
-            private int windowOpacity;
-            private float screenScale; 
+            protected int gameId;
+            protected int screenWidth;
+            protected int screenHeight;
+            protected int uiAreaWidth;
+            protected int uiAreaHeight;
+            protected string numberFontFilename;
+            protected string fallbackFonts;
+            protected int fontSize;
+            protected string mainFontFilename;
+            protected int windowOpacity;
+            protected float screenScale; 
         }
 
         [Serializable]
@@ -44,12 +44,12 @@ namespace UniRmmz
             public int StartX => startX;
             public int StartY => startY;
             
-            private DataSound bgm;
-            private int characterIndex;
-            private string characterName;
-            private int startMapId;
-            private int startX;
-            private int startY;
+            protected DataSound bgm;
+            protected int characterIndex;
+            protected string characterName;
+            protected int startMapId;
+            protected int startX;
+            protected int startY;
         }
         
         [Serializable]
@@ -60,10 +60,10 @@ namespace UniRmmz
             public int Pitch { get => pitch; set => pitch = value; }
             public int Volume { get => volume; set => volume = value; }
             
-            private string name;
-            private int pan;
-            private int pitch;
-            private int volume;
+            protected string name;
+            protected int pan;
+            protected int pitch;
+            protected int volume;
         }
 
         [Serializable]
@@ -72,8 +72,8 @@ namespace UniRmmz
             public int Type => type;
             public int WeaponImageId => weaponImageId;
             
-            private int type;
-            private int weaponImageId;
+            protected int type;
+            protected int weaponImageId;
         }
         
         [Serializable]
@@ -84,10 +84,10 @@ namespace UniRmmz
             public string[] Params => @params;
             public DataMessages Messages => messages;
             
-            private string[] basic;
-            private string[] commands;
-            private string[] @params;
-            private DataMessages messages;
+            protected string[] basic;
+            protected string[] commands;
+            protected string[] @params;
+            protected DataMessages messages;
         }
         
         [Serializable]
@@ -147,59 +147,59 @@ namespace UniRmmz
             public string BuffRemove => buffRemove;
             public string ActionFailure => actionFailure;
             
-            private string alwaysDash;
-            private string commandRemember;
-            private string touchUI;
-            private string bgmVolume;
-            private string bgsVolume;
-            private string meVolume;
-            private string seVolume;
-            private string possession;
-            private string expTotal;
-            private string expNext;
-            private string saveMessage;
-            private string loadMessage;
-            private string file;
-            private string autosave;
-            private string partyName;
-            private string emerge;
-            private string preemptive;
-            private string surprise;
-            private string escapeStart;
-            private string escapeFailure;
-            private string victory;
-            private string defeat;
-            private string obtainExp;
-            private string obtainGold;
-            private string obtainItem;
-            private string levelUp;
-            private string obtainSkill;
-            private string useItem;
-            private string criticalToEnemy;
-            private string criticalToActor;
-            private string actorDamage;
-            private string actorRecovery;
-            private string actorGain;
-            private string actorLoss;
-            private string actorDrain;
-            private string actorNoDamage;
-            private string actorNoHit;
-            private string enemyDamage;
-            private string enemyRecovery;
-            private string enemyGain;
-            private string enemyLoss;
-            private string enemyDrain;
-            private string enemyNoDamage;
-            private string enemyNoHit;
-            private string evasion;
-            private string magicEvasion;
-            private string magicReflection;
-            private string counterAttack;
-            private string substitute;
-            private string buffAdd;
-            private string debuffAdd;
-            private string buffRemove;
-            private string actionFailure;
+            protected string alwaysDash;
+            protected string commandRemember;
+            protected string touchUI;
+            protected string bgmVolume;
+            protected string bgsVolume;
+            protected string meVolume;
+            protected string seVolume;
+            protected string possession;
+            protected string expTotal;
+            protected string expNext;
+            protected string saveMessage;
+            protected string loadMessage;
+            protected string file;
+            protected string autosave;
+            protected string partyName;
+            protected string emerge;
+            protected string preemptive;
+            protected string surprise;
+            protected string escapeStart;
+            protected string escapeFailure;
+            protected string victory;
+            protected string defeat;
+            protected string obtainExp;
+            protected string obtainGold;
+            protected string obtainItem;
+            protected string levelUp;
+            protected string obtainSkill;
+            protected string useItem;
+            protected string criticalToEnemy;
+            protected string criticalToActor;
+            protected string actorDamage;
+            protected string actorRecovery;
+            protected string actorGain;
+            protected string actorLoss;
+            protected string actorDrain;
+            protected string actorNoDamage;
+            protected string actorNoHit;
+            protected string enemyDamage;
+            protected string enemyRecovery;
+            protected string enemyGain;
+            protected string enemyLoss;
+            protected string enemyDrain;
+            protected string enemyNoDamage;
+            protected string enemyNoHit;
+            protected string evasion;
+            protected string magicEvasion;
+            protected string magicReflection;
+            protected string counterAttack;
+            protected string substitute;
+            protected string buffAdd;
+            protected string debuffAdd;
+            protected string buffRemove;
+            protected string actionFailure;
         }
         
         [Serializable]
@@ -209,9 +209,9 @@ namespace UniRmmz
             public int Level => level;
             public int[] Equips => equips;
             
-            private int actorId;
-            private int level;
-            private int[] equips;
+            protected int actorId;
+            protected int level;
+            protected int[] equips;
         }
         
         [Serializable]
@@ -221,9 +221,9 @@ namespace UniRmmz
             public int OffsetX => offsetX;
             public int OffsetY => offsetY;
             
-            private int background;
-            private int offsetX;
-            private int offsetY;
+            protected int background;
+            protected int offsetX;
+            protected int offsetY;
         }
         
         public DataAdvanced Advanced => advanced;
@@ -283,61 +283,61 @@ namespace UniRmmz
         public bool HasEncryptedAudio => hasEncryptedAudio;
         public string EncryptionKey => encryptionKey;
         
-        private DataAdvanced advanced;
-        private DataVehicle airship;
-        private string[] armorTypes;
-        private DataAttackMotion[] attackMotions;
-        private DataSound battleBgm;
-        private string battleback1Name;
-        private string battleback2Name;
-        private int battlerHue;
-        private string battlerName;
-        private int battleSystem;
-        private DataVehicle boat;
-        private string currencyUnit;
-        private DataSound defeatMe;
-        private int editMapId;
-        private string[] elements;
-        private string[] equipTypes;
-        private string gameTitle;
-        private DataSound gameoverMe;
-        private bool[] itemCategories;
-        private string locale;
-        private int[] magicSkills;
-        private bool[] menuCommands;
-        private bool optAutosave;
-        private bool optDisplayTp;
-        private bool optDrawTitle;
-        private bool optExtraExp;
-        private bool optFloorDeath;
-        private bool optFollowers;
-        private bool optKeyItemsNumber;
-        private bool optSideView;
-        private bool optSlipDeath;
-        private bool optTransparent;
-        private int[] partyMembers;
-        private DataVehicle ship;
-        private string[] skillTypes;
-        private DataSound[] sounds;
-        private int startMapId;
-        private int startX;
-        private int startY;
-        private string[] switches;
-        private DataTerms terms;
-        private DataTestBattler[] testBattlers;
-        private int testTroopId;
-        private string title1Name;
-        private string title2Name;
-        private DataSound titleBgm;
-        private DataTitleCommandWindow titleCommandWindow;
-        private string[] variables;
-        private int versionId;
-        private DataSound victoryMe;
-        private string[] weaponTypes;
-        private int[] windowTone;
-        private int tileSize;
-        private bool hasEncryptedImages;
-        private bool hasEncryptedAudio;
-        private string encryptionKey;
+        protected DataAdvanced advanced;
+        protected DataVehicle airship;
+        protected string[] armorTypes;
+        protected DataAttackMotion[] attackMotions;
+        protected DataSound battleBgm;
+        protected string battleback1Name;
+        protected string battleback2Name;
+        protected int battlerHue;
+        protected string battlerName;
+        protected int battleSystem;
+        protected DataVehicle boat;
+        protected string currencyUnit;
+        protected DataSound defeatMe;
+        protected int editMapId;
+        protected string[] elements;
+        protected string[] equipTypes;
+        protected string gameTitle;
+        protected DataSound gameoverMe;
+        protected bool[] itemCategories;
+        protected string locale;
+        protected int[] magicSkills;
+        protected bool[] menuCommands;
+        protected bool optAutosave;
+        protected bool optDisplayTp;
+        protected bool optDrawTitle;
+        protected bool optExtraExp;
+        protected bool optFloorDeath;
+        protected bool optFollowers;
+        protected bool optKeyItemsNumber;
+        protected bool optSideView;
+        protected bool optSlipDeath;
+        protected bool optTransparent;
+        protected int[] partyMembers;
+        protected DataVehicle ship;
+        protected string[] skillTypes;
+        protected DataSound[] sounds;
+        protected int startMapId;
+        protected int startX;
+        protected int startY;
+        protected string[] switches;
+        protected DataTerms terms;
+        protected DataTestBattler[] testBattlers;
+        protected int testTroopId;
+        protected string title1Name;
+        protected string title2Name;
+        protected DataSound titleBgm;
+        protected DataTitleCommandWindow titleCommandWindow;
+        protected string[] variables;
+        protected int versionId;
+        protected DataSound victoryMe;
+        protected string[] weaponTypes;
+        protected int[] windowTone;
+        protected int tileSize;
+        protected bool hasEncryptedImages;
+        protected bool hasEncryptedAudio;
+        protected string encryptionKey;
     }
 }

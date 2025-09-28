@@ -12,11 +12,11 @@ namespace UniRmmz
         public int SwitchId => switchId;
         public int Trigger => trigger;
         
-        private int id;
-        private List<DataEventCommand> list;
-        private string name;
-        private int switchId;
-        private int trigger;        
+        protected int id;
+        protected List<DataEventCommand> list;
+        protected string name;
+        protected int switchId;
+        protected int trigger;        
     }
     
     [Serializable]
@@ -26,8 +26,8 @@ namespace UniRmmz
         public int Indent => indent;
         public object[] Parameters => parameters;
         
-        private int code;
-        private int indent;
-        private object[] parameters;
+        protected int code;
+        protected int indent;
+        protected object[] parameters;
     }
 }

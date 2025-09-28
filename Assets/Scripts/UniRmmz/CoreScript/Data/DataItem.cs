@@ -10,8 +10,8 @@ namespace UniRmmz
         public int ItypeId => itypeId;
         public override int Price => price;
         
-        private bool consumable;
-        private int itypeId;
-        private int price;
+        protected bool consumable;
+        protected int itypeId;
+        protected int price;
     }
 }

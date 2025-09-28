@@ -14,11 +14,11 @@ namespace UniRmmz
         public RmmzMetadata Meta { get; set; }
         public string[] TilesetNames => tilesetNames;
         
-        private int id;
-        private int[] flags;
-        private int mode;
-        private string name;
-        private string note;
-        private string[] tilesetNames;
+        protected int id;
+        protected int[] flags;
+        protected int mode;
+        protected string name;
+        protected string note;
+        protected string[] tilesetNames;
     }
 }

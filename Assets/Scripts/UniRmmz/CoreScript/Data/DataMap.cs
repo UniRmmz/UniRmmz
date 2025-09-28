@@ -32,30 +32,30 @@ namespace UniRmmz
         public int[] Data { get => data; set => data = value; }
         public List<DataEvent> Events { get => events; set => events = value; }
         
-        private bool autoplayBgm;
-        private bool autoplayBgs;
-        private string battleback1Name;
-        private string battleback2Name;
-        private DataSystem.DataSound bgm;
-        private DataSystem.DataSound bgs;
-        private bool disableDashing;
-        private string displayName;
-        private List<Encounter> encounterList;
-        private int encounterStep;
-        private int height;
-        private string note;
-        private bool parallaxLoopX;
-        private bool parallaxLoopY;
-        private string parallaxName;
-        private bool parallaxShow;
-        private int parallaxSx;
-        private int parallaxSy;
-        private int scrollType;
-        private bool specifyBattleback;
-        private int tilesetId;
-        private int width;
-        private int[] data;
-        private List<DataEvent> events;
+        protected bool autoplayBgm;
+        protected bool autoplayBgs;
+        protected string battleback1Name;
+        protected string battleback2Name;
+        protected DataSystem.DataSound bgm;
+        protected DataSystem.DataSound bgs;
+        protected bool disableDashing;
+        protected string displayName;
+        protected List<Encounter> encounterList;
+        protected int encounterStep;
+        protected int height;
+        protected string note;
+        protected bool parallaxLoopX;
+        protected bool parallaxLoopY;
+        protected string parallaxName;
+        protected bool parallaxShow;
+        protected int parallaxSx;
+        protected int parallaxSy;
+        protected int scrollType;
+        protected bool specifyBattleback;
+        protected int tilesetId;
+        protected int width;
+        protected int[] data;
+        protected List<DataEvent> events;
     }
 
     [Serializable]
@@ -65,9 +65,9 @@ namespace UniRmmz
         public int Weight => weight;
         public List<int> RegionSet => regionSet;
         
-        private int troopId;
-        private int weight;
-        private List<int> regionSet;
+        protected int troopId;
+        protected int weight;
+        protected List<int> regionSet;
     }
 
     [Serializable]
@@ -81,12 +81,12 @@ namespace UniRmmz
         public int Y => y;
         public RmmzMetadata Meta { get; set; }
         
-        private int id;
-        private string name;
-        private string note;
-        private List<EventPage> pages;
-        private int x;
-        private int y;
+        protected int id;
+        protected string name;
+        protected string note;
+        protected List<EventPage> pages;
+        protected int x;
+        protected int y;
     }
 
     [Serializable]
@@ -106,19 +106,19 @@ namespace UniRmmz
         public int Trigger => trigger;
         public bool WalkAnime => walkAnime;
         
-        private EventConditions conditions;
-        private bool directionFix;
-        private EventImage image;
-        private List<DataEventCommand> list;
-        private int moveFrequency;
-        private MoveRoute moveRoute;
-        private int moveSpeed;
-        private int moveType;
-        private int priorityType;
-        private bool stepAnime;
-        private bool through;
-        private int trigger;
-        private bool walkAnime;
+        protected EventConditions conditions;
+        protected bool directionFix;
+        protected EventImage image;
+        protected List<DataEventCommand> list;
+        protected int moveFrequency;
+        protected MoveRoute moveRoute;
+        protected int moveSpeed;
+        protected int moveType;
+        protected int priorityType;
+        protected bool stepAnime;
+        protected bool through;
+        protected int trigger;
+        protected bool walkAnime;
     }
 
     [Serializable]
@@ -138,19 +138,19 @@ namespace UniRmmz
         public bool VariableValid => variableValid;
         public int VariableValue => variableValue;
         
-        private int actorId;
-        private bool actorValid;
-        private int itemId;
-        private bool itemValid;
-        private string selfSwitchCh;
-        private bool selfSwitchValid;
-        private int switch1Id;
-        private bool switch1Valid;
-        private int switch2Id;
-        private bool switch2Valid;
-        private int variableId;
-        private bool variableValid;
-        private int variableValue;
+        protected int actorId;
+        protected bool actorValid;
+        protected int itemId;
+        protected bool itemValid;
+        protected string selfSwitchCh;
+        protected bool selfSwitchValid;
+        protected int switch1Id;
+        protected bool switch1Valid;
+        protected int switch2Id;
+        protected bool switch2Valid;
+        protected int variableId;
+        protected bool variableValid;
+        protected int variableValue;
     }
 
     [Serializable]
@@ -162,11 +162,11 @@ namespace UniRmmz
         public int Pattern => pattern;
         public int CharacterIndex => characterIndex;
         
-        private int tileId;
-        private string characterName;
-        private int direction;
-        private int pattern;
-        private int characterIndex;
+        protected int tileId;
+        protected string characterName;
+        protected int direction;
+        protected int pattern;
+        protected int characterIndex;
     }
 
     [Serializable]
@@ -177,10 +177,10 @@ namespace UniRmmz
         public bool Skippable { get => skippable; set => skippable = value; }
         public bool Wait { get => wait; set => wait = value; }
         
-        private List<MoveCommand> list;
-        private bool repeat;
-        private bool skippable;
-        private bool wait;
+        protected List<MoveCommand> list;
+        protected bool repeat;
+        protected bool skippable;
+        protected bool wait;
     }
 
     [Serializable]
@@ -189,7 +189,7 @@ namespace UniRmmz
         public int Code { get => code; set => code = value; }
         public List<object> Parameters { get => parameters; set => parameters = value; }
         
-        private int code;
-        private List<object> parameters;
+        protected int code;
+        protected List<object> parameters;
     }
 }

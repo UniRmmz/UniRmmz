@@ -10,8 +10,8 @@ namespace UniRmmz
         public override int Price => price;
         public int WtypeId => wtypeId;
         
-        private int animationId;
-        private int price;
-        private int wtypeId;
+        protected int animationId;
+        protected int price;
+        protected int wtypeId;
     }
 }
