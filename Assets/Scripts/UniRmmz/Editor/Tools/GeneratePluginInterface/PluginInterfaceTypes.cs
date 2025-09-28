@@ -10,7 +10,9 @@ namespace UniRmmz.Editor
     {
         public string name;
         public string desc;
-        public string type;
+        public string type = "string";
+        public bool hasGetterProperty;
+        public bool hasSetterProperty;
         public List<PluginOption> options = new List<PluginOption>();
     }
 
@@ -29,7 +31,9 @@ namespace UniRmmz.Editor
     public class PluginStruct
     {
         public string name;
+        public List<string> interfaces = new List<string>();
         public List<PluginParameter> parameters = new List<PluginParameter>();
+        
     }
 
     /// <summary>

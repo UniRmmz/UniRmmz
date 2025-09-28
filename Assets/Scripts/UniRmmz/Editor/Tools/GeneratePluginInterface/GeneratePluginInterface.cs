@@ -129,7 +129,14 @@ namespace UniRmmz.Editor
             var indentStr = new string(' ', indent * 4);
             
             code.AppendLine($"{indentStr}[Serializable]");
-            code.AppendLine($"{indentStr}public class {structInfo.name}");
+            if (structInfo.interfaces.Count == 0)
+            {
+                code.AppendLine($"{indentStr}public partial class {structInfo.name}");    
+            }
+            else
+            {
+                code.AppendLine($"{indentStr}public partial class {structInfo.name} : {string.Join(", ", structInfo.interfaces)}");
+            }
             code.AppendLine($"{indentStr}{{");
             GenerateParameterItem(code, structInfo.parameters, indentStr);
             code.AppendLine($"{indentStr}}}");
@@ -153,7 +160,6 @@ namespace UniRmmz.Editor
         {
             foreach (var param in parameters)
             {
-                var csharpType = ConvertParamType(param.type);
                 if (!string.IsNullOrEmpty(param.desc))
                 {
                     code.AppendLine($"{indentStr}    /// <summary>{param.desc}</summary>");    
@@ -167,57 +173,30 @@ namespace UniRmmz.Editor
                     }
                     code.AppendLine($"{indentStr}    /// </remarks>");
                 }
-                code.AppendLine($"{indentStr}    [JsonProperty(\"{param.name}\")]");
-                code.AppendLine($"{indentStr}    public {csharpType} {ToPropertyName(param.name)};");
+
+                if (param.hasGetterProperty && param.hasSetterProperty)
+                {
+                    // プロパティだけ
+                    code.AppendLine($"{indentStr}    public {param.type} {ToPropertyName(param.name)} {{ get; set; }}");
+                }
+                else
+                {
+                    if (param.hasGetterProperty)
+                    {
+                        code.AppendLine($"{indentStr}    private {param.type} {param.name};");
+                        code.AppendLine($"{indentStr}    public {param.type} {ToPropertyName(param.name)} => {param.name};");
+                    }
+                    else
+                    {
+                        code.AppendLine($"{indentStr}    [JsonProperty(\"{param.name}\")]");
+                        code.AppendLine($"{indentStr}    public {param.type} {ToPropertyName(param.name)};");    
+                    }    
+                }
+                
                 code.AppendLine();
             }
         }
-
-        /// <summary>
-        /// ツクールのプラグインのパラメータ型をC#型に変換する
-        /// </summary>
-        private static string ConvertParamType(string pluginParamType)
-        {
-            if (pluginParamType == null)
-            {
-                // 指定ない場合は文字列扱い
-                return "string";
-            }
-
-            bool isArray = false;
-            if (pluginParamType.EndsWith("[]"))
-            {
-                pluginParamType = pluginParamType.Substring(0, pluginParamType.Length - 2);
-                isArray = true;
-            }
-            
-            var result = pluginParamType switch
-            {
-                "number" => "int",
-                "string" => "string",
-                "boolean" => "bool",
-                "multiline_string" => "string",
-                "variable" => "int",
-                "switch" => "int",
-                "common_event" => "int",
-                "class" => "int",
-                "select" => "string",
-                var s when s.StartsWith("struct<") => ExtractStructTypeName(s),
-                _ => "object"
-            };
-            
-            return isArray ? result + "[]" : result;
-        }
-
-        /// <summary>
-        /// 構造体型名を抽出
-        /// </summary>
-        private static string ExtractStructTypeName(string structType)
-        {
-            var match = Regex.Match(structType, @"struct<(\w+)>");
-            return match.Success ? match.Groups[1].Value : "object";
-        }
- 
+        
         public static string ToCamelCase(string str)
         {
             if (string.IsNullOrEmpty(str)) return str;

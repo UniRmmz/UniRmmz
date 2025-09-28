@@ -199,6 +199,21 @@ namespace UniRmmz.Editor
                     if (param != null)
                     {
                         structInfo.parameters.Add(param);
+                        if (param.name == "note" )
+                        {
+                            // noteという名前のプロパティがあれば、IMetadataContainerとして扱う
+                            param.hasGetterProperty = true;
+                            var metaParameter = new PluginParameter()
+                            {
+                                name = "meta",
+                                desc = string.Empty,
+                                type = "RmmzMetadata",
+                                hasGetterProperty = true,
+                                hasSetterProperty = true,
+                            };
+                            structInfo.parameters.Add(metaParameter);
+                            structInfo.interfaces.Add("IMetadataContainer");
+                        }
                     }
                 }
             }
@@ -229,7 +244,7 @@ namespace UniRmmz.Editor
                 }
                 else if (line.StartsWith("@type"))
                 {
-                    param.type = ExtractValue(line);
+                    param.type = ConvertParamType(ExtractValue(line));
                 }
                 else if (line.StartsWith("@option"))
                 {
@@ -329,5 +344,51 @@ namespace UniRmmz.Editor
                    line.StartsWith("@desc") || 
                    line.StartsWith("@arg");
         }
+        
+        /// <summary>
+        /// 構造体型名を抽出
+        /// </summary>
+        private static string ExtractStructTypeName(string structType)
+        {
+            var match = Regex.Match(structType, @"struct<(\w+)>");
+            return match.Success ? match.Groups[1].Value : "object";
+        }
+
+        /// <summary>
+        /// ツクールのプラグインのパラメータ型をC#型に変換する
+        /// </summary>
+        private static string ConvertParamType(string pluginParamType)
+        {
+            if (pluginParamType == null)
+            {
+                // 指定ない場合は文字列扱い
+                return "string";
+            }
+
+            bool isArray = false;
+            if (pluginParamType.EndsWith("[]"))
+            {
+                pluginParamType = pluginParamType.Substring(0, pluginParamType.Length - 2);
+                isArray = true;
+            }
+            
+            var result = pluginParamType switch
+            {
+                "number" => "int",
+                "string" => "string",
+                "boolean" => "bool",
+                "multiline_string" => "string",
+                "variable" => "int",
+                "switch" => "int",
+                "common_event" => "int",
+                "class" => "int",
+                "select" => "string",
+                var s when s.StartsWith("struct<") => ExtractStructTypeName(s),
+                _ => "object"
+            };
+            
+            return isArray ? result + "[]" : result;
+        }
+
     }
 }
