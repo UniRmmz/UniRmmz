@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting an equipment item on the equipment screen.
     /// </summary>
-    public partial class Window_EquipItem : Window_ItemList
+    public partial class Window_EquipItem //: Window_ItemList
     {
         protected Game_Actor _actor = null;
         protected int _slotId = 0;

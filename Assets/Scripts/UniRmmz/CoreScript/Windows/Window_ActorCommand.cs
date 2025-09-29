@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting an actor's action on the battle screen.
     /// </summary>
-    public partial class Window_ActorCommand : Window_Command
+    public partial class Window_ActorCommand //: Window_Command
     {
         protected Game_Actor _actor;
 

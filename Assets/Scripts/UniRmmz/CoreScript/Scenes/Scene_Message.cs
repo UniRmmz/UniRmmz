@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of Scene_Map and Scene_Battle.
     /// </summary>
-    public partial class Scene_Message : Scene_Base
+    public partial class Scene_Message //: Scene_Base
     {
         protected Window_Message _messageWindow;
         protected Window_ScrollText _scrollTextWindow;

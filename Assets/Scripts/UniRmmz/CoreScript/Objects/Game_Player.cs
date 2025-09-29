@@ -8,7 +8,7 @@ namespace UniRmmz
     // determinants and map scrolling functions.
     /// </summary>
     [Serializable]
-    public partial class Game_Player : Game_Character
+    public partial class Game_Player //: Game_Character
     {
         protected Game_Vehicle.VehicleTypes _vehicleType = Game_Vehicle.VehicleTypes.Walk;
         protected bool _vehicleGettingOn = false;

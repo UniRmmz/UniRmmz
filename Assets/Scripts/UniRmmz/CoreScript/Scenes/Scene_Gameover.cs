@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-    public partial class Scene_Gameover : Scene_Base
+    public partial class Scene_Gameover //: Scene_Base
     {
         private Sprite _backSprite;
         

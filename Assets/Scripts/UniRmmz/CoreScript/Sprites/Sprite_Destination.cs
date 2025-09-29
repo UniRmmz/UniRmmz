@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying the destination place of the touch input.
     /// </summary>
-    public partial class Sprite_Destination : Sprite
+    public partial class Sprite_Destination //: Sprite
     {
         protected int _frameCount;
         

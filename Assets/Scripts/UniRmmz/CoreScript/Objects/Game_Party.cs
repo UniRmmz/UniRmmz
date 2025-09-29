@@ -10,7 +10,7 @@ namespace UniRmmz
     /// included.
     /// </summary>
     [Serializable]
-    public partial class Game_Party : Game_Unit
+    public partial class Game_Party //: Game_Unit
     {
         public const int ABILITY_ENCOUNTER_HALF = 0;
         public const int ABILITY_ENCOUNTER_NONE = 1;

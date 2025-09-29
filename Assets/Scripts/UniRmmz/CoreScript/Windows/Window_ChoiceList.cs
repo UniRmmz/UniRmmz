@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window used for the event command [Show Choices].
     /// </summary>
-    public partial class Window_ChoiceList : Window_Command
+    public partial class Window_ChoiceList //: Window_Command
     {
         protected Window_Message _messageWindow;
         protected int _background = 0;

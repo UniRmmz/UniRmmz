@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting buy/sell on the shop screen.
     /// </summary>
-   public partial class Window_ShopCommand : Window_HorzCommand
+   public partial class Window_ShopCommand //: Window_HorzCommand
    {
        protected bool _purchaseOnly;
 

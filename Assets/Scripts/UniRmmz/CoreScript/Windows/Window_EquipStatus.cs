@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying parameter changes on the equipment screen.
     /// </summary>
-    public partial class Window_EquipStatus : Window_StatusBase
+    public partial class Window_EquipStatus //: Window_StatusBase
     {
         protected Game_Actor _actor = null;
         protected Game_Actor _tempActor = null;

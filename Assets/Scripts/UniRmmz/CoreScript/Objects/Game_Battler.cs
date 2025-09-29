@@ -10,7 +10,7 @@ namespace UniRmmz
     /// and actions.
     /// </summary>
     [Serializable]
-    public abstract partial class Game_Battler : Game_BattlerBase
+    public abstract partial class Game_Battler //: Game_BattlerBase
     {
         protected List<Game_Action> _actions;
         protected int _speed;

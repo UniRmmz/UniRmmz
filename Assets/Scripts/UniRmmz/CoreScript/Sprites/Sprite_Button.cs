@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a button.
     /// </summary>
-    public partial class Sprite_Button : Sprite_Clickable
+    public partial class Sprite_Button //: Sprite_Clickable
     {
         protected Input.ButtonTypes _buttonType;
         protected Rect _coldFrame;

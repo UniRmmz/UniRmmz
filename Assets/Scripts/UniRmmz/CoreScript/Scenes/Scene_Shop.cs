@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the name input screen.
     /// </summary>
-    public partial class Scene_Shop : Scene_MenuBase
+    public partial class Scene_Shop //: Scene_MenuBase
     {
         protected List<ShopGoods> _goods;
         protected bool _purchaseOnly;

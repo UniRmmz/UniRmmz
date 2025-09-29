@@ -8,7 +8,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of windows for displaying actor status.
     /// </summary>
-    public abstract partial class Window_StatusBase : Window_Selectable
+    public abstract partial class Window_StatusBase //: Window_Selectable
     {
         protected Dictionary<string, Sprite> _additionalSprites = new Dictionary<string, Sprite>();
 

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The set of sprites on the battle screen.
     /// </summary>
-    public partial class Spriteset_Battle : Spriteset_Base
+    public partial class Spriteset_Battle //: Spriteset_Base
     {
         protected bool _battlebackLocated = false;
         

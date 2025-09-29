@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a category of items on the item and shop screens.
     /// </summary>
-    public partial class Window_ItemCategory : Window_HorzCommand
+    public partial class Window_ItemCategory //: Window_HorzCommand
     {
         protected Window_ItemList _itemWindow;
 

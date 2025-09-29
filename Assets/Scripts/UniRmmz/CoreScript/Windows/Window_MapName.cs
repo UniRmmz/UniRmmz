@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying the map name on the map screen.
     /// </summary>
-    public partial class Window_MapName : Window_Base
+    public partial class Window_MapName //: Window_Base
     {
         protected int _showCount;
 

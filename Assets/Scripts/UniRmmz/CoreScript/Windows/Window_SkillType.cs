@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a skill type on the skill screen.
     /// </summary>
-    public partial class Window_SkillType : Window_Command
+    public partial class Window_SkillType //: Window_Command
     {
         protected Game_Actor _actor = null;
         protected Window_SkillList _skillWindow;

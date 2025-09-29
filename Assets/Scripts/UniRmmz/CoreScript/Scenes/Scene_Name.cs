@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-   public partial class Scene_Name : Scene_MenuBase
+   public partial class Scene_Name //: Scene_MenuBase
    {
        protected int _actorId;
        protected int _maxLength;

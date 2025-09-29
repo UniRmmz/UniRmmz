@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The set of sprites on the map screen.
     /// </summary>
-    public partial class Spriteset_Map : Spriteset_Base
+    public partial class Spriteset_Map //: Spriteset_Base
     {
         protected List<Sprite_Balloon> _balloonSprites = new();
         protected List<Sprite_Character> _characterSprites;

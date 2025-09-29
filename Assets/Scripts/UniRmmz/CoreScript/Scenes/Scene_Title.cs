@@ -4,7 +4,7 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 namespace UniRmmz
 {
-    public partial class Scene_Title : Scene_Base
+    public partial class Scene_Title //: Scene_Base
     {
         protected Sprite _gameTitleSprite;
         protected Sprite _backSprite1;

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying equipment items on the status screen.
     /// </summary>
-    public partial class Window_StatusEquip : Window_StatusBase
+    public partial class Window_StatusEquip //: Window_StatusBase
     {
         protected Game_Actor _actor = null;
 

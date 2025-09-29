@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UniRmmz
 {
-    public partial class Window_Options : Window_Command
+    public partial class Window_Options //: Window_Command
     {
         protected override void MakeCommandList()
         {

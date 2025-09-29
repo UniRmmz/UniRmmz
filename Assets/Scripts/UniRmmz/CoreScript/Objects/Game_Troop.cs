@@ -9,7 +9,7 @@ namespace UniRmmz
     /// The game object class for a troop and the battle-related data.
     /// </summary>
     [Serializable]
-    public partial class Game_Troop : Game_Unit
+    public partial class Game_Troop //: Game_Unit
     {
         private static readonly string[] LETTER_TABLE_HALF = {
             " A", " B", " C", " D", " E", " F", " G", " H", " I", " J", " K", " L", " M",

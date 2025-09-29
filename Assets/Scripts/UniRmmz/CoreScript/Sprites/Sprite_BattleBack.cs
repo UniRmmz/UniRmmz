@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a background image in battle.
     /// </summary>
-    public partial class Sprite_Battleback : TilingSprite
+    public partial class Sprite_Battleback //: TilingSprite
     {
         protected int _type;
 

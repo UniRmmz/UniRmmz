@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a target actor on the battle screen.
     /// </summary>
-    public partial class Window_BattleActor : Window_BattleStatus
+    public partial class Window_BattleActor //: Window_BattleStatus
     {
         public override void Initialize(Rect rect)
         {

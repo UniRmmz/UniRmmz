@@ -7,7 +7,7 @@ using Color = UnityEngine.Color;
 
 namespace UniRmmz
 {
-    public partial class Window_Base : Window
+    public partial class Window_Base //: Window
     {
         protected bool _opening = false;
         protected bool _closing = false;

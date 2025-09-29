@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-    public partial class Window_Gold : Window_Selectable
+    public partial class Window_Gold //: Window_Selectable
     {
         public override void Initialize(Rect rect)
         {

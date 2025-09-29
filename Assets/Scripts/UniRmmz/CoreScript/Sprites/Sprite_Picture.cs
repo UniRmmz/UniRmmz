@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a picture.
     /// </summary>
-    public partial class Sprite_Picture : Sprite_Clickable
+    public partial class Sprite_Picture //: Sprite_Clickable
     {
         protected int _pictureId;
         protected string _pictureName;

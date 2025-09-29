@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of Spriteset_Map and Spriteset_Battle.
     /// </summary>
-    public partial class Spriteset_Base : Sprite
+    public partial class Spriteset_Base //: Sprite
     {
         protected List<Sprite_AnimationBase> _animationSprites = new();
         protected Sprite _baseSprite;

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying state icons.
     /// </summary>
-    public partial class Sprite_StateIcon : Sprite
+    public partial class Sprite_StateIcon //: Sprite
     {
         protected Game_Battler _battler;
         protected int _iconIndex;

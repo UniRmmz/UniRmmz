@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of all the menu-type scenes.
     /// </summary>
-    public partial class Scene_MenuBase : Scene_Base
+    public partial class Scene_MenuBase //: Scene_Base
     {
         protected Window_Help _helpWindow;
         protected Sprite _backgroundSprite;

@@ -9,7 +9,7 @@ namespace UniRmmz
     /// The window for displaying battle progress. No frame is displayed, but it is
     /// handled as a window for convenience.
     /// </summary>
-    public partial class Window_BattleLog : Window_Base
+    public partial class Window_BattleLog //: Window_Base
     {
         protected List<string> _lines = new List<string>();
         protected Queue<MethodCall> _methods = new Queue<MethodCall>();

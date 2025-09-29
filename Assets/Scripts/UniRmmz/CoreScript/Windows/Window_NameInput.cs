@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace UniRmmz
 {
-   public partial class Window_NameInput : Window_Selectable
+   public partial class Window_NameInput //: Window_Selectable
    {
        public static readonly string[] LATIN1 =
        {

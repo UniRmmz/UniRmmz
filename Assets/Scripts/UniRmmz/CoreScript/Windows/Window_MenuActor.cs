@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a target actor on the item and skill screens.
     /// </summary>
-    public partial class Window_MenuActor : Window_MenuStatus
+    public partial class Window_MenuActor //: Window_MenuStatus
     {
         public override void Initialize(Rect rect)
         {

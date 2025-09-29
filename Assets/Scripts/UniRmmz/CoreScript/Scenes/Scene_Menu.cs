@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the menu screen.
     /// </summary>
-    public partial class Scene_Menu : Scene_MenuBase
+    public partial class Scene_Menu //: Scene_MenuBase
     {
         protected Window_MenuCommand _commandWindow;
         protected Window_Gold _goldWindow;

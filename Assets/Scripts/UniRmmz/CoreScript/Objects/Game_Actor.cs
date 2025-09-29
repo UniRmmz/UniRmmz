@@ -10,7 +10,7 @@ namespace UniRmmz
     /// The game object class for an actor.
     /// </summary>
     [Serializable]
-    public partial class Game_Actor : Game_Battler
+    public partial class Game_Actor //: Game_Battler
     {
         protected int _actorId;
         protected string _name;

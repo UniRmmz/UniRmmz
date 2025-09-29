@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a battler name.
     /// </summary>
-    public partial class Sprite_Name : Sprite
+    public partial class Sprite_Name //: Sprite
     {
         protected Game_Actor _battler;
         protected string _name;

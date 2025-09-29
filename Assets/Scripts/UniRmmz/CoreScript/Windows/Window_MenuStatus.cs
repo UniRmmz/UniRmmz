@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying party member status on the menu screen.
     /// </summary>
-    public partial class Window_MenuStatus : Window_StatusBase
+    public partial class Window_MenuStatus //: Window_StatusBase
     {
         protected bool _formationMode = false;
         protected int _pendingIndex = -1;

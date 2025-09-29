@@ -3,7 +3,7 @@ using System.Data;
 
 namespace UniRmmz
 {
-    public partial class Scene_Boot : Scene_Base
+    public partial class Scene_Boot //: Scene_Base
     {
         protected bool _databaseLoaded = false;
 

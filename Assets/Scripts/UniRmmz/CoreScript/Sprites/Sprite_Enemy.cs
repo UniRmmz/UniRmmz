@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying an enemy.
     /// </summary>
-    public partial class Sprite_Enemy : Sprite_Battler
+    public partial class Sprite_Enemy //: Sprite_Battler
     {
         protected Game_Enemy _enemy;
         protected bool _appeared;

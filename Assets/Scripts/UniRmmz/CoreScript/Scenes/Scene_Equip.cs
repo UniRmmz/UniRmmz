@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the equipment screen.
     /// </summary>
-    public partial class Scene_Equip : Scene_MenuBase
+    public partial class Scene_Equip //: Scene_MenuBase
     {
         protected Window_EquipStatus _statusWindow;
         protected Window_EquipCommand _commandWindow;

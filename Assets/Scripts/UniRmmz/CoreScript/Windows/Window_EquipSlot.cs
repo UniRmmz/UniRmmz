@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting an equipment slot on the equipment screen.
     /// </summary>
-    public partial class Window_EquipSlot : Window_StatusBase
+    public partial class Window_EquipSlot //: Window_StatusBase
     {
         protected Game_Actor _actor = null;
         protected Window_EquipStatus _statusWindow;

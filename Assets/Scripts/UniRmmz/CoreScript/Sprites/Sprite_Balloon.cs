@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a balloon icon.
     /// </summary>
-    public partial class Sprite_Balloon : Sprite
+    public partial class Sprite_Balloon //: Sprite
     {
         protected Sprite _target;
         protected int _balloonId;

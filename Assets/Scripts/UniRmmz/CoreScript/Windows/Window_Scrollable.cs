@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window class with scroll functions.
     /// </summary>
-    public abstract partial class Window_Scrollable : Window_Base
+    public abstract partial class Window_Scrollable //: Window_Base
     {
         protected float _scrollX = 0;
         protected float _scrollY = 0;

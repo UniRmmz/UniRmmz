@@ -8,7 +8,7 @@ namespace UniRmmz
     /// other than the front character, displayed in the party.
     /// </summary>
     [Serializable]
-    public partial class Game_Follower : Game_Character
+    public partial class Game_Follower //: Game_Character
     {
         protected int _memberIndex;
 

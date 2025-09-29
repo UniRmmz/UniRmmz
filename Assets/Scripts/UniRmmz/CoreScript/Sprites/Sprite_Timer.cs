@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying the timer.
     /// </summary>
-    public partial class Sprite_Timer : Sprite
+    public partial class Sprite_Timer //: Sprite
     {
         protected int _seconds;
 

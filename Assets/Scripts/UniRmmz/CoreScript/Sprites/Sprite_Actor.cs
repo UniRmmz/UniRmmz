@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying an actor.
     /// </summary>
-    public partial class Sprite_Actor : Sprite_Battler
+    public partial class Sprite_Actor //: Sprite_Battler
     {
         [Serializable]
         public class MotionData

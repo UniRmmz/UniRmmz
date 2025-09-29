@@ -8,7 +8,7 @@ namespace UniRmmz
     /// <summary>
     /// The window class with cursor movement functions.
     /// </summary>
-    public abstract partial class Window_Selectable : Window_Scrollable
+    public abstract partial class Window_Selectable //: Window_Scrollable
     {
         protected int _index;
         protected bool _cursorFixed;

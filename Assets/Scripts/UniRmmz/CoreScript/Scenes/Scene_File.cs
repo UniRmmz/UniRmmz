@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of Scene_Save and Scene_Load.
     /// </summary>
-    public abstract partial class Scene_File : Scene_MenuBase
+    public abstract partial class Scene_File //: Scene_MenuBase
     {
         protected Window_SavefileList _listWindow;
 

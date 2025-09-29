@@ -8,7 +8,7 @@ namespace UniRmmz
     /// The window for inputting quantity of items to buy or sell on the shop
     /// screen.
     /// </summary>
-   public partial class Window_ShopNumber : Window_Selectable
+   public partial class Window_ShopNumber //: Window_Selectable
    {
        protected DataCommonItem _item;
        protected int _max = 1;

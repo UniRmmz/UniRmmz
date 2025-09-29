@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the status screen.
     /// </summary>
-    public partial class Scene_Status : Scene_MenuBase
+    public partial class Scene_Status //: Scene_MenuBase
     {
         protected Window_Status _statusWindow;
         protected Window_StatusParams _statusParamsWindow;

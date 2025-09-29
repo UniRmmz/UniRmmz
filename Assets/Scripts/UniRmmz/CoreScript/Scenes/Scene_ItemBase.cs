@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of Scene_Item and Scene_Skill.
     /// </summary>
-    public abstract partial class Scene_ItemBase<T> : Scene_MenuBase where T : Window_Selectable 
+    public abstract partial class Scene_ItemBase<T> //: Scene_MenuBase where T : Window_Selectable 
     {
         protected Window_MenuActor _actorWindow;
         protected T _itemWindow;

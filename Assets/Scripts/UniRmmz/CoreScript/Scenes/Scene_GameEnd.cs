@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the game end screen.
     /// </summary>
-    public partial class Scene_GameEnd : Scene_MenuBase
+    public partial class Scene_GameEnd //: Scene_MenuBase
     {
         protected Window_GameEnd _commandWindow;
 

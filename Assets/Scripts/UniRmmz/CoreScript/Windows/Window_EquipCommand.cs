@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a command on the equipment screen.
     /// </summary>
-    public partial class Window_EquipCommand : Window_HorzCommand
+    public partial class Window_EquipCommand //: Window_HorzCommand
     {
         protected override int MaxCols() => 3;
 

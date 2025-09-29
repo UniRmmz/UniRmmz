@@ -8,7 +8,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting an item to buy on the shop screen.
     /// </summary>
-   public partial class Window_ShopBuy : Window_Selectable
+   public partial class Window_ShopBuy //: Window_Selectable
    {
        protected List<ShopGoods> _shopGoods;
        protected List<DataCommonItem> _data = new List<DataCommonItem>();

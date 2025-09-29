@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting an item on the item screen.
     /// </summary>
-    public partial class Window_ItemList : Window_Selectable
+    public partial class Window_ItemList //: Window_Selectable
     {
         protected string _category = "none";
         protected List<DataCommonItem> _data;

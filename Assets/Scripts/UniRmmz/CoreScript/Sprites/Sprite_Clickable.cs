@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 
 namespace UniRmmz
 {
-    public abstract partial class Sprite_Clickable : Sprite
+    public abstract partial class Sprite_Clickable //: Sprite
     {
         protected bool _pressed = false;
         protected bool _hovered = false;

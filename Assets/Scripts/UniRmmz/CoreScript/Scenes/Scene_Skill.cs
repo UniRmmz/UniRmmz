@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the skill screen.
     /// </summary>
-    public partial class Scene_Skill : Scene_ItemBase<Window_SkillList>
+    public partial class Scene_Skill //: Scene_ItemBase<Window_SkillList>
     {
         protected Window_SkillType _skillTypeWindow;
         protected Window_SkillStatus _statusWindow;

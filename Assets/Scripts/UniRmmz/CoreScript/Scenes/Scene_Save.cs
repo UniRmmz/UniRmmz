@@ -3,7 +3,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the save screen.
     /// </summary>
-    public partial class Scene_Save : Scene_File
+    public partial class Scene_Save //: Scene_File
     {
         protected override string Mode()
         {

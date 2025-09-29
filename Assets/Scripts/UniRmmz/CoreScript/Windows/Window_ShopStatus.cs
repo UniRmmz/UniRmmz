@@ -9,7 +9,7 @@ namespace UniRmmz
     /// The window for displaying number of items in possession and the actor's
     /// equipment on the shop screen.
     /// </summary>
-    public partial class Window_ShopStatus : Window_StatusBase
+    public partial class Window_ShopStatus //: Window_StatusBase
     {
        protected DataCommonItem _item;
        protected int _pageIndex;

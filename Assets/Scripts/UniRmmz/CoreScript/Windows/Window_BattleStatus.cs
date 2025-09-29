@@ -8,7 +8,7 @@ namespace UniRmmz
    /// <summary>
    /// The window for displaying the status of party members on the battle screen.
    /// </summary>
-   public partial class Window_BattleStatus : Window_StatusBase
+   public partial class Window_BattleStatus //: Window_StatusBase
    {
        protected int _bitmapsReady;
 

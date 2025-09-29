@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a character.
     /// </summary>
-    public partial class Sprite_Character : Sprite
+    public partial class Sprite_Character //: Sprite
     {
         protected Game_Character _character;
         protected int _balloonDuration;

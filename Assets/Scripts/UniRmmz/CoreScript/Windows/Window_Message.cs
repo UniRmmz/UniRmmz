@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying text messages.
     /// </summary>
-    public partial class Window_Message : Window_Base
+    public partial class Window_Message //: Window_Base
     {
         protected int _background;
         protected int _positionType;

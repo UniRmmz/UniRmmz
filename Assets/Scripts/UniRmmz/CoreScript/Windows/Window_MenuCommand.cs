@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a command on the menu screen.
     /// </summary>
-    public partial class Window_MenuCommand : Window_Command
+    public partial class Window_MenuCommand //: Window_Command
     {
         protected static string _lastCommandSymbol = null;
         

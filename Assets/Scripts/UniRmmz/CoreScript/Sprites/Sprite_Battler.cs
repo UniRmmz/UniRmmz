@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of Sprite_Actor and Sprite_Enemy.
     /// </summary>
-    public partial class Sprite_Battler : Sprite_Clickable
+    public partial class Sprite_Battler //: Sprite_Clickable
     {
         protected Game_Battler _battler;
         protected List<Sprite_Damage> _damages;

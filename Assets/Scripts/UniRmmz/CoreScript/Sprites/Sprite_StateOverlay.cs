@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying an overlay image for a state.
     /// </summary>
-    public partial class Sprite_StateOverlay : Sprite
+    public partial class Sprite_StateOverlay //: Sprite
     {
         protected Game_Battler _battler;
         protected int _overlayIndex;

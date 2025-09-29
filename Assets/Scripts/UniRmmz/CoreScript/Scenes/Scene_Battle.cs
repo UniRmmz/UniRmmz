@@ -7,7 +7,7 @@ namespace UniRmmz
    /// <summary>
    /// The scene class of the battle screen.
    /// </summary>
-   public partial class Scene_Battle : Scene_Message
+   public partial class Scene_Battle //: Scene_Message
    {
        protected Spriteset_Battle _spriteset;
        protected Window_BattleLog _logWindow;

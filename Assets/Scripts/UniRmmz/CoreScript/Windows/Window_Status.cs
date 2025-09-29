@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying full status on the status screen.
     /// </summary>
-    public partial class Window_Status : Window_StatusBase
+    public partial class Window_Status //: Window_StatusBase
     {
         protected Game_Actor _actor = null;
 

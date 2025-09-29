@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window used for the event command [Input Number].
     /// </summary>
-    public partial class Window_NumberInput : Window_Selectable
+    public partial class Window_NumberInput //: Window_Selectable
     {
         private Window_Message _messageWindow;
         private int _number = 0;

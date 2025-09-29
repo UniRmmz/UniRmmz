@@ -8,7 +8,7 @@ namespace UniRmmz
     /// he window for displaying scrolling text. No frame is displayed, but it
     /// is handled as a window for convenience.
     /// </summary>
-    public partial class Window_ScrollText : Window_Base
+    public partial class Window_ScrollText //: Window_Base
     {
         protected int _maxBitmapHeight = 2048;
 

@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying the description of the selected item.
     /// </summary>
-    public partial class Window_Help : Window_Base
+    public partial class Window_Help //: Window_Base
     {
         protected string _text = String.Empty;
 

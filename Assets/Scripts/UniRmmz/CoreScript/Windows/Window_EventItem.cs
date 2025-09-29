@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The window used for the event command [Select Item].
     /// </summary>
-    public partial class Window_EventItem : Window_ItemList
+    public partial class Window_EventItem //: Window_ItemList
     {
         private Window_Message _messageWindow;
         private Sprite_Button _cancelButton;

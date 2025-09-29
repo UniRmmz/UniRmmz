@@ -9,7 +9,7 @@ namespace UniRmmz
     /// The superclass of Game_Player, Game_Follower, GameVehicle, and Game_Event.
     /// </summary>
     [Serializable]
-    public abstract partial class Game_Character : Game_CharacterBase
+    public abstract partial class Game_Character //: Game_CharacterBase
     {
         public enum RouteCodes
         {

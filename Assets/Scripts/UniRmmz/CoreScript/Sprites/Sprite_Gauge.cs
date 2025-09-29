@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a status gauge.
     /// </summary>
-    public partial class Sprite_Gauge : Sprite
+    public partial class Sprite_Gauge //: Sprite
     {
         protected Game_Actor _battler;
         protected string _statusType;

@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The superclass of windows for selecting a command.
     /// </summary>
-    public abstract partial class Window_Command : Window_Selectable
+    public abstract partial class Window_Command //: Window_Selectable
     {
         protected class Command
         {

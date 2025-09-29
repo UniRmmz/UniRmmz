@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the map screen.
     /// </summary>
-    public partial class Scene_Map : Scene_Message
+    public partial class Scene_Map //: Scene_Message
     {
         protected int _waitCount;
         protected int _encounterEffectDuration;

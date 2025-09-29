@@ -5,7 +5,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a weapon image for attacking.
     /// </summary>
-    public partial class Sprite_Weapon : Sprite
+    public partial class Sprite_Weapon //: Sprite
     {
         protected int _weaponImageId;
         protected int _animationCount;

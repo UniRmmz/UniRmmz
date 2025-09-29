@@ -11,7 +11,7 @@ namespace UniRmmz
     /// switching and running parallel process events.
     /// </summary>
     [Serializable]
-    public partial class Game_Event : Game_Character
+    public partial class Game_Event //: Game_Character
     {
         protected int _mapId;
         protected int _eventId;

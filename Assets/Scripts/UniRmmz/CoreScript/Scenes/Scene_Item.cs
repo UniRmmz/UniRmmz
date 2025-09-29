@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the item screen.
     /// </summary>
-    public partial class Scene_Item : Scene_ItemBase<Window_ItemList>
+    public partial class Scene_Item //: Scene_ItemBase<Window_ItemList>
     {
         protected Window_ItemCategory _categoryWindow;
 

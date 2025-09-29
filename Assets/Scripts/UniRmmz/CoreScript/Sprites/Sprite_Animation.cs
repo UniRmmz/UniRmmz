@@ -6,7 +6,7 @@ using Effekseer;
 
 namespace UniRmmz
 {
-    public partial class Sprite_Animation : Sprite_AnimationBase, IEffekseerContainer
+    public partial class Sprite_Animation //: Sprite_AnimationBase, IEffekseerContainer
     {
         protected List<Sprite> _targets;
         protected DataAnimation _animation;

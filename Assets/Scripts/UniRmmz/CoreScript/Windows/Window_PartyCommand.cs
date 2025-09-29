@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting whether to fight or escape on the battle screen.
     /// </summary>
-    public partial class Window_PartyCommand : Window_Command
+    public partial class Window_PartyCommand //: Window_Command
     {
         public override void Initialize(Rect rect)
         {

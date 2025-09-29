@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace UniRmmz
 {
-    public abstract class Sprite_AnimationBase : Sprite
+    public abstract partial class Sprite_AnimationBase //: Sprite
     {
         public abstract List<object> TargetObjects { get; set; }
         

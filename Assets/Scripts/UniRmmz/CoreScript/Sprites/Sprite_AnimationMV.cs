@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying an old format animation.
     /// </summary>
-    public partial class Sprite_AnimationMV : Sprite_AnimationBase
+    public partial class Sprite_AnimationMV //: Sprite_AnimationBase
     {
         protected List<Sprite> _targets;
         protected DataAnimation DataAnimation;

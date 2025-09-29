@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for editing an actor's name on the name input screen.
     /// </summary>
-   public partial class Window_NameEdit : Window_StatusBase
+   public partial class Window_NameEdit //: Window_StatusBase
    {
        protected Game_Actor _actor;
        protected int _maxLength;

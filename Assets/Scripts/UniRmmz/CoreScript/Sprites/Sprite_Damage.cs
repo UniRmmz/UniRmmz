@@ -7,7 +7,7 @@ namespace UniRmmz
     /// <summary>
     /// The sprite for displaying a popup damage.
     /// </summary>
-    public partial class Sprite_Damage : Sprite
+    public partial class Sprite_Damage //: Sprite
     {
         protected int _duration;
         protected Color _flashColor;

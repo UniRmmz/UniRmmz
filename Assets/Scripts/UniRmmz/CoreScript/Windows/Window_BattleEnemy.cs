@@ -7,7 +7,7 @@ namespace UniRmmz
    /// <summary>
    /// The window for selecting a target enemy on the battle screen.
    /// </summary>
-   public partial class Window_BattleEnemy : Window_Selectable
+   public partial class Window_BattleEnemy //: Window_Selectable
    {
        protected List<Game_Enemy> _enemies;
 

@@ -3,7 +3,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the load screen.
     /// </summary>
-    public partial class Scene_Load : Scene_File
+    public partial class Scene_Load //: Scene_File
     {
         protected bool _loadSuccess = false;
 

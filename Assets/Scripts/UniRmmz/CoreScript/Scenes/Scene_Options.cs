@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The scene class of the options screen.
     /// </summary>
-    public partial class Scene_Options : Scene_MenuBase
+    public partial class Scene_Options //: Scene_MenuBase
     {
         private Window_Base _optionsWindow;
 

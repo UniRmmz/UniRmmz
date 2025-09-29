@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for selecting a save file on the save and load screens.
     /// </summary>
-    public partial class Window_SavefileList : Window_Selectable
+    public partial class Window_SavefileList //: Window_Selectable
     {
         protected string _mode = null;
         protected bool _autosave = false;

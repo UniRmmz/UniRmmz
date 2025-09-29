@@ -6,7 +6,7 @@ namespace UniRmmz
     /// <summary>
     /// The window for displaying a speaker name above the message window.
     /// </summary>
-    public partial class Window_NameBox : Window_Base
+    public partial class Window_NameBox //: Window_Base
     {
         protected Window_Message _messageWindow;
         protected string _name = string.Empty;
